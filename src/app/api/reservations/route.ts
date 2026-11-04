@@ -21,25 +21,28 @@ const addOnSchema = z.object({
 
 const createReservationSchema = z.object({
   familyId: z.string().trim().optional(),
-  date: z.string().trim().min(1, "La fecha de reserva es obligatoria"),
+  date: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, "La fecha debe tener el formato YYYY-MM-DD"),
   extraPersons: z.array(extraPersonSchema).optional().default([]),
   addOns: z.array(addOnSchema).optional().default([]),
 });
 
 function parseBookingDate(dateStr: string): Date | null {
   const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (match) {
-    const year = parseInt(match[1], 10);
-    const month = parseInt(match[2], 10) - 1;
-    const day = parseInt(match[3], 10);
-    const d = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
-    return isNaN(d.getTime()) ? null : d;
-  }
-  const d = new Date(dateStr);
+  if (!match) return null;
+
+  const year = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10) - 1;
+  const day = parseInt(match[3], 10);
+
+  const d = new Date(Date.UTC(year, month, day, 0, 0, 0, 0));
   if (isNaN(d.getTime())) return null;
-  return new Date(
-    Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0)
-  );
+
+  // Final verification to ensure date wasn't rolled over (e.g. Feb 30 -> March 2)
+  if (d.getUTCFullYear() !== year || d.getUTCMonth() !== month || d.getUTCDate() !== day) {
+    return null;
+  }
+
+  return d;
 }
 
 export async function POST(req: Request) {
@@ -75,7 +78,9 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           error: "Datos de entrada inválidos",
-          details: parseResult.error.flatten(),
+          ...(process.env.NODE_ENV === "production"
+            ? {}
+            : { details: parseResult.error.flatten() }),
         },
         { status: 400 }
       );
@@ -206,7 +211,7 @@ export async function POST(req: Request) {
     );
 
     // Create Reservation + ExtraPerson + ReservationAddOn in transaction
-    const createData = async (tx: typeof prisma) => {
+    const createData = async (tx: any) => {
       return tx.reservation.create({
         data: {
           familyId: targetFamilyId!,
@@ -253,13 +258,9 @@ export async function POST(req: Request) {
 
     let reservation;
     try {
-      if (typeof (prisma as any).$transaction === "function") {
-        reservation = await (prisma as any).$transaction(
-          async (tx: typeof prisma) => createData(tx)
-        );
-      } else {
-        reservation = await createData(prisma);
-      }
+      reservation = await prisma.$transaction(
+        async (tx) => createData(tx)
+      );
     } catch (err: any) {
       if (err?.code === "P2002") {
         return NextResponse.json(

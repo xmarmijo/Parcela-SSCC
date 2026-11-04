@@ -86,7 +86,9 @@ export async function POST(req: Request, context: RouteContext) {
       return NextResponse.json(
         {
           error: "Datos de entrada inválidos",
-          details: parseResult.error.flatten(),
+          ...(process.env.NODE_ENV === "production"
+            ? {}
+            : { details: parseResult.error.flatten() }),
         },
         { status: 400 }
       );
