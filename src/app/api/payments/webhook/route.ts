@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { getPaymentClient } from "@/lib/mercadopago";
+import { sendConfirmationEmail } from "@/lib/email";
 
 async function runTransaction<T>(
   callback: (tx: typeof prisma) => Promise<T>
@@ -229,18 +230,14 @@ export async function POST(req: Request) {
       };
     });
 
-    // Send confirmation email (Task 6 hook, safely handled)
+    // Send confirmation email (Task 6)
     try {
-      // @ts-ignore TS2307: Module is implemented in Task 6
-      const emailModule = await import("@/lib/email").catch(() => null);
-      if (
-        emailModule &&
-        typeof (emailModule as any).sendConfirmationEmail === "function"
-      ) {
-        await (emailModule as any).sendConfirmationEmail(reservation.id);
-      }
+      await sendConfirmationEmail(reservation.id);
     } catch (emailErr) {
-      console.error("Error al enviar email de confirmación desde webhook:", emailErr);
+      console.error(
+        "Error al enviar email de confirmación desde webhook:",
+        emailErr
+      );
     }
 
     return NextResponse.json({
