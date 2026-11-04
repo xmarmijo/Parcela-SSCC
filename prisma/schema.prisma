@@ -1,14 +1,208 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Parcela SSCC – Reservation System Schema
+// Prisma v7 / PostgreSQL
+// Datasource URL is configured in prisma.config.ts (v7 requirement)
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────
+
+enum Role {
+  SOCIO
+  ADMIN
+}
+
+enum ReservationStatus {
+  PENDIENTE_PAGO
+  CONFIRMADA
+  COMPLETADA
+  CANCELADA
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+}
+
+// ─────────────────────────────────────────
+// Models
+// ─────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(SOCIO)
+  createdAt    DateTime @default(now())
+
+  // Back-reference: the family this user owns (populated via Family.ownerId)
+  ownedFamily  Family?  @relation("FamilyOwner")
+
+  // Family members that have a user account
+  familyMember FamilyMember[]
+
+  // Fines issued by this user (admin)
+  finesIssued  Fine[]   @relation("FineIssuer")
+
+  @@map("users")
+}
+
+model Family {
+  id          String         @id @default(cuid())
+  name        String
+  createdAt   DateTime       @default(now())
+
+  // The SOCIO who owns this family record
+  ownerId     String         @unique
+  owner       User           @relation("FamilyOwner", fields: [ownerId], references: [id])
+
+  members     FamilyMember[]
+  reservations Reservation[]
+  fines       Fine[]
+
+  @@map("families")
+}
+
+model FamilyMember {
+  id        String   @id @default(cuid())
+  fullName  String
+  relation  String   // e.g. "titular", "cónyuge", "hijo", etc.
+  createdAt DateTime @default(now())
+
+  familyId  String
+  family    Family   @relation(fields: [familyId], references: [id])
+
+  // Optional: this member may also have their own login
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  fines     Fine[]
+
+  @@map("family_members")
+}
+
+model AddOnSpace {
+  id              String              @id @default(cuid())
+  name            String              @unique // quincho | sala_eventos | sala_cafeteria
+  pricePerUnit    Int                 @default(0) // CLP, placeholder
+  capacityGuests  Int?                // null = no limit (e.g. quincho)
+  createdAt       DateTime            @default(now())
+
+  reservationAddOns ReservationAddOn[]
+
+  @@map("add_on_spaces")
+}
+
+model Reservation {
+  id          String            @id @default(cuid())
+  date        DateTime          @db.Date  // full-day booking; multiple families may share same date
+  status      ReservationStatus @default(PENDIENTE_PAGO)
+  totalAmount Int               @default(0) // CLP
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  familyId    String
+  family      Family            @relation(fields: [familyId], references: [id])
+
+  addOns       ReservationAddOn[]
+  extraPersons ExtraPerson[]
+  payments     Payment[]
+  qrTokens     QrToken[]
+  visits       Visit[]
+
+  // One family cannot book the same day twice
+  @@unique([familyId, date])
+  @@map("reservations")
+}
+
+model ReservationAddOn {
+  id            String      @id @default(cuid())
+  quantity      Int         @default(1)
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  addOnSpaceId  String
+  addOnSpace    AddOnSpace  @relation(fields: [addOnSpaceId], references: [id])
+
+  @@map("reservation_add_ons")
+}
+
+model ExtraPerson {
+  id            String      @id @default(cuid())
+  fullName      String
+  usesPool      Boolean     @default(false) // extra charge if pool is used
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  @@map("extra_persons")
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  provider          String        // e.g. "mercadopago"
+  providerPaymentId String?       @unique
+  amount            Int           // CLP
+  status            PaymentStatus @default(PENDING)
+  paidAt            DateTime?
+  createdAt         DateTime      @default(now())
+
+  reservationId     String
+  reservation       Reservation   @relation(fields: [reservationId], references: [id])
+
+  @@map("payments")
+}
+
+model QrToken {
+  id            String      @id @default(cuid())
+  token         String      @unique @default(cuid())
+  usedAt        DateTime?
+  createdAt     DateTime    @default(now())
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  @@map("qr_tokens")
+}
+
+model Fine {
+  id             String        @id @default(cuid())
+  reason         String
+  amount         Int           // CLP
+  createdAt      DateTime      @default(now())
+
+  familyId       String
+  family         Family        @relation(fields: [familyId], references: [id])
+
+  // Optional: against a specific member
+  familyMemberId String?
+  familyMember   FamilyMember? @relation(fields: [familyMemberId], references: [id])
+
+  // Admin who issued the fine
+  issuedById     String
+  issuedBy       User          @relation("FineIssuer", fields: [issuedById], references: [id])
+
+  @@map("fines")
+}
+
+model Visit {
+  id            String      @id @default(cuid())
+  checkedInAt   DateTime    @default(now())
+  checkedInBy   String      // userId of the admin / gate guard
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  @@map("visits")
 }
