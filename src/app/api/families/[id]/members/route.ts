@@ -154,8 +154,27 @@ export async function POST(req: Request, context: RouteContext) {
             role: true,
           },
         },
+        family: { select: { name: true, owner: { select: { email: true } } } },
       },
     });
+
+    // Enviar correo de invitación si se proporcionó email
+    if (email && email.trim() !== "") {
+      try {
+        const { sendMemberInvitationEmail } = await import("@/lib/member-invitation");
+        const titularName = member.family?.owner?.email ?? "el titular";
+        const passwordToUse = password && password.trim() !== "" ? password : (userId ? "Parcela2026!" : undefined);
+        sendMemberInvitationEmail({
+          to: email.trim().toLowerCase(),
+          memberName: fullName,
+          familyName: member.family?.name ?? "tu familia",
+          titularName,
+          password: passwordToUse,
+        }).catch((e) => console.error("Error enviando invitación:", e));
+      } catch (e) {
+        console.error("Error importando member-invitation:", e);
+      }
+    }
 
     return NextResponse.json(member, { status: 201 });
   } catch (error) {
