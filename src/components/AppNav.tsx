@@ -9,7 +9,7 @@ export function AppNav() {
   const isAdmin = (session?.user as any)?.role === "ADMIN";
 
   return (
-    <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 shadow-sm">
+    <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 dark:border-[#00ffff] bg-white dark:bg-[#ff00ff] px-4 py-3 shadow-sm">
       <span className="text-base font-semibold text-emerald-700">Parcela SSCC</span>
       <div className="flex flex-wrap items-center gap-1 text-sm">
         {isAdmin && (
@@ -47,7 +47,7 @@ export function AppNav() {
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="rounded-lg border border-gray-200 dark:border-slate-700 px-3 py-1.5 font-medium text-gray-600 dark:text-slate-400 transition-colors hover:border-red-200 hover:bg-red-50 dark:bg-red-950 hover:text-red-600 dark:text-red-400"
+          className="rounded-lg border border-gray-200 dark:border-[#00ffff] px-3 py-1.5 font-medium text-gray-600 dark:text-[#ffff00] transition-colors hover:border-red-200 hover:bg-red-50 dark:bg-red-950 hover:text-red-600 dark:text-red-400"
         >
           Cerrar sesión
         </button>
