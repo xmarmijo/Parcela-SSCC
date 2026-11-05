@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
 
 export default function AdminUsuariosPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -43,6 +44,7 @@ export default function AdminUsuariosPage() {
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
+        <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Usuarios</h1>
 
         <form onSubmit={handleCreate} className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-3">

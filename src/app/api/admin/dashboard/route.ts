@@ -13,7 +13,7 @@ export async function GET() {
     const startOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
     const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
 
-    const [familiesCount, usersCount, reservationsToday, reservationsMonth, paymentsMonth, recentReservations] =
+    const [familiesCount, usersCount, reservationsToday, reservationsMonth, paymentsMonth, recentReservations, byStatus] =
       await Promise.all([
         prisma.family.count(),
         prisma.user.count(),
@@ -28,6 +28,10 @@ export async function GET() {
           orderBy: { createdAt: "desc" },
           include: { family: true, extraPersons: true },
         }),
+        prisma.reservation.groupBy({
+          by: ["status"],
+          _count: { _all: true },
+        }),
       ]);
 
     return NextResponse.json({
@@ -37,6 +41,7 @@ export async function GET() {
       reservationsMonth,
       incomeMonth: paymentsMonth._sum.amount ?? 0,
       recentReservations,
+      byStatus: byStatus.map((s) => ({ status: s.status, count: s._count._all })),
     });
   } catch (error) {
     console.error("Error dashboard:", error);

@@ -134,20 +134,6 @@ export default function ReservarPage() {
     e.preventDefault();
     if (!newGuestName.trim()) return;
 
-    // Validar que no sea un socio (miembro de un núcleo)
-    if (newGuestRut.trim()) {
-      const isSocio = family?.members?.some(
-        (m) => m.rut && m.rut.replace(/\./g, "").replace(/\s/g, "").toUpperCase() ===
-          newGuestRut.replace(/\./g, "").replace(/\s/g, "").toUpperCase()
-      );
-      if (isSocio) {
-        setErrorMessage(
-          "Este RUT pertenece a un socio (integrante de un núcleo) y no puede registrarse como invitado extra."
-        );
-        return;
-      }
-    }
-
     setExtraGuests((prev) => [
       ...prev,
       {

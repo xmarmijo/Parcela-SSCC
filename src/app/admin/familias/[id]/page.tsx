@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
 import Link from "next/link";
 
 export default function AdminFamiliaDetallePage() {
@@ -39,6 +40,7 @@ export default function AdminFamiliaDetallePage() {
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
+        <AdminNav />
         <Link href="/admin/familias" className="text-sm text-emerald-600 hover:underline">
           ← Volver
         </Link>

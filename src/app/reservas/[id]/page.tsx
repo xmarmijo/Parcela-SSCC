@@ -11,7 +11,7 @@ interface Reservation {
   status: string;
   totalAmount: number;
   family?: { name: string } | null;
-  extraPersons: Array<{ id: string; fullName: string; rut?: string | null; usesPool: boolean }>;
+  extraPersons: Array<{ id: string; fullName: string; rut?: string | null; isSocio?: boolean; usesPool: boolean }>;
   addOns: Array<{
     id: string;
     quantity: number;

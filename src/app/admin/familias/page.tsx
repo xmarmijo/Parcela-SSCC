@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
 import Link from "next/link";
 
 export default function AdminFamiliasPage() {
@@ -28,6 +29,7 @@ export default function AdminFamiliasPage() {
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
+        <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Familias</h1>
 
         <div className="mt-4 flex gap-2">

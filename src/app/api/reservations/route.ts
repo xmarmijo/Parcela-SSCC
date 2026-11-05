@@ -200,27 +200,24 @@ export async function POST(req: Request) {
       }
     }
 
-    // Validar que los invitados extra no sean socios (miembros de un núcleo)
-    for (const p of extraPersons) {
-      if (p.rut && p.rut.trim() !== "") {
-        const member = await prisma.familyMember.findFirst({
-          where: { rut: p.rut.trim() },
-        });
-        if (member) {
-          return NextResponse.json(
-            {
-              error: `El invitado "${p.fullName}" es socio (pertenece a un núcleo familiar) y no debe registrarse como invitado extra.`,
-            },
-            { status: 400 }
-          );
+    // Determinar si cada invitado extra es socio (no paga entrada)
+    const extraPersonsWithFlag = await Promise.all(
+      extraPersons.map(async (p) => {
+        let isSocio = false;
+        if (p.rut && p.rut.trim() !== "") {
+          const member = await prisma.familyMember.findFirst({
+            where: { rut: p.rut.trim() },
+          });
+          if (member) isSocio = true;
         }
-      }
-    }
+        return { ...p, isSocio };
+      })
+    );
 
-    // Calculate total purely on server
+    // Calculate total purely on server (socios no se cobran)
     const totalAmount = calculateTotal(
       {
-        extraPersons,
+        extraPersons: extraPersonsWithFlag,
         addOns,
       },
       {
@@ -239,9 +236,10 @@ export async function POST(req: Request) {
           extraPersons:
             extraPersons.length > 0
               ? {
-                  create: extraPersons.map((p) => ({
+                  create: extraPersonsWithFlag.map((p) => ({
                     fullName: p.fullName,
                     rut: p.rut ? p.rut.trim() : null,
+                    isSocio: Boolean(p.isSocio),
                     usesPool: Boolean(p.usesPool),
                   })),
                 }

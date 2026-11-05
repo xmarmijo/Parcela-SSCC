@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
 
 export default function AdminReservasPage() {
   const [date, setDate] = useState("");
@@ -46,6 +47,7 @@ export default function AdminReservasPage() {
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
+        <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Reservas</h1>
 
         <div className="mt-4 flex flex-wrap gap-2">

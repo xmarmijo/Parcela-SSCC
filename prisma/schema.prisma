@@ -152,6 +152,7 @@ model ExtraPerson {
   id            String      @id @default(cuid())
   fullName      String
   rut           String?
+  isSocio       Boolean     @default(false) // socio de otro núcleo: no paga entrada
   usesPool      Boolean     @default(false) // extra charge if pool is used
 
   reservationId String

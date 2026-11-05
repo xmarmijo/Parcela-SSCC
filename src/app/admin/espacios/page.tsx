@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
 
 export default function AdminEspaciosPage() {
   const [spaces, setSpaces] = useState<any[]>([]);
@@ -32,6 +33,7 @@ export default function AdminEspaciosPage() {
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <AppNav />
+        <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Espacios arrendables</h1>
         <p className="mt-2 text-sm text-gray-600">Edita precio y capacidad de los espacios.</p>
 

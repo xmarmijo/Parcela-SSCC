@@ -11,6 +11,8 @@ export const DEFAULT_PRICING = {
 
 export interface ExtraPersonInput {
   fullName?: string;
+  rut?: string | null;
+  isSocio?: boolean;
   usesPool?: boolean;
 }
 
@@ -75,6 +77,10 @@ export function calculateTotal(
 
   if (Array.isArray(reservation.extraPersons)) {
     for (const person of reservation.extraPersons) {
+      if (person.isSocio) {
+        // Socios no pagan entrada (ni piscina) como invitados extra
+        continue;
+      }
       extraPersonsTotal += extraPersonRate;
       if (person.usesPool) {
         extraPersonsTotal += poolRate;
