@@ -300,7 +300,7 @@ describe("Family and FamilyMember API endpoints", () => {
         user: { id: "user-socio", role: "SOCIO", email: "socio@example.com" },
       };
 
-      (prisma.family as any).findUnique = async ({ where }: any) => {
+      (prisma.family as any).findFirst = async ({ where }: any) => {
         if (where.ownerId === "user-socio") {
           return {
             id: "fam-1",

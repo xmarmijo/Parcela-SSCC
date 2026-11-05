@@ -11,6 +11,7 @@ describe("POST /api/auth/register", () => {
   it("crea un nuevo User con rol SOCIO y devuelve 201", async () => {
     // Mock prisma.user.findUnique to return null (no existing user)
     (prisma.user as any).findUnique = async () => null;
+    (prisma.familyMember as any).findFirst = async () => null;
 
     // Mock prisma.user.create to return created user
     let createdData: any = null;
@@ -31,6 +32,7 @@ describe("POST /api/auth/register", () => {
       body: JSON.stringify({
         email: "socio@example.com",
         password: "password123",
+        rut: "12.345.678-5",
       }),
     });
 
@@ -61,6 +63,7 @@ describe("POST /api/auth/register", () => {
       body: JSON.stringify({
         email: "socio@example.com",
         password: "password123",
+        rut: "12.345.678-5",
       }),
     });
 

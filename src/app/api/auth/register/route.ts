@@ -2,10 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { normalizeRut } from "@/lib/rut";
 
 const registerSchema = z.object({
   email: z.string().email("Formato de email inválido"),
   password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+  rut: z.string().min(1, "El RUT es obligatorio"),
 });
 
 export async function POST(req: Request) {
@@ -25,16 +27,33 @@ export async function POST(req: Request) {
       );
     }
 
-    const { email, password } = parseResult.data;
+    const { email, password, rut } = parseResult.data;
     const normalizedEmail = email.trim().toLowerCase();
+    const normalizedRut = normalizeRut(rut);
 
     const existingUser = await prisma.user.findUnique({
       where: { email: normalizedEmail },
     });
-
     if (existingUser) {
       return NextResponse.json(
         { error: "El email ya está registrado" },
+        { status: 409 }
+      );
+    }
+
+    // Bloquear si el RUT ya pertenece a un núcleo/usuario
+    const existingRutUser = await prisma.user.findUnique({
+      where: { rut: normalizedRut },
+    });
+    const existingRutMember = await prisma.familyMember.findFirst({
+      where: { rut: normalizedRut },
+    });
+    if (existingRutUser || existingRutMember) {
+      return NextResponse.json(
+        {
+          error:
+            "Este RUT ya pertenece a un núcleo familiar. Si no es así, contacta al administrador.",
+        },
         { status: 409 }
       );
     }
@@ -44,10 +63,33 @@ export async function POST(req: Request) {
     const user = await prisma.user.create({
       data: {
         email: normalizedEmail,
+        rut: normalizedRut,
         passwordHash,
         role: "SOCIO",
       },
     });
+
+    // Vinculación automática por correo y luego por RUT
+    const matchingMember = await prisma.familyMember.findFirst({
+      where: {
+        userId: null,
+        OR: [{ email: normalizedEmail }, { rut: normalizedRut }],
+      },
+      include: { family: true },
+    });
+
+    if (matchingMember) {
+      await prisma.familyMember.update({
+        where: { id: matchingMember.id },
+        data: { userId: user.id },
+      });
+      if (!matchingMember.family.ownerId) {
+        await prisma.family.update({
+          where: { id: matchingMember.family.id },
+          data: { ownerId: user.id },
+        });
+      }
+    }
 
     return NextResponse.json(
       {

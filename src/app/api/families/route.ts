@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { findFamilyForUser } from "@/lib/family-lookup";
 
 const createFamilySchema = z.object({
   name: z.string().trim().min(1, "El nombre de la familia es obligatorio"),
@@ -87,22 +88,7 @@ export async function GET() {
       );
     }
 
-    const family = await prisma.family.findUnique({
-      where: { ownerId: session.user.id },
-      include: {
-        members: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                email: true,
-                role: true,
-              },
-            },
-          },
-        },
-      },
-    });
+    const family = await findFamilyForUser(session.user.id);
 
     if (!family) {
       return NextResponse.json(
