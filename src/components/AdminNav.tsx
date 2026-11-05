@@ -19,7 +19,7 @@ const links = [
 export function AdminNav() {
   const pathname = usePathname();
   return (
-    <nav className="mb-6 flex flex-wrap items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
+    <nav className="mb-6 flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm whitespace-nowrap">
       {links.map((l) => (
         <Link
           key={l.href}
