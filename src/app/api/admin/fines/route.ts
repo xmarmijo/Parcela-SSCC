@@ -55,6 +55,13 @@ export async function POST(req: Request) {
         issuedById: session.user.id,
       },
     });
+    // Enviar correo de notificación (no bloquea la respuesta)
+    try {
+      const { sendFineEmail } = await import("@/lib/notify");
+      sendFineEmail(fine.id).catch((e) => console.error("Error enviando correo de multa:", e));
+    } catch (e) {
+      console.error("Error importando notify:", e);
+    }
     return NextResponse.json(fine, { status: 201 });
   } catch (error) {
     console.error("Error:", error);

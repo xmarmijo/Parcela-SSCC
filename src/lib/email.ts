@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { prisma } from "@/lib/prisma";
 import { generateQrDataUrl, getValidationUrl } from "@/lib/qr";
 import {
@@ -15,6 +16,55 @@ export function getResendClient(): Resend | null {
     return null;
   }
   return new Resend(apiKey);
+}
+
+export function getTransporter(): any | null {
+  if ((globalThis as any).__mockTransporter) {
+    return (globalThis as any).__mockTransporter;
+  }
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) return null;
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: { user, pass },
+  });
+}
+
+export async function sendEmail(opts: { to: string; subject: string; html: string }): Promise<{ success: boolean; skipped?: boolean; reason?: string; error?: any; data?: any }> {
+  const transporter = getTransporter();
+  if (transporter) {
+    try {
+      const info = await transporter.sendMail({
+        from: process.env.EMAIL_FROM || process.env.GMAIL_USER,
+        to: opts.to,
+        subject: opts.subject,
+        html: opts.html,
+      });
+      return { success: true, data: info };
+    } catch (err: any) {
+      console.error("[Email] Error enviando con Gmail:", err);
+      return { success: false, error: err?.message || String(err) };
+    }
+  }
+  const resend = getResendClient();
+  if (resend) {
+    try {
+      const response = await resend.emails.send({
+        from: process.env.EMAIL_FROM || "Parcela SSCC <onboarding@resend.dev>",
+        to: opts.to,
+        subject: opts.subject,
+        html: opts.html,
+      });
+      if ((response as any)?.error) {
+        return { success: false, error: (response as any).error };
+      }
+      return { success: true, data: (response as any)?.data || response };
+    } catch (err: any) {
+      return { success: false, error: err?.message || String(err) };
+    }
+  }
+  return { success: false, skipped: true, reason: "NO_EMAIL_PROVIDER" };
 }
 
 export interface SendConfirmationEmailResult {
@@ -186,42 +236,23 @@ export async function sendConfirmationEmail(
       validationUrl,
     };
 
-    const resend = getResendClient();
-    if (!resend) {
-      console.warn(
-        `[Email] RESEND_API_KEY no configurada. Omitiendo envío de correo para reserva ${reservation.id}.`
-      );
-      return {
-        success: false,
-        skipped: true,
-        reason: "NO_RESEND_API_KEY",
-      };
-    }
-
     const html = renderConfirmacionReservaHtml(emailProps);
-    const from =
-      process.env.EMAIL_FROM || "Parcela SSCC <onboarding@resend.dev>";
     const subject = `Confirmación de Reserva - ${familyName} (${dateFormatted})`;
 
-    const response = await resend.emails.send({
-      from,
-      to: recipientEmail,
-      subject,
-      html,
-    });
-
-    if ((response as any)?.error) {
-      console.error(
-        `[Email] Error de Resend enviando confirmación a ${recipientEmail}:`,
-        (response as any).error
-      );
-      return { success: false, error: (response as any).error };
+    const result = await sendEmail({ to: recipientEmail, subject, html });
+    if (!result.success) {
+      if (result.skipped) {
+        console.warn(
+          `[Email] Sin proveedor de correo configurado. Omitiendo envío para reserva ${reservation.id}.`
+        );
+      } else {
+        console.error(
+          `[Email] Error enviando confirmación a ${recipientEmail}:`,
+          result.error
+        );
+      }
     }
-
-    return {
-      success: true,
-      data: (response as any)?.data || response,
-    };
+    return result;
   } catch (error: any) {
     console.error("[Email] Error inesperado en sendConfirmationEmail:", error);
     return { success: false, error: error?.message || String(error) };

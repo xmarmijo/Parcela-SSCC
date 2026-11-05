@@ -120,6 +120,7 @@ model Reservation {
   totalAmount Int               @default(0) // CLP
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+  remindedAt  DateTime?
 
   familyId    String
   family      Family            @relation(fields: [familyId], references: [id])
@@ -192,6 +193,7 @@ model Fine {
   id             String        @id @default(cuid())
   reason         String
   amount         Int           // CLP
+  paidAt         DateTime?
   createdAt      DateTime      @default(now())
 
   familyId       String

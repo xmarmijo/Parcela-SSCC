@@ -138,6 +138,7 @@ export const ReservationScalarFieldEnum = {
   totalAmount: 'totalAmount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  remindedAt: 'remindedAt',
   familyId: 'familyId'
 } as const
 
@@ -158,6 +159,7 @@ export const ExtraPersonScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   rut: 'rut',
+  isSocio: 'isSocio',
   usesPool: 'usesPool',
   reservationId: 'reservationId'
 } as const
@@ -194,6 +196,7 @@ export const FineScalarFieldEnum = {
   id: 'id',
   reason: 'reason',
   amount: 'amount',
+  paidAt: 'paidAt',
   createdAt: 'createdAt',
   familyId: 'familyId',
   familyMemberId: 'familyMemberId',

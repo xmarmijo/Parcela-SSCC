@@ -28,6 +28,7 @@ export type ExtraPersonMinAggregateOutputType = {
   id: string | null
   fullName: string | null
   rut: string | null
+  isSocio: boolean | null
   usesPool: boolean | null
   reservationId: string | null
 }
@@ -36,6 +37,7 @@ export type ExtraPersonMaxAggregateOutputType = {
   id: string | null
   fullName: string | null
   rut: string | null
+  isSocio: boolean | null
   usesPool: boolean | null
   reservationId: string | null
 }
@@ -44,6 +46,7 @@ export type ExtraPersonCountAggregateOutputType = {
   id: number
   fullName: number
   rut: number
+  isSocio: number
   usesPool: number
   reservationId: number
   _all: number
@@ -54,6 +57,7 @@ export type ExtraPersonMinAggregateInputType = {
   id?: true
   fullName?: true
   rut?: true
+  isSocio?: true
   usesPool?: true
   reservationId?: true
 }
@@ -62,6 +66,7 @@ export type ExtraPersonMaxAggregateInputType = {
   id?: true
   fullName?: true
   rut?: true
+  isSocio?: true
   usesPool?: true
   reservationId?: true
 }
@@ -70,6 +75,7 @@ export type ExtraPersonCountAggregateInputType = {
   id?: true
   fullName?: true
   rut?: true
+  isSocio?: true
   usesPool?: true
   reservationId?: true
   _all?: true
@@ -151,6 +157,7 @@ export type ExtraPersonGroupByOutputType = {
   id: string
   fullName: string
   rut: string | null
+  isSocio: boolean
   usesPool: boolean
   reservationId: string
   _count: ExtraPersonCountAggregateOutputType | null
@@ -180,6 +187,7 @@ export type ExtraPersonWhereInput = {
   id?: Prisma.StringFilter<"ExtraPerson"> | string
   fullName?: Prisma.StringFilter<"ExtraPerson"> | string
   rut?: Prisma.StringNullableFilter<"ExtraPerson"> | string | null
+  isSocio?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   usesPool?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   reservationId?: Prisma.StringFilter<"ExtraPerson"> | string
   reservation?: Prisma.XOR<Prisma.ReservationScalarRelationFilter, Prisma.ReservationWhereInput>
@@ -189,6 +197,7 @@ export type ExtraPersonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   rut?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
   usesPool?: Prisma.SortOrder
   reservationId?: Prisma.SortOrder
   reservation?: Prisma.ReservationOrderByWithRelationInput
@@ -201,6 +210,7 @@ export type ExtraPersonWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ExtraPersonWhereInput | Prisma.ExtraPersonWhereInput[]
   fullName?: Prisma.StringFilter<"ExtraPerson"> | string
   rut?: Prisma.StringNullableFilter<"ExtraPerson"> | string | null
+  isSocio?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   usesPool?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   reservationId?: Prisma.StringFilter<"ExtraPerson"> | string
   reservation?: Prisma.XOR<Prisma.ReservationScalarRelationFilter, Prisma.ReservationWhereInput>
@@ -210,6 +220,7 @@ export type ExtraPersonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   rut?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
   usesPool?: Prisma.SortOrder
   reservationId?: Prisma.SortOrder
   _count?: Prisma.ExtraPersonCountOrderByAggregateInput
@@ -224,6 +235,7 @@ export type ExtraPersonScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ExtraPerson"> | string
   fullName?: Prisma.StringWithAggregatesFilter<"ExtraPerson"> | string
   rut?: Prisma.StringNullableWithAggregatesFilter<"ExtraPerson"> | string | null
+  isSocio?: Prisma.BoolWithAggregatesFilter<"ExtraPerson"> | boolean
   usesPool?: Prisma.BoolWithAggregatesFilter<"ExtraPerson"> | boolean
   reservationId?: Prisma.StringWithAggregatesFilter<"ExtraPerson"> | string
 }
@@ -232,6 +244,7 @@ export type ExtraPersonCreateInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
   reservation: Prisma.ReservationCreateNestedOneWithoutExtraPersonsInput
 }
@@ -240,6 +253,7 @@ export type ExtraPersonUncheckedCreateInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
   reservationId: string
 }
@@ -248,6 +262,7 @@ export type ExtraPersonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
   reservation?: Prisma.ReservationUpdateOneRequiredWithoutExtraPersonsNestedInput
 }
@@ -256,6 +271,7 @@ export type ExtraPersonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
   reservationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -264,6 +280,7 @@ export type ExtraPersonCreateManyInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
   reservationId: string
 }
@@ -272,6 +289,7 @@ export type ExtraPersonUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
@@ -279,6 +297,7 @@ export type ExtraPersonUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
   reservationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -297,6 +316,7 @@ export type ExtraPersonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   rut?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
   usesPool?: Prisma.SortOrder
   reservationId?: Prisma.SortOrder
 }
@@ -305,6 +325,7 @@ export type ExtraPersonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   rut?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
   usesPool?: Prisma.SortOrder
   reservationId?: Prisma.SortOrder
 }
@@ -313,6 +334,7 @@ export type ExtraPersonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   rut?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
   usesPool?: Prisma.SortOrder
   reservationId?: Prisma.SortOrder
 }
@@ -363,6 +385,7 @@ export type ExtraPersonCreateWithoutReservationInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
 }
 
@@ -370,6 +393,7 @@ export type ExtraPersonUncheckedCreateWithoutReservationInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
 }
 
@@ -406,6 +430,7 @@ export type ExtraPersonScalarWhereInput = {
   id?: Prisma.StringFilter<"ExtraPerson"> | string
   fullName?: Prisma.StringFilter<"ExtraPerson"> | string
   rut?: Prisma.StringNullableFilter<"ExtraPerson"> | string | null
+  isSocio?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   usesPool?: Prisma.BoolFilter<"ExtraPerson"> | boolean
   reservationId?: Prisma.StringFilter<"ExtraPerson"> | string
 }
@@ -414,6 +439,7 @@ export type ExtraPersonCreateManyReservationInput = {
   id?: string
   fullName: string
   rut?: string | null
+  isSocio?: boolean
   usesPool?: boolean
 }
 
@@ -421,6 +447,7 @@ export type ExtraPersonUpdateWithoutReservationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
@@ -428,6 +455,7 @@ export type ExtraPersonUncheckedUpdateWithoutReservationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
@@ -435,6 +463,7 @@ export type ExtraPersonUncheckedUpdateManyWithoutReservationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usesPool?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
@@ -444,6 +473,7 @@ export type ExtraPersonSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   fullName?: boolean
   rut?: boolean
+  isSocio?: boolean
   usesPool?: boolean
   reservationId?: boolean
   reservation?: boolean | Prisma.ReservationDefaultArgs<ExtArgs>
@@ -453,6 +483,7 @@ export type ExtraPersonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   fullName?: boolean
   rut?: boolean
+  isSocio?: boolean
   usesPool?: boolean
   reservationId?: boolean
   reservation?: boolean | Prisma.ReservationDefaultArgs<ExtArgs>
@@ -462,6 +493,7 @@ export type ExtraPersonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   fullName?: boolean
   rut?: boolean
+  isSocio?: boolean
   usesPool?: boolean
   reservationId?: boolean
   reservation?: boolean | Prisma.ReservationDefaultArgs<ExtArgs>
@@ -471,11 +503,12 @@ export type ExtraPersonSelectScalar = {
   id?: boolean
   fullName?: boolean
   rut?: boolean
+  isSocio?: boolean
   usesPool?: boolean
   reservationId?: boolean
 }
 
-export type ExtraPersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "rut" | "usesPool" | "reservationId", ExtArgs["result"]["extraPerson"]>
+export type ExtraPersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "rut" | "isSocio" | "usesPool" | "reservationId", ExtArgs["result"]["extraPerson"]>
 export type ExtraPersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reservation?: boolean | Prisma.ReservationDefaultArgs<ExtArgs>
 }
@@ -495,6 +528,7 @@ export type $ExtraPersonPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: string
     fullName: string
     rut: string | null
+    isSocio: boolean
     usesPool: boolean
     reservationId: string
   }, ExtArgs["result"]["extraPerson"]>
@@ -924,6 +958,7 @@ export interface ExtraPersonFieldRefs {
   readonly id: Prisma.FieldRef<"ExtraPerson", 'String'>
   readonly fullName: Prisma.FieldRef<"ExtraPerson", 'String'>
   readonly rut: Prisma.FieldRef<"ExtraPerson", 'String'>
+  readonly isSocio: Prisma.FieldRef<"ExtraPerson", 'Boolean'>
   readonly usesPool: Prisma.FieldRef<"ExtraPerson", 'Boolean'>
   readonly reservationId: Prisma.FieldRef<"ExtraPerson", 'String'>
 }

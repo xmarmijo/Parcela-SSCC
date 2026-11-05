@@ -197,7 +197,7 @@ describe("Email de Confirmación de Reserva (Task 6)", () => {
       const result = await sendConfirmationEmail(mockReservation);
       assert.strictEqual(result.success, false);
       assert.strictEqual(result.skipped, true);
-      assert.strictEqual(result.reason, "NO_RESEND_API_KEY");
+      assert.strictEqual(result.reason, "NO_EMAIL_PROVIDER");
     });
 
     it("maneja reserva inexistente sin lanzar excepción", async () => {

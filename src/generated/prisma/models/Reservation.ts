@@ -41,6 +41,7 @@ export type ReservationMinAggregateOutputType = {
   totalAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  remindedAt: Date | null
   familyId: string | null
 }
 
@@ -51,6 +52,7 @@ export type ReservationMaxAggregateOutputType = {
   totalAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  remindedAt: Date | null
   familyId: string | null
 }
 
@@ -61,6 +63,7 @@ export type ReservationCountAggregateOutputType = {
   totalAmount: number
   createdAt: number
   updatedAt: number
+  remindedAt: number
   familyId: number
   _all: number
 }
@@ -81,6 +84,7 @@ export type ReservationMinAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  remindedAt?: true
   familyId?: true
 }
 
@@ -91,6 +95,7 @@ export type ReservationMaxAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  remindedAt?: true
   familyId?: true
 }
 
@@ -101,6 +106,7 @@ export type ReservationCountAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  remindedAt?: true
   familyId?: true
   _all?: true
 }
@@ -198,6 +204,7 @@ export type ReservationGroupByOutputType = {
   totalAmount: number
   createdAt: Date
   updatedAt: Date
+  remindedAt: Date | null
   familyId: string
   _count: ReservationCountAggregateOutputType | null
   _avg: ReservationAvgAggregateOutputType | null
@@ -231,6 +238,7 @@ export type ReservationWhereInput = {
   totalAmount?: Prisma.IntFilter<"Reservation"> | number
   createdAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
+  remindedAt?: Prisma.DateTimeNullableFilter<"Reservation"> | Date | string | null
   familyId?: Prisma.StringFilter<"Reservation"> | string
   family?: Prisma.XOR<Prisma.FamilyScalarRelationFilter, Prisma.FamilyWhereInput>
   addOns?: Prisma.ReservationAddOnListRelationFilter
@@ -247,6 +255,7 @@ export type ReservationOrderByWithRelationInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  remindedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   familyId?: Prisma.SortOrder
   family?: Prisma.FamilyOrderByWithRelationInput
   addOns?: Prisma.ReservationAddOnOrderByRelationAggregateInput
@@ -267,6 +276,7 @@ export type ReservationWhereUniqueInput = Prisma.AtLeast<{
   totalAmount?: Prisma.IntFilter<"Reservation"> | number
   createdAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
+  remindedAt?: Prisma.DateTimeNullableFilter<"Reservation"> | Date | string | null
   familyId?: Prisma.StringFilter<"Reservation"> | string
   family?: Prisma.XOR<Prisma.FamilyScalarRelationFilter, Prisma.FamilyWhereInput>
   addOns?: Prisma.ReservationAddOnListRelationFilter
@@ -283,6 +293,7 @@ export type ReservationOrderByWithAggregationInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  remindedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   familyId?: Prisma.SortOrder
   _count?: Prisma.ReservationCountOrderByAggregateInput
   _avg?: Prisma.ReservationAvgOrderByAggregateInput
@@ -301,6 +312,7 @@ export type ReservationScalarWhereWithAggregatesInput = {
   totalAmount?: Prisma.IntWithAggregatesFilter<"Reservation"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reservation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Reservation"> | Date | string
+  remindedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reservation"> | Date | string | null
   familyId?: Prisma.StringWithAggregatesFilter<"Reservation"> | string
 }
 
@@ -311,6 +323,7 @@ export type ReservationCreateInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
@@ -326,6 +339,7 @@ export type ReservationUncheckedCreateInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
@@ -341,6 +355,7 @@ export type ReservationUpdateInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
@@ -356,6 +371,7 @@ export type ReservationUncheckedUpdateInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
@@ -371,6 +387,7 @@ export type ReservationCreateManyInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
 }
 
@@ -381,6 +398,7 @@ export type ReservationUpdateManyMutationInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ReservationUncheckedUpdateManyInput = {
@@ -390,6 +408,7 @@ export type ReservationUncheckedUpdateManyInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -415,6 +434,7 @@ export type ReservationCountOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  remindedAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
 }
 
@@ -429,6 +449,7 @@ export type ReservationMaxOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  remindedAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
 }
 
@@ -439,6 +460,7 @@ export type ReservationMinOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  remindedAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
 }
 
@@ -574,6 +596,7 @@ export type ReservationCreateWithoutFamilyInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentCreateNestedManyWithoutReservationInput
@@ -588,6 +611,7 @@ export type ReservationUncheckedCreateWithoutFamilyInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutReservationInput
@@ -631,6 +655,7 @@ export type ReservationScalarWhereInput = {
   totalAmount?: Prisma.IntFilter<"Reservation"> | number
   createdAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reservation"> | Date | string
+  remindedAt?: Prisma.DateTimeNullableFilter<"Reservation"> | Date | string | null
   familyId?: Prisma.StringFilter<"Reservation"> | string
 }
 
@@ -641,6 +666,7 @@ export type ReservationCreateWithoutAddOnsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentCreateNestedManyWithoutReservationInput
@@ -655,6 +681,7 @@ export type ReservationUncheckedCreateWithoutAddOnsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutReservationInput
@@ -685,6 +712,7 @@ export type ReservationUpdateWithoutAddOnsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutReservationNestedInput
@@ -699,6 +727,7 @@ export type ReservationUncheckedUpdateWithoutAddOnsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutReservationNestedInput
@@ -713,6 +742,7 @@ export type ReservationCreateWithoutExtraPersonsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentCreateNestedManyWithoutReservationInput
@@ -727,6 +757,7 @@ export type ReservationUncheckedCreateWithoutExtraPersonsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutReservationInput
@@ -757,6 +788,7 @@ export type ReservationUpdateWithoutExtraPersonsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutReservationNestedInput
@@ -771,6 +803,7 @@ export type ReservationUncheckedUpdateWithoutExtraPersonsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutReservationNestedInput
@@ -785,6 +818,7 @@ export type ReservationCreateWithoutPaymentsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
@@ -799,6 +833,7 @@ export type ReservationUncheckedCreateWithoutPaymentsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
@@ -829,6 +864,7 @@ export type ReservationUpdateWithoutPaymentsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
@@ -843,6 +879,7 @@ export type ReservationUncheckedUpdateWithoutPaymentsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
@@ -857,6 +894,7 @@ export type ReservationCreateWithoutQrTokensInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
@@ -871,6 +909,7 @@ export type ReservationUncheckedCreateWithoutQrTokensInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
@@ -901,6 +940,7 @@ export type ReservationUpdateWithoutQrTokensInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
@@ -915,6 +955,7 @@ export type ReservationUncheckedUpdateWithoutQrTokensInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
@@ -929,6 +970,7 @@ export type ReservationCreateWithoutVisitsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   family: Prisma.FamilyCreateNestedOneWithoutReservationsInput
   addOns?: Prisma.ReservationAddOnCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonCreateNestedManyWithoutReservationInput
@@ -943,6 +985,7 @@ export type ReservationUncheckedCreateWithoutVisitsInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
   familyId: string
   addOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutReservationInput
   extraPersons?: Prisma.ExtraPersonUncheckedCreateNestedManyWithoutReservationInput
@@ -973,6 +1016,7 @@ export type ReservationUpdateWithoutVisitsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   family?: Prisma.FamilyUpdateOneRequiredWithoutReservationsNestedInput
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
@@ -987,6 +1031,7 @@ export type ReservationUncheckedUpdateWithoutVisitsInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
@@ -1001,6 +1046,7 @@ export type ReservationCreateManyFamilyInput = {
   totalAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  remindedAt?: Date | string | null
 }
 
 export type ReservationUpdateWithoutFamilyInput = {
@@ -1010,6 +1056,7 @@ export type ReservationUpdateWithoutFamilyInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addOns?: Prisma.ReservationAddOnUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutReservationNestedInput
@@ -1024,6 +1071,7 @@ export type ReservationUncheckedUpdateWithoutFamilyInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutReservationNestedInput
   extraPersons?: Prisma.ExtraPersonUncheckedUpdateManyWithoutReservationNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutReservationNestedInput
@@ -1038,6 +1086,7 @@ export type ReservationUncheckedUpdateManyWithoutFamilyInput = {
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  remindedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1114,6 +1163,7 @@ export type ReservationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  remindedAt?: boolean
   familyId?: boolean
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
   addOns?: boolean | Prisma.Reservation$addOnsArgs<ExtArgs>
@@ -1131,6 +1181,7 @@ export type ReservationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  remindedAt?: boolean
   familyId?: boolean
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reservation"]>
@@ -1142,6 +1193,7 @@ export type ReservationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  remindedAt?: boolean
   familyId?: boolean
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reservation"]>
@@ -1153,10 +1205,11 @@ export type ReservationSelectScalar = {
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  remindedAt?: boolean
   familyId?: boolean
 }
 
-export type ReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "status" | "totalAmount" | "createdAt" | "updatedAt" | "familyId", ExtArgs["result"]["reservation"]>
+export type ReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "status" | "totalAmount" | "createdAt" | "updatedAt" | "remindedAt" | "familyId", ExtArgs["result"]["reservation"]>
 export type ReservationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
   addOns?: boolean | Prisma.Reservation$addOnsArgs<ExtArgs>
@@ -1190,6 +1243,7 @@ export type $ReservationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     totalAmount: number
     createdAt: Date
     updatedAt: Date
+    remindedAt: Date | null
     familyId: string
   }, ExtArgs["result"]["reservation"]>
   composites: {}
@@ -1626,6 +1680,7 @@ export interface ReservationFieldRefs {
   readonly totalAmount: Prisma.FieldRef<"Reservation", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Reservation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Reservation", 'DateTime'>
+  readonly remindedAt: Prisma.FieldRef<"Reservation", 'DateTime'>
   readonly familyId: Prisma.FieldRef<"Reservation", 'String'>
 }
     

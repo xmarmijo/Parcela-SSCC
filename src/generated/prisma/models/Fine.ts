@@ -38,6 +38,7 @@ export type FineMinAggregateOutputType = {
   id: string | null
   reason: string | null
   amount: number | null
+  paidAt: Date | null
   createdAt: Date | null
   familyId: string | null
   familyMemberId: string | null
@@ -48,6 +49,7 @@ export type FineMaxAggregateOutputType = {
   id: string | null
   reason: string | null
   amount: number | null
+  paidAt: Date | null
   createdAt: Date | null
   familyId: string | null
   familyMemberId: string | null
@@ -58,6 +60,7 @@ export type FineCountAggregateOutputType = {
   id: number
   reason: number
   amount: number
+  paidAt: number
   createdAt: number
   familyId: number
   familyMemberId: number
@@ -78,6 +81,7 @@ export type FineMinAggregateInputType = {
   id?: true
   reason?: true
   amount?: true
+  paidAt?: true
   createdAt?: true
   familyId?: true
   familyMemberId?: true
@@ -88,6 +92,7 @@ export type FineMaxAggregateInputType = {
   id?: true
   reason?: true
   amount?: true
+  paidAt?: true
   createdAt?: true
   familyId?: true
   familyMemberId?: true
@@ -98,6 +103,7 @@ export type FineCountAggregateInputType = {
   id?: true
   reason?: true
   amount?: true
+  paidAt?: true
   createdAt?: true
   familyId?: true
   familyMemberId?: true
@@ -195,6 +201,7 @@ export type FineGroupByOutputType = {
   id: string
   reason: string
   amount: number
+  paidAt: Date | null
   createdAt: Date
   familyId: string
   familyMemberId: string | null
@@ -228,6 +235,7 @@ export type FineWhereInput = {
   id?: Prisma.StringFilter<"Fine"> | string
   reason?: Prisma.StringFilter<"Fine"> | string
   amount?: Prisma.IntFilter<"Fine"> | number
+  paidAt?: Prisma.DateTimeNullableFilter<"Fine"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Fine"> | Date | string
   familyId?: Prisma.StringFilter<"Fine"> | string
   familyMemberId?: Prisma.StringNullableFilter<"Fine"> | string | null
@@ -241,6 +249,7 @@ export type FineOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   familyMemberId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -257,6 +266,7 @@ export type FineWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FineWhereInput | Prisma.FineWhereInput[]
   reason?: Prisma.StringFilter<"Fine"> | string
   amount?: Prisma.IntFilter<"Fine"> | number
+  paidAt?: Prisma.DateTimeNullableFilter<"Fine"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Fine"> | Date | string
   familyId?: Prisma.StringFilter<"Fine"> | string
   familyMemberId?: Prisma.StringNullableFilter<"Fine"> | string | null
@@ -270,6 +280,7 @@ export type FineOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   familyMemberId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -288,6 +299,7 @@ export type FineScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Fine"> | string
   reason?: Prisma.StringWithAggregatesFilter<"Fine"> | string
   amount?: Prisma.IntWithAggregatesFilter<"Fine"> | number
+  paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fine"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Fine"> | Date | string
   familyId?: Prisma.StringWithAggregatesFilter<"Fine"> | string
   familyMemberId?: Prisma.StringNullableWithAggregatesFilter<"Fine"> | string | null
@@ -298,6 +310,7 @@ export type FineCreateInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutFinesInput
   familyMember?: Prisma.FamilyMemberCreateNestedOneWithoutFinesInput
@@ -308,6 +321,7 @@ export type FineUncheckedCreateInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   familyMemberId?: string | null
@@ -318,6 +332,7 @@ export type FineUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutFinesNestedInput
   familyMember?: Prisma.FamilyMemberUpdateOneWithoutFinesNestedInput
@@ -328,6 +343,7 @@ export type FineUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -338,6 +354,7 @@ export type FineCreateManyInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   familyMemberId?: string | null
@@ -348,6 +365,7 @@ export type FineUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -355,6 +373,7 @@ export type FineUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -375,6 +394,7 @@ export type FineCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   familyMemberId?: Prisma.SortOrder
@@ -389,6 +409,7 @@ export type FineMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   familyMemberId?: Prisma.SortOrder
@@ -399,6 +420,7 @@ export type FineMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   familyMemberId?: Prisma.SortOrder
@@ -539,6 +561,7 @@ export type FineCreateWithoutIssuedByInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutFinesInput
   familyMember?: Prisma.FamilyMemberCreateNestedOneWithoutFinesInput
@@ -548,6 +571,7 @@ export type FineUncheckedCreateWithoutIssuedByInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   familyMemberId?: string | null
@@ -586,6 +610,7 @@ export type FineScalarWhereInput = {
   id?: Prisma.StringFilter<"Fine"> | string
   reason?: Prisma.StringFilter<"Fine"> | string
   amount?: Prisma.IntFilter<"Fine"> | number
+  paidAt?: Prisma.DateTimeNullableFilter<"Fine"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Fine"> | Date | string
   familyId?: Prisma.StringFilter<"Fine"> | string
   familyMemberId?: Prisma.StringNullableFilter<"Fine"> | string | null
@@ -596,6 +621,7 @@ export type FineCreateWithoutFamilyInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyMember?: Prisma.FamilyMemberCreateNestedOneWithoutFinesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutFinesIssuedInput
@@ -605,6 +631,7 @@ export type FineUncheckedCreateWithoutFamilyInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyMemberId?: string | null
   issuedById: string
@@ -640,6 +667,7 @@ export type FineCreateWithoutFamilyMemberInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutFinesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutFinesIssuedInput
@@ -649,6 +677,7 @@ export type FineUncheckedCreateWithoutFamilyMemberInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   issuedById: string
@@ -684,6 +713,7 @@ export type FineCreateManyIssuedByInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   familyMemberId?: string | null
@@ -693,6 +723,7 @@ export type FineUpdateWithoutIssuedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutFinesNestedInput
   familyMember?: Prisma.FamilyMemberUpdateOneWithoutFinesNestedInput
@@ -702,6 +733,7 @@ export type FineUncheckedUpdateWithoutIssuedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -711,6 +743,7 @@ export type FineUncheckedUpdateManyWithoutIssuedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -720,6 +753,7 @@ export type FineCreateManyFamilyInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyMemberId?: string | null
   issuedById: string
@@ -729,6 +763,7 @@ export type FineUpdateWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyMember?: Prisma.FamilyMemberUpdateOneWithoutFinesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutFinesIssuedNestedInput
@@ -738,6 +773,7 @@ export type FineUncheckedUpdateWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -747,6 +783,7 @@ export type FineUncheckedUpdateManyWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyMemberId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -756,6 +793,7 @@ export type FineCreateManyFamilyMemberInput = {
   id?: string
   reason: string
   amount: number
+  paidAt?: Date | string | null
   createdAt?: Date | string
   familyId: string
   issuedById: string
@@ -765,6 +803,7 @@ export type FineUpdateWithoutFamilyMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutFinesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutFinesIssuedNestedInput
@@ -774,6 +813,7 @@ export type FineUncheckedUpdateWithoutFamilyMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -783,6 +823,7 @@ export type FineUncheckedUpdateManyWithoutFamilyMemberInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -794,6 +835,7 @@ export type FineSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   reason?: boolean
   amount?: boolean
+  paidAt?: boolean
   createdAt?: boolean
   familyId?: boolean
   familyMemberId?: boolean
@@ -807,6 +849,7 @@ export type FineSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   reason?: boolean
   amount?: boolean
+  paidAt?: boolean
   createdAt?: boolean
   familyId?: boolean
   familyMemberId?: boolean
@@ -820,6 +863,7 @@ export type FineSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   reason?: boolean
   amount?: boolean
+  paidAt?: boolean
   createdAt?: boolean
   familyId?: boolean
   familyMemberId?: boolean
@@ -833,13 +877,14 @@ export type FineSelectScalar = {
   id?: boolean
   reason?: boolean
   amount?: boolean
+  paidAt?: boolean
   createdAt?: boolean
   familyId?: boolean
   familyMemberId?: boolean
   issuedById?: boolean
 }
 
-export type FineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reason" | "amount" | "createdAt" | "familyId" | "familyMemberId" | "issuedById", ExtArgs["result"]["fine"]>
+export type FineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reason" | "amount" | "paidAt" | "createdAt" | "familyId" | "familyMemberId" | "issuedById", ExtArgs["result"]["fine"]>
 export type FineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
   familyMember?: boolean | Prisma.Fine$familyMemberArgs<ExtArgs>
@@ -867,6 +912,7 @@ export type $FinePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     reason: string
     amount: number
+    paidAt: Date | null
     createdAt: Date
     familyId: string
     familyMemberId: string | null
@@ -1300,6 +1346,7 @@ export interface FineFieldRefs {
   readonly id: Prisma.FieldRef<"Fine", 'String'>
   readonly reason: Prisma.FieldRef<"Fine", 'String'>
   readonly amount: Prisma.FieldRef<"Fine", 'Int'>
+  readonly paidAt: Prisma.FieldRef<"Fine", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Fine", 'DateTime'>
   readonly familyId: Prisma.FieldRef<"Fine", 'String'>
   readonly familyMemberId: Prisma.FieldRef<"Fine", 'String'>
