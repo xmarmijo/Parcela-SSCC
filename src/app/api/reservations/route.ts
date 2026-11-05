@@ -200,6 +200,23 @@ export async function POST(req: Request) {
       }
     }
 
+    // Validar que los invitados extra no sean socios (miembros de un núcleo)
+    for (const p of extraPersons) {
+      if (p.rut && p.rut.trim() !== "") {
+        const member = await prisma.familyMember.findFirst({
+          where: { rut: p.rut.trim() },
+        });
+        if (member) {
+          return NextResponse.json(
+            {
+              error: `El invitado "${p.fullName}" es socio (pertenece a un núcleo familiar) y no debe registrarse como invitado extra.`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     // Calculate total purely on server
     const totalAmount = calculateTotal(
       {
