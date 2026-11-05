@@ -11,7 +11,7 @@ interface Reservation {
   status: string;
   totalAmount: number;
   family?: { name: string } | null;
-  extraPersons: Array<{ id: string; fullName: string; usesPool: boolean }>;
+  extraPersons: Array<{ id: string; fullName: string; rut?: string | null; usesPool: boolean }>;
   addOns: Array<{
     id: string;
     quantity: number;
@@ -183,14 +183,27 @@ export default function ReservaDetallePage() {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Invitados extra</span>
                   <span className="font-medium text-gray-900">
-                    {reservation.extraPersons.length > 0
-                      ? reservation.extraPersons
-                          .map(
-                            (p) =>
-                              `${p.fullName}${p.usesPool ? " (con piscina)" : ""}`
-                          )
-                          .join(", ")
-                      : "Sin invitados extra"}
+                    {reservation.extraPersons.length > 0 ? (
+                      <ul className="text-right space-y-0.5">
+                        {reservation.extraPersons.map((p) => (
+                          <li key={p.id}>
+                            {p.fullName}
+                            {p.rut ? (
+                              <span className="ml-1 text-xs text-gray-500">
+                                ({p.rut})
+                              </span>
+                            ) : null}
+                            {p.usesPool ? (
+                              <span className="ml-1 text-xs text-blue-700">
+                                (piscina)
+                              </span>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      "Sin invitados extra"
+                    )}
                   </span>
                 </div>
                 <div className="flex justify-between border-t border-gray-100 pt-3">

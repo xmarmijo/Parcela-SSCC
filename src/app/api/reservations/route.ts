@@ -6,6 +6,7 @@ import { calculateTotal } from "@/lib/pricing";
 
 const extraPersonSchema = z.object({
   fullName: z.string().trim().min(1, "El nombre del invitado es obligatorio"),
+  rut: z.string().trim().optional().nullable(),
   usesPool: z.boolean().optional().default(false),
 });
 
@@ -223,6 +224,7 @@ export async function POST(req: Request) {
               ? {
                   create: extraPersons.map((p) => ({
                     fullName: p.fullName,
+                    rut: p.rut ? p.rut.trim() : null,
                     usesPool: Boolean(p.usesPool),
                   })),
                 }

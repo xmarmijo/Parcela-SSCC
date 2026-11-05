@@ -27,6 +27,7 @@ interface AddOnSpaceItem extends AddOnSpacePrice {
 interface ExtraGuest {
   id: string;
   fullName: string;
+  rut: string;
   usesPool: boolean;
 }
 
@@ -39,6 +40,7 @@ export default function ReservarPage() {
   const [selectedSpaces, setSelectedSpaces] = useState<Record<string, boolean>>({});
   const [extraGuests, setExtraGuests] = useState<ExtraGuest[]>([]);
   const [newGuestName, setNewGuestName] = useState("");
+  const [newGuestRut, setNewGuestRut] = useState("");
   const [newGuestPool, setNewGuestPool] = useState(false);
 
   const [loadingSpaces, setLoadingSpaces] = useState(true);
@@ -136,10 +138,12 @@ export default function ReservarPage() {
       {
         id: Math.random().toString(36).substring(2, 9),
         fullName: newGuestName.trim(),
+        rut: newGuestRut.trim(),
         usesPool: newGuestPool,
       },
     ]);
     setNewGuestName("");
+    setNewGuestRut("");
     setNewGuestPool(false);
   };
 
@@ -176,6 +180,7 @@ export default function ReservarPage() {
         date,
         extraPersons: extraGuests.map((g) => ({
           fullName: g.fullName,
+          rut: g.rut,
           usesPool: g.usesPool,
         })),
         addOns: addOnsPayload.map((a) => ({
@@ -445,6 +450,13 @@ export default function ReservarPage() {
                         value={newGuestName}
                         onChange={(e) => setNewGuestName(e.target.value)}
                         className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 focus:ring-green-500 focus:border-green-500"
+                      />
+                      <input
+                        type="text"
+                        placeholder="RUT (opcional)"
+                        value={newGuestRut}
+                        onChange={(e) => setNewGuestRut(e.target.value)}
+                        className="sm:w-40 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 focus:ring-green-500 focus:border-green-500"
                       />
                       <label className="flex items-center space-x-2 text-sm text-gray-700 select-none py-1">
                         <input

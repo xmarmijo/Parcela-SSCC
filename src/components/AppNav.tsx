@@ -6,9 +6,7 @@ import { signOut } from "next-auth/react";
 export function AppNav() {
   return (
     <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
-      <Link href="/" className="text-base font-semibold text-emerald-700">
-        Parcela SSCC
-      </Link>
+      <span className="text-base font-semibold text-emerald-700">Parcela SSCC</span>
       <div className="flex flex-wrap items-center gap-1 text-sm">
         <Link
           href="/reservar"

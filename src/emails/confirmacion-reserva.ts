@@ -12,7 +12,7 @@ export interface ConfirmacionReservaEmailProps {
   titularName: string;
   dateFormatted: string;
   spacesList: string[];
-  extraGuests: Array<{ fullName: string; usesPool: boolean }>;
+  extraGuests: Array<{ fullName: string; rut?: string | null; usesPool: boolean }>;
   totalAmountFormatted: string;
   qrToken: string;
   qrDataUrl: string;
@@ -47,7 +47,12 @@ export function renderConfirmacionReservaHtml({
   const extraGuestsText = escapeHtml(
     extraGuests.length > 0
       ? extraGuests
-          .map((g) => `${g.fullName}${g.usesPool ? " (con piscina)" : ""}`)
+          .map(
+            (g) =>
+              `${g.fullName}${g.rut ? ` (${g.rut})` : ""}${
+                g.usesPool ? " (con piscina)" : ""
+              }`
+          )
           .join(", ")
       : "Sin invitados extra"
   );

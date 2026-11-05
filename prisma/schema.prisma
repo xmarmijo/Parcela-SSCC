@@ -150,6 +150,7 @@ model ReservationAddOn {
 model ExtraPerson {
   id            String      @id @default(cuid())
   fullName      String
+  rut           String?
   usesPool      Boolean     @default(false) // extra charge if pool is used
 
   reservationId String
