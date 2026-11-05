@@ -12,6 +12,7 @@ function AdminReservasInner() {
   const [rut, setRut] = useState("");
   const searchParams = useSearchParams();
   const [status, setStatus] = useState(searchParams.get("status") ?? "");
+  const [sort, setSort] = useState("desc");
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ total: number; page: number; pageSize: number; reservations: any[] }>({ total: 0, page: 1, pageSize: 20, reservations: [] });
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,14 @@ function AdminReservasInner() {
             <option value="CONFIRMADA">Confirmada</option>
             <option value="COMPLETADA">Completada</option>
             <option value="CANCELADA">Cancelada</option>
+          </select>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
+          >
+            <option value="desc">Más recientes primero</option>
+            <option value="asc">Más antiguos primero</option>
           </select>
           <button
             onClick={() => { setPage(1); load(1); }}

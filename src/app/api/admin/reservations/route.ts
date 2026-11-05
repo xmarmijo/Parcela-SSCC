@@ -14,6 +14,7 @@ export async function GET(req: Request) {
     const date = searchParams.get("date");
     const rut = searchParams.get("rut")?.trim();
     const status = searchParams.get("status")?.trim();
+    const sort = searchParams.get("sort") === "asc" ? "asc" : "desc";
     const page = parseInt(searchParams.get("page") ?? "1", 10);
     const pageSize = 20;
     const where: any = {};
@@ -37,7 +38,7 @@ export async function GET(req: Request) {
       prisma.reservation.findMany({
         where,
         include: { family: true, extraPersons: true, addOns: { include: { addOnSpace: true } }, payments: true },
-        orderBy: { date: "asc" },
+        orderBy: { date: sort },
         skip: (page - 1) * pageSize,
         take: pageSize,
       }),
