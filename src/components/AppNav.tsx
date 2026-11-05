@@ -35,39 +35,39 @@ export function AppNav() {
   };
 
   return (
-    <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
+    <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 shadow-sm">
       <span className="text-base font-semibold text-emerald-700">Parcela SSCC</span>
       <div className="flex flex-wrap items-center gap-1 text-sm">
         {isAdmin && (
           <Link
             href="/admin"
-            className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-gray-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+            className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
           >
             Admin
           </Link>
         )}
         <Link
           href="/reservar"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-gray-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
         >
           Reservar
         </Link>
         <Link
           href="/mis-reservas"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-gray-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
         >
           Mis reservas
         </Link>
         <Link
           href="/familia"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-gray-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
         >
           Mi familia
         </Link>
         <button
           type="button"
           onClick={toggleTheme}
-          className="rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-1.5 font-medium text-gray-600 dark:text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="rounded-lg border border-gray-200 dark:border-slate-700 px-3 py-1.5 font-medium text-gray-600 dark:text-slate-400 transition-colors hover:bg-gray-100 dark:hover:bg-slate-800"
           aria-label="Cambiar tema"
         >
           {dark ? "Claro" : "Oscuro"}
@@ -75,7 +75,7 @@ export function AppNav() {
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-1.5 font-medium text-gray-600 dark:text-gray-400 transition-colors hover:border-red-200 hover:bg-red-50 dark:bg-red-950 hover:text-red-600"
+          className="rounded-lg border border-gray-200 dark:border-slate-700 px-3 py-1.5 font-medium text-gray-600 dark:text-slate-400 transition-colors hover:border-red-200 hover:bg-red-50 dark:bg-red-950 hover:text-red-600"
         >
           Cerrar sesión
         </button>

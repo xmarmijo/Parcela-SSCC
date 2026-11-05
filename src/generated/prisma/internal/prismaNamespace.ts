@@ -408,7 +408,8 @@ export const ModelName = {
   QrToken: 'QrToken',
   Fine: 'Fine',
   Visit: 'Visit',
-  AppSetting: 'AppSetting'
+  AppSetting: 'AppSetting',
+  BlockedDate: 'BlockedDate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "family" | "familyMember" | "addOnSpace" | "reservation" | "reservationAddOn" | "extraPerson" | "payment" | "qrToken" | "fine" | "visit" | "appSetting"
+    modelProps: "user" | "family" | "familyMember" | "addOnSpace" | "reservation" | "reservationAddOn" | "extraPerson" | "payment" | "qrToken" | "fine" | "visit" | "appSetting" | "blockedDate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1316,6 +1317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    BlockedDate: {
+      payload: Prisma.$BlockedDatePayload<ExtArgs>
+      fields: Prisma.BlockedDateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlockedDateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlockedDateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        findFirst: {
+          args: Prisma.BlockedDateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlockedDateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        findMany: {
+          args: Prisma.BlockedDateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>[]
+        }
+        create: {
+          args: Prisma.BlockedDateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        createMany: {
+          args: Prisma.BlockedDateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlockedDateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>[]
+        }
+        delete: {
+          args: Prisma.BlockedDateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        update: {
+          args: Prisma.BlockedDateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        deleteMany: {
+          args: Prisma.BlockedDateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlockedDateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlockedDateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>[]
+        }
+        upsert: {
+          args: Prisma.BlockedDateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlockedDatePayload>
+        }
+        aggregate: {
+          args: Prisma.BlockedDateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlockedDate>
+        }
+        groupBy: {
+          args: Prisma.BlockedDateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlockedDateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlockedDateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlockedDateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1498,6 +1573,16 @@ export const AppSettingScalarFieldEnum = {
 } as const
 
 export type AppSettingScalarFieldEnum = (typeof AppSettingScalarFieldEnum)[keyof typeof AppSettingScalarFieldEnum]
+
+
+export const BlockedDateScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type BlockedDateScalarFieldEnum = (typeof BlockedDateScalarFieldEnum)[keyof typeof BlockedDateScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1797,6 +1882,7 @@ export type GlobalOmitConfig = {
   fine?: Prisma.FineOmit
   visit?: Prisma.VisitOmit
   appSetting?: Prisma.AppSettingOmit
+  blockedDate?: Prisma.BlockedDateOmit
 }
 
 /* Types for Logging */

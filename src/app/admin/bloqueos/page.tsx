@@ -1,0 +1,108 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AppNav } from "@/components/AppNav";
+import { AdminNav } from "@/components/AdminNav";
+
+export default function AdminBloqueosPage() {
+  const [dates, setDates] = useState<any[]>([]);
+  const [date, setDate] = useState("");
+  const [reason, setReason] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    setLoading(true);
+    fetch("/api/admin/blocked-dates")
+      .then((r) => r.json())
+      .then((d) => setDates(Array.isArray(d) ? d : []))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch("/api/admin/blocked-dates", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, reason }),
+    });
+    if (res.ok) {
+      setDate("");
+      setReason("");
+      load();
+    } else {
+      const d = await res.json();
+      alert(d.error || "Error");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("¿Desbloquear esta fecha?")) return;
+    const res = await fetch(`/api/admin/blocked-dates?id=${id}`, { method: "DELETE" });
+    if (res.ok) load();
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        <AppNav />
+        <AdminNav />
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Fechas bloqueadas</h1>
+        <p className="mt-2 text-sm text-gray-600">Cierra la parcela por mantenimiento (no se podrán reservar).</p>
+
+        <form onSubmit={handleAdd} className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-3">
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          />
+          <input
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="Motivo (opcional)"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          />
+          <button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+            Bloquear fecha
+          </button>
+        </form>
+
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          {loading ? (
+            <p className="text-sm text-gray-500">Cargando...</p>
+          ) : dates.length === 0 ? (
+            <p className="text-sm text-gray-500">No hay fechas bloqueadas.</p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-gray-500 border-b">
+                  <th className="py-2">Fecha</th>
+                  <th className="py-2">Motivo</th>
+                  <th className="py-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {dates.map((d: any) => (
+                  <tr key={d.id} className="border-b">
+                    <td className="py-2">{new Date(d.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
+                    <td className="py-2">{d.reason ?? "-"}</td>
+                    <td className="py-2">
+                      <button onClick={() => handleDelete(d.id)} className="text-xs text-red-600 hover:underline">
+                        Desbloquear
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

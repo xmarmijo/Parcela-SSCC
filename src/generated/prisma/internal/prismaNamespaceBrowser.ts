@@ -62,7 +62,8 @@ export const ModelName = {
   QrToken: 'QrToken',
   Fine: 'Fine',
   Visit: 'Visit',
-  AppSetting: 'AppSetting'
+  AppSetting: 'AppSetting',
+  BlockedDate: 'BlockedDate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -224,6 +225,16 @@ export const AppSettingScalarFieldEnum = {
 } as const
 
 export type AppSettingScalarFieldEnum = (typeof AppSettingScalarFieldEnum)[keyof typeof AppSettingScalarFieldEnum]
+
+
+export const BlockedDateScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type BlockedDateScalarFieldEnum = (typeof BlockedDateScalarFieldEnum)[keyof typeof BlockedDateScalarFieldEnum]
 
 
 export const SortOrder = {

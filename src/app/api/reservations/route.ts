@@ -110,6 +110,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // Check if date is blocked
+    const blocked = await prisma.blockedDate.findUnique({ where: { date: bookingDate } });
+    if (blocked) {
+      return NextResponse.json(
+        { error: `La parcela está cerrada ese día${blocked.reason ? ` (${blocked.reason})` : ""}.` },
+        { status: 400 }
+      );
+    }
+
     // Determine target family
     let targetFamilyId = familyId;
 

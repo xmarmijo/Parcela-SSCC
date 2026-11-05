@@ -12,6 +12,9 @@ import { GET as getAddOnSpaces } from "../src/app/api/addon-spaces/route";
 
 describe("Reservations and AddOnSpace API endpoints", () => {
   beforeEach(() => {
+    (prisma.blockedDate as any).findUnique = async () => null;
+  });
+  beforeEach(() => {
     delete (globalThis as any).__mockSession;
     // Default mock transaction to execute callback with prisma
     (prisma as any).$transaction = async (fn: any) => {

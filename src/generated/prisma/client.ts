@@ -101,3 +101,8 @@ export type Visit = Prisma.VisitModel
  * 
  */
 export type AppSetting = Prisma.AppSettingModel
+/**
+ * Model BlockedDate
+ * 
+ */
+export type BlockedDate = Prisma.BlockedDateModel

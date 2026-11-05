@@ -41,21 +41,21 @@ export default function AdminUsuariosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">Usuarios</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">Usuarios</h1>
 
-        <form onSubmit={handleCreate} className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm space-y-3">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Crear usuario (guardia/admin)</h2>
+        <form onSubmit={handleCreate} className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Crear usuario (guardia/admin)</h2>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Correo"
             required
-            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
           />
           <input
             type="password"
@@ -63,12 +63,12 @@ export default function AdminUsuariosPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Contraseña (mín. 6)"
             required
-            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
           />
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
           >
             <option value="GUARDIA">GUARDIA</option>
             <option value="ADMIN">ADMIN</option>
@@ -79,14 +79,14 @@ export default function AdminUsuariosPage() {
           </button>
         </form>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Usuarios registrados</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Usuarios registrados</h2>
           {loading ? (
-            <p className="text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
+            <p className="text-sm text-gray-500 dark:text-slate-400">Cargando...</p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 dark:text-gray-400 border-b">
+                <tr className="text-left text-gray-500 dark:text-slate-400 border-b">
                   <th className="py-2">Correo</th>
                   <th className="py-2">Rol</th>
                   <th className="py-2">RUT</th>
