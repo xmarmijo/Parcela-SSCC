@@ -40,34 +40,34 @@ export default function ImportarFamiliasPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#12161A] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#E2E8F0]">
           Importar núcleos familiares
         </h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-[#637777]">
+        <p className="mt-2 text-sm text-gray-600 dark:text-[#94a3b8]">
           Carga el Excel del colegio para crear/actualizar los núcleos familiares.
         </p>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm space-y-4">
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] p-6 shadow-sm space-y-4">
           <button
             onClick={handleDownload}
-            className="rounded-lg bg-gray-100 dark:bg-[#0b253a] px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-[#1d3b53]"
+            className="rounded-lg bg-gray-100 dark:bg-[#1A2026] px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-[#242d35]"
           >
             Descargar plantilla Excel
           </button>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-[#d6deeb] mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-[#E2E8F0] mb-1">
               Archivo Excel
             </label>
             <input
               type="file"
               accept=".xlsx,.xls"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="block w-full text-sm text-gray-700 dark:text-[#d6deeb]"
+              className="block w-full text-sm text-gray-700 dark:text-[#E2E8F0]"
             />
           </div>
 

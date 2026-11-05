@@ -50,19 +50,19 @@ export default function AdminMultasPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#12161A] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">Multas</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#E2E8F0]">Multas</h1>
 
-        <form onSubmit={handleCreate} className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm space-y-3">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb]">Emitir multa</h2>
+        <form onSubmit={handleCreate} className="mt-6 rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] p-6 shadow-sm space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#E2E8F0]">Emitir multa</h2>
           <select
             value={familyId}
             onChange={(e) => setFamilyId(e.target.value)}
             required
-            className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           >
             <option value="">Seleccionar familia</option>
             {families.map((f: any) => (
@@ -81,7 +81,7 @@ export default function AdminMultasPage() {
             list="reason-suggestions"
             placeholder="Motivo"
             required
-            className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           />
           <datalist id="reason-suggestions">
             {reasons.map((r: any, i: number) => (
@@ -94,21 +94,21 @@ export default function AdminMultasPage() {
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Monto (CLP)"
             required
-            className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           />
           <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Emitir multa
           </button>
         </form>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Multas emitidas</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#E2E8F0] mb-3">Multas emitidas</h2>
           {loading ? (
-            <p className="text-sm text-gray-500 dark:text-[#637777]">Cargando...</p>
+            <p className="text-sm text-gray-500 dark:text-[#94a3b8]">Cargando...</p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 dark:text-[#637777] border-b">
+                <tr className="text-left text-gray-500 dark:text-[#94a3b8] border-b">
                   <th className="py-2">Familia</th>
                   <th className="py-2">Motivo</th>
                   <th className="py-2">Monto</th>

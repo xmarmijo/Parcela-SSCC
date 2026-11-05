@@ -50,30 +50,30 @@ function AdminReservasInner() {
   const totalPages = Math.max(1, Math.ceil(data.total / data.pageSize));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#12161A] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">Reservas</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#E2E8F0]">Reservas</h1>
 
         <div className="mt-4 flex flex-wrap gap-2">
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           />
           <input
             type="text"
             value={rut}
             onChange={(e) => setRut(e.target.value)}
             placeholder="Filtrar por RUT del titular"
-            className="rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           />
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 dark:border-[#2a3440] px-3 py-2 text-sm"
           >
             <option value="">Todos los estados</option>
             <option value="PENDIENTE_PAGO">Pendiente de pago</option>
@@ -89,20 +89,20 @@ function AdminReservasInner() {
           </button>
           <button
             onClick={() => { setDate(""); setRut(""); setStatus(""); setPage(1); load(1); }}
-            className="rounded-lg bg-gray-100 dark:bg-[#0b253a] px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-[#1d3b53]"
+            className="rounded-lg bg-gray-100 dark:bg-[#1A2026] px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-[#242d35]"
           >
             Limpiar
           </button>
         </div>
 
         {loading ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-[#637777]">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500 dark:text-[#94a3b8]">Cargando...</p>
         ) : (
           <>
-            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] shadow-sm">
+            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] shadow-sm">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 dark:text-[#637777] border-b bg-gray-50 dark:bg-[#011627]">
+                  <tr className="text-left text-gray-500 dark:text-[#94a3b8] border-b bg-gray-50 dark:bg-[#12161A]">
                     <th className="px-4 py-2">Familia</th>
                     <th className="px-4 py-2">Fecha</th>
                     <th className="px-4 py-2">Estado</th>
@@ -172,7 +172,7 @@ function AdminReservasInner() {
                 </tbody>
               </table>
             </div>
-            <div className="mt-3 flex items-center justify-between text-sm text-gray-600 dark:text-[#637777]">
+            <div className="mt-3 flex items-center justify-between text-sm text-gray-600 dark:text-[#94a3b8]">
               <span>Total: {data.total} · Página {data.page} de {totalPages}</span>
               <div className="flex gap-2">
                 <button

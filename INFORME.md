@@ -305,13 +305,85 @@ URL: postgresql://neondb_owner:npg_fPTuFQ4eXz8Z@ep-crimson-king-b6ss580t-pooler.
 
 ---
 
-## 11. Pendientes
+## 11. Guía de uso paso a paso (para entrega)
+
+### 11.1 Acceso inicial
+- **URL del sistema:** https://parcelasscc.vercel.app
+- **Cuenta admin:** correo `miguel.armijo.n@gmail.com` / contraseña `ParcelaSSCC2026!`
+- **Cuentas de prueba (socios):** `pedro1@test.cl` ... `jorge15@test.cl` / contraseña `Parcela2026!`
+
+### 11.2 Flujo del socio (reservar)
+1. Ir a https://parcelasscc.vercel.app/login
+2. Ingresar correo (o RUT) + contraseña → clic "Ingresar".
+3. Ir a "Mi familia" (https://parcelasscc.vercel.app/familia):
+   - Si no tiene familia: escribir nombre (ej. "Familia Armijo") → "Crear familia".
+   - Agregar integrantes: nombre, RUT (obligatorio), parentesco, correo (opcional), contraseña (opcional).
+4. Ir a "Reservar" (https://parcelasscc.vercel.app/reservar):
+   - Seleccionar fecha.
+   - (Opcional) Seleccionar espacios arrendables (quincho, casino, cafetería).
+   - (Opcional) Agregar invitados extra (nombre + RUT; los socios no pagan).
+   - Clic "Reservar y pagar".
+5. En el detalle de la reserva (https://parcelasscc.vercel.app/reservas/[id]):
+   - Ver total y estado "Pendiente de pago".
+   - Clic "Pagar ahora" → redirige a Mercado Pago (requiere configuración).
+   - Al pagar, el estado cambia a "Confirmada" y se genera el QR.
+6. Descargar/imprimir el QR ("Descargar QR" / "Imprimir comprobante").
+7. El día de la visita, el guardia escanea el QR → https://parcelasscc.vercel.app/validar/[token].
+
+### 11.3 Flujo del guardia (validar acceso)
+1. El guardia abre su celular y escanea el QR del socio (o abre el link del QR).
+2. Se abre https://parcelasscc.vercel.app/validar/[token].
+3. La página muestra:
+   - "¡Pase Validado Exitosamente!" (verde) si es la primera vez.
+   - "Código QR Ya Utilizado" (ámbar) si ya se usó, con la hora del primer uso.
+   - "Código QR Inválido" (rojo) si el token no existe.
+4. Se muestra: familia, fecha de visita, total pagado, núcleo familiar (con RUTs), invitados (con RUTs y etiquetas).
+5. El guardia verifica que las personas que entran estén en la lista.
+6. Clic "Finalizar control".
+
+### 11.4 Flujo del admin (portal)
+1. Ingresar con cuenta admin → el menú muestra "Admin".
+2. Ir a `/admin` (Dashboard): tarjetas, gráficos, últimas reservas.
+3. **Familias** (`/admin/familias`): buscar por nombre/RUT/correo, ver detalle, editar rol del titular, ver integrantes/multas/reservas.
+4. **Importar núcleos** (`/admin/familias/importar`): descargar plantilla Excel, completar, subir.
+5. **Integrantes sin cuenta** (`/admin/integrantes`): ver quiénes no tienen login, link a la familia.
+6. **Multas** (`/admin/multas`): emitir multa (familia, motivo, monto), marcar pagada.
+7. **Reservas** (`/admin/reservas`): filtrar por fecha/RUT/estado, ver detalle, cancelar, confirmar pago (transferencia/efectivo).
+8. **Usuarios** (`/admin/usuarios`): crear guardia/admin/socio, resetear contraseña, cambiar rol, eliminar.
+9. **Espacios** (`/admin/espacios`): editar precio y capacidad de quincho/casino/cafetería.
+10. **Bloqueos** (`/admin/bloqueos`): bloquear fechas por mantenimiento.
+11. **Calendario** (`/admin/calendario`): ver ocupación por día, clic en un día para ver las reservas.
+12. **Auditoría** (`/admin/auditoria`): log de acciones.
+13. **Notificaciones** (`/admin/notificaciones`): enviar recordatorios y resumen semanal.
+14. **Configuración** (`/admin/configuracion`): Gmail, datos bancarios, motivos de multa.
+15. **Exportar Excel** (`/api/admin/export`): descarga Excel con 4 hojas (Familias, Integrantes, Reservas, Multas).
+
+### 11.5 Configuración de Gmail (correos)
+1. Activar verificación en 2 pasos en la cuenta Google.
+2. Ir a https://myaccount.google.com/apppasswords → crear contraseña para "Parcela SSCC".
+3. En el portal admin → "Configuración" → ingresar correo Gmail + App Password → Guardar.
+4. Probar en "Notificaciones" → "Enviar resumen semanal".
+
+### 11.6 Configuración de Mercado Pago (pagos online)
+1. Crear app en https://www.mercadopago.cl/developers/panel/app.
+2. Copiar credencial de TEST (access token que empieza con TEST-).
+3. En Vercel → Settings → Environment Variables → agregar `MERCADOPAGO_ACCESS_TOKEN`.
+4. Redesplegar. Probar pago con tarjeta de prueba de MP.
+
+### 11.7 Configuración de cron jobs (Vercel)
+1. En Vercel → Settings → Environment Variables → agregar `CRON_SECRET` (texto aleatorio).
+2. Los cron jobs (recordatorios diarios, resumen semanal) se ejecutan automáticamente.
+3. Si el plan de Vercel no soporta cron, usar botones manuales en `/admin/notificaciones`.
+
+---
+
+## 12. Pendientes
 
 | # | Tarea | Estado |
 |---|-------|--------|
 | 16 | PWA (instalar en celular del guardia) | Pendiente |
 | 18 | Mercado Pago real (configurar token TEST/PROD) | Pendiente |
-| — | Configurar Gmail (App Password en /admin/configuracion) | Pendiente |
+| — | Configurar Gmail (App Password) | Pendiente |
 | — | Configurar CRON_SECRET en Vercel | Pendiente |
 
 ---
