@@ -8,6 +8,10 @@ interface Member {
   id: string;
   fullName: string;
   relation: string;
+  rut?: string | null;
+  email?: string | null;
+  course?: string | null;
+  exAlumno?: boolean;
   user?: { id: string; email: string } | null;
 }
 
@@ -200,15 +204,34 @@ export default function FamiliaPage() {
                       key={m.id}
                       className="flex flex-wrap items-center justify-between gap-2 py-3"
                     >
-                      <div>
+                      <div className="space-y-0.5">
                         <p className="font-medium text-gray-900">{m.fullName}</p>
-                        <p className="text-xs text-gray-500">{m.relation}</p>
+                        <p className="text-xs text-gray-500">
+                          {m.relation}
+                          {m.rut ? " · RUT " + m.rut : ""}
+                          {m.course ? " · " + m.course : ""}
+                          {m.exAlumno ? " · Exalumno" : ""}
+                        </p>
+                        {(m.email || m.user?.email) && (
+                          <p className="text-xs text-emerald-700">
+                            {m.email || m.user?.email}
+                          </p>
+                        )}
                       </div>
-                      {m.user?.email && (
-                        <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-700">
-                          {m.user.email}
-                        </span>
-                      )}
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (!confirm(`Eliminar a ${m.fullName}?`)) return;
+                          const res = await fetch(
+                            `/api/families/${family!.id}/members/${m.id}`,
+                            { method: "DELETE" }
+                          );
+                          if (res.ok) load();
+                        }}
+                        className="text-xs text-red-600 hover:text-red-800"
+                      >
+                        Eliminar
+                      </button>
                     </li>
                   ))}
                 </ul>
