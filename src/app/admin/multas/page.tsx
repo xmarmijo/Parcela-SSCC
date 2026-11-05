@@ -96,7 +96,7 @@ export default function AdminMultasPage() {
             required
             className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
           />
-          <button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Emitir multa
           </button>
         </form>
@@ -134,7 +134,7 @@ export default function AdminMultasPage() {
                             });
                             load();
                           }}
-                          className="text-xs text-emerald-600 hover:underline"
+                          className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
                         >
                           Marcar pagada
                         </button>

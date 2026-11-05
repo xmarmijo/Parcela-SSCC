@@ -58,7 +58,7 @@ export default function AdminEsperaPage() {
                     <td className="px-4 py-2">{new Date(e.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                     <td className="px-4 py-2">{new Date(e.createdAt).toLocaleDateString("es-CL")}</td>
                     <td className="px-4 py-2">
-                      <button onClick={() => handleDelete(e.id)} className="text-xs text-red-600 hover:underline">
+                      <button onClick={() => handleDelete(e.id)} className="text-xs text-red-600 dark:text-red-400 hover:underline">
                         Eliminar
                       </button>
                     </td>

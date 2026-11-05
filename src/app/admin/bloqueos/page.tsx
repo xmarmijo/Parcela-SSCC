@@ -67,7 +67,7 @@ export default function AdminBloqueosPage() {
             placeholder="Motivo (opcional)"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
-          <button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Bloquear fecha
           </button>
         </form>
@@ -92,7 +92,7 @@ export default function AdminBloqueosPage() {
                     <td className="py-2">{new Date(d.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                     <td className="py-2">{d.reason ?? "-"}</td>
                     <td className="py-2">
-                      <button onClick={() => handleDelete(d.id)} className="text-xs text-red-600 hover:underline">
+                      <button onClick={() => handleDelete(d.id)} className="text-xs text-red-600 dark:text-red-400 hover:underline">
                         Desbloquear
                       </button>
                     </td>

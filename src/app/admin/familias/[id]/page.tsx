@@ -41,7 +41,7 @@ export default function AdminFamiliaDetallePage() {
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
-        <Link href="/admin/familias" className="text-sm text-emerald-600 hover:underline">
+        <Link href="/admin/familias" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">
           ← Volver
         </Link>
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">{family.name}</h1>

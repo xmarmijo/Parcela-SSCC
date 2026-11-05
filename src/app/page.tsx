@@ -5,7 +5,7 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-white">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 dark:bg-emerald-700 text-sm font-bold text-white">
             PS
           </span>
           <span className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb]">
@@ -21,7 +21,7 @@ export default function Home() {
           </Link>
           <Link
             href="/register"
-            className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600"
           >
             Registrarme
           </Link>
@@ -44,7 +44,7 @@ export default function Home() {
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
           <Link
             href="/reservar"
-            className="rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600"
           >
             Hacer una reserva
           </Link>
@@ -60,7 +60,7 @@ export default function Home() {
           ¿Primera vez?{" "}
           <Link
             href="/register"
-            className="font-medium text-emerald-600 hover:underline"
+            className="font-medium text-emerald-600 dark:text-emerald-400 hover:underline"
           >
             Crea tu cuenta aquí
           </Link>

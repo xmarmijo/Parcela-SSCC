@@ -51,7 +51,7 @@ export function AdminNav() {
               onClick={() => setOpenGroup(openGroup === g.label ? null : g.label)}
               className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-emerald-600 dark:bg-emerald-700 text-white"
                   : "text-gray-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-slate-800 hover:text-emerald-700"
               }`}
             >

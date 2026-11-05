@@ -131,7 +131,7 @@ export default function AdminCalendarioPage() {
                       <td className="py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
                       <td className="py-2 text-xs">{r.addOns?.map((a: any) => a.addOnSpace?.name).join(", ") || "Parcela"}</td>
                       <td className="py-2">
-                        <a href={`/reservas/${r.id}`} className="text-emerald-600 hover:underline text-xs">Ver detalle</a>
+                        <a href={`/reservas/${r.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline text-xs">Ver detalle</a>
                       </td>
                     </tr>
                   ))}

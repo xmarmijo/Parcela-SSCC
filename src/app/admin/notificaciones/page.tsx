@@ -57,7 +57,7 @@ export default function AdminNotificacionesPage() {
             <button
               onClick={sendReminders}
               disabled={loadingR}
-              className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+              className="mt-3 rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
             >
               {loadingR ? "Enviando..." : "Enviar recordatorios"}
             </button>
@@ -77,7 +77,7 @@ export default function AdminNotificacionesPage() {
             <button
               onClick={sendWeekly}
               disabled={loadingW}
-              className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+              className="mt-3 rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
             >
               {loadingW ? "Enviando..." : "Enviar resumen semanal"}
             </button>

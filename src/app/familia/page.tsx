@@ -190,7 +190,7 @@ export default function FamiliaPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
               >
                 {creating ? "Creando..." : "Crear familia"}
               </button>
@@ -234,7 +234,7 @@ export default function FamiliaPage() {
                               `Para pagar la multa de $${Number(f.amount).toLocaleString("es-CL")} CLP, realiza una transferencia con los siguientes datos:\\n\\n${bankInfo}\\n\\nEnvía el comprobante a la administración. El admin marcará la multa como pagada.`
                             );
                           }}
-                          className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700"
+                          className="rounded bg-red-600 dark:bg-red-700 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 dark:hover:bg-red-600"
                         >
                           Pagar
                         </button>
@@ -377,7 +377,7 @@ export default function FamiliaPage() {
                 <button
                   type="submit"
                   disabled={adding}
-                  className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                  className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
                 >
                   {adding ? "Agregando..." : "Agregar integrante"}
                 </button>

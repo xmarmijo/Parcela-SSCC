@@ -74,7 +74,7 @@ export default function ImportarFamiliasPage() {
           <button
             onClick={handleImport}
             disabled={!file || loading}
-            className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
           >
             {loading ? "Importando..." : "Importar"}
           </button>

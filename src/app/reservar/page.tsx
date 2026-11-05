@@ -343,7 +343,7 @@ export default function ReservarPage() {
                   <p className="text-xs text-gray-500 dark:text-[#637777] mb-3">
                     Los integrantes de tu núcleo no pagan entrada. Para agregar o
                     editar integrantes ve a{" "}
-                    <a href="/familia" className="font-medium text-emerald-600 underline">
+                    <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
                       Mi familia
                     </a>
                     .
@@ -362,7 +362,7 @@ export default function ReservarPage() {
                   ) : family.members.length === 0 ? (
                     <p className="text-sm text-gray-600 dark:text-[#637777]">
                       La familia &quot;{family.name}&quot; aún no tiene integrantes.{" "}
-                      <a href="/familia" className="font-medium text-emerald-600 underline">
+                      <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
                         Agrégalos aquí
                       </a>
                       .
@@ -375,7 +375,7 @@ export default function ReservarPage() {
                           className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-sm text-emerald-800"
                         >
                           {m.fullName}{" "}
-                          <span className="text-emerald-600">· {m.relation}</span>
+                          <span className="text-emerald-600 dark:text-emerald-400">· {m.relation}</span>
                         </li>
                       ))}
                     </ul>
@@ -466,7 +466,7 @@ export default function ReservarPage() {
                                   </span>
                                 )}
                                  {space.dailyLimit != null && (
-                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600" : "text-emerald-600"}`}>
+                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600 dark:text-red-400" : "text-emerald-600 dark:text-emerald-400"}`}>
                                      {space.familyAlreadyBooked ? "Ya reservaste uno hoy" : `Disponibles: ${space.availableToday} de ${space.dailyLimit}`}
                                    </span>
                                  )}
@@ -527,7 +527,7 @@ export default function ReservarPage() {
                         type="button"
                         onClick={handleAddGuest}
                         disabled={!newGuestName.trim()}
-                        className="px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-black transition disabled:opacity-40"
+                        className="px-4 py-2 bg-emerald-600 dark:bg-emerald-700 text-white rounded-md text-sm font-medium hover:bg-emerald-700 dark:hover:bg-emerald-600 transition disabled:opacity-40 dark:bg-emerald-600 dark:bg-emerald-700 dark:hover:bg-emerald-700 dark:hover:bg-emerald-600"
                       >
                         Agregar
                       </button>
@@ -560,14 +560,14 @@ export default function ReservarPage() {
                             <button
                               type="button"
                               onClick={() => handleToggleGuestPool(guest.id)}
-                              className="text-xs text-blue-600 hover:underline"
+                              className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                             >
                               {guest.usesPool ? "Quitar piscina" : "+ Piscina"}
                             </button>
                             <button
                               type="button"
                               onClick={() => handleRemoveGuest(guest.id)}
-                              className="text-xs text-red-600 hover:text-red-800"
+                              className="text-xs text-red-600 dark:text-red-400 hover:text-red-800"
                             >
                               Eliminar
                             </button>

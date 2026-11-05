@@ -56,7 +56,7 @@ export default function AdminUsuariosPage() {
             <option value="ADMIN">ADMIN</option>
             <option value="SOCIO">SOCIO</option>
           </select>
-          <button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Crear usuario
           </button>
         </form>
@@ -115,7 +115,7 @@ export default function AdminUsuariosPage() {
                             alert(d.error || "Error");
                           }
                         }}
-                        className="text-xs text-blue-600 hover:underline"
+                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                       >
                         Resetear clave
                       </button>
@@ -129,7 +129,7 @@ export default function AdminUsuariosPage() {
                             alert(d.error || "Error");
                           }
                         }}
-                        className="text-xs text-red-600 hover:underline"
+                        className="text-xs text-red-600 dark:text-red-400 hover:underline"
                       >
                         Eliminar
                       </button>
