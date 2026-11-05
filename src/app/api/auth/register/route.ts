@@ -41,18 +41,15 @@ export async function POST(req: Request) {
       );
     }
 
-    // Bloquear si el RUT ya pertenece a un núcleo/usuario
+    // Bloquear solo si ya existe una CUENTA con ese RUT
     const existingRutUser = await prisma.user.findUnique({
       where: { rut: normalizedRut },
     });
-    const existingRutMember = await prisma.familyMember.findFirst({
-      where: { rut: normalizedRut },
-    });
-    if (existingRutUser || existingRutMember) {
+    if (existingRutUser) {
       return NextResponse.json(
         {
           error:
-            "Este RUT ya pertenece a un núcleo familiar. Si no es así, contacta al administrador.",
+            "Este RUT ya tiene una cuenta registrada. Si no es así, contacta al administrador.",
         },
         { status: 409 }
       );
