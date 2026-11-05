@@ -61,7 +61,8 @@ export const ModelName = {
   Payment: 'Payment',
   QrToken: 'QrToken',
   Fine: 'Fine',
-  Visit: 'Visit'
+  Visit: 'Visit',
+  AppSetting: 'AppSetting'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -214,6 +215,14 @@ export const VisitScalarFieldEnum = {
 } as const
 
 export type VisitScalarFieldEnum = (typeof VisitScalarFieldEnum)[keyof typeof VisitScalarFieldEnum]
+
+
+export const AppSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value'
+} as const
+
+export type AppSettingScalarFieldEnum = (typeof AppSettingScalarFieldEnum)[keyof typeof AppSettingScalarFieldEnum]
 
 
 export const SortOrder = {

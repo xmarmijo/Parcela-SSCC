@@ -18,13 +18,29 @@ export function getResendClient(): Resend | null {
   return new Resend(apiKey);
 }
 
-export function getTransporter(): any | null {
+export async function getTransporter(): Promise<any | null> {
   if ((globalThis as any).__mockTransporter) {
     return (globalThis as any).__mockTransporter;
   }
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
+  let user = process.env.GMAIL_USER;
+  let pass = process.env.GMAIL_APP_PASSWORD;
+  let from = process.env.EMAIL_FROM;
+  if (!user || !pass) {
+    try {
+      const settings = await prisma.appSetting.findMany({
+        where: { key: { in: ["gmail_user", "gmail_app_password", "email_from"] } },
+      });
+      const map: Record<string, string> = {};
+      for (const s of settings) map[s.key] = s.value;
+      if (!user) user = map.gmail_user;
+      if (!pass) pass = map.gmail_app_password;
+      if (!from) from = map.email_from;
+    } catch {
+      // ignore
+    }
+  }
   if (!user || !pass) return null;
+  (globalThis as any).__cachedGmailFrom = from || user;
   return nodemailer.createTransport({
     service: "gmail",
     auth: { user, pass },
@@ -32,11 +48,11 @@ export function getTransporter(): any | null {
 }
 
 export async function sendEmail(opts: { to: string; subject: string; html: string }): Promise<{ success: boolean; skipped?: boolean; reason?: string; error?: any; data?: any }> {
-  const transporter = getTransporter();
+  const transporter = await getTransporter();
   if (transporter) {
     try {
       const info = await transporter.sendMail({
-        from: process.env.EMAIL_FROM || process.env.GMAIL_USER,
+        from: (globalThis as any).__cachedGmailFrom || process.env.EMAIL_FROM || process.env.GMAIL_USER,
         to: opts.to,
         subject: opts.subject,
         html: opts.html,

@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/reservas", label: "Reservas" },
   { href: "/admin/usuarios", label: "Usuarios" },
   { href: "/admin/espacios", label: "Espacios" },
+  { href: "/admin/configuracion", label: "Correo" },
   { href: "/admin/notificaciones", label: "Notificaciones" },
   { href: "/admin/familias/importar", label: "Importar" },
 ];

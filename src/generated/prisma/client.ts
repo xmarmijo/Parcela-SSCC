@@ -96,3 +96,8 @@ export type Fine = Prisma.FineModel
  * 
  */
 export type Visit = Prisma.VisitModel
+/**
+ * Model AppSetting
+ * 
+ */
+export type AppSetting = Prisma.AppSettingModel
