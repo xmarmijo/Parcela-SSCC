@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
@@ -7,6 +8,32 @@ export function AppNav() {
   const sessionResult = useSession();
   const session = sessionResult?.data;
   const isAdmin = (session?.user as any)?.role === "ADMIN";
+
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+      setDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setDark(false);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (dark) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setDark(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setDark(true);
+    }
+  };
+
   return (
     <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm">
       <span className="text-base font-semibold text-emerald-700">Parcela SSCC</span>
@@ -37,6 +64,14 @@ export function AppNav() {
         >
           Mi familia
         </Link>
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-1.5 font-medium text-gray-600 dark:text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+          aria-label="Cambiar tema"
+        >
+          {dark ? "Claro" : "Oscuro"}
+        </button>
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/" })}
