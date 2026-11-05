@@ -121,10 +121,30 @@ function AdminReservasInner() {
                         <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 hover:underline">
                           Ver detalle
                         </a>
-                        {r.status !== "CANCELADA" && r.status !== "COMPLETADA" && (
-                          <button onClick={() => cancel(r.id)} className="text-xs text-red-600 hover:underline">
-                            Cancelar
-                          </button>
+                        {r.status === "PENDIENTE_PAGO" && (
+                          <>
+                            <button
+                              onClick={async () => {
+                                if (!confirm("¿Confirmar pago manualmente?")) return;
+                                const res = await fetch("/api/admin/reservations", {
+                                  method: "PATCH",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ id: r.id, action: "confirm" }),
+                                });
+                                if (res.ok) load(page);
+                                else {
+                                  const d = await res.json();
+                                  alert(d.error || "Error");
+                                }
+                              }}
+                              className="text-xs text-blue-600 hover:underline"
+                            >
+                              Confirmar pago
+                            </button>
+                            <button onClick={() => cancel(r.id)} className="text-xs text-red-600 hover:underline">
+                              Cancelar
+                            </button>
+                          </>
                         )}
                       </td>
                     </tr>

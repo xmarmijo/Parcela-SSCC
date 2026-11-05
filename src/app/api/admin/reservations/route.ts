@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import crypto from "node:crypto";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -64,6 +65,57 @@ export async function PATCH(req: Request) {
       await prisma.reservation.update({ where: { id }, data: { status: "CANCELADA" } });
       return NextResponse.json({ ok: true });
     }
+
+    if (action === "confirm") {
+      const reservation = await prisma.reservation.findUnique({ where: { id }, include: { qrTokens: true } });
+      if (!reservation) return NextResponse.json({ error: "No encontrada" }, { status: 404 });
+      if (reservation.status === "CANCELADA") {
+        return NextResponse.json({ error: "No se puede confirmar una reserva cancelada" }, { status: 400 });
+      }
+      if (reservation.status === "CONFIRMADA" || reservation.status === "COMPLETADA") {
+        return NextResponse.json({ ok: true, alreadyConfirmed: true });
+      }
+
+      // Create payment record + confirm + QR (idempotent)
+      await prisma.$transaction(async (tx) => {
+        const pendingPayment = await tx.payment.findFirst({
+          where: { reservationId: reservation.id, status: "PENDING", providerPaymentId: null },
+        });
+        if (pendingPayment) {
+          await tx.payment.update({
+            where: { id: pendingPayment.id },
+            data: { status: "APPROVED", paidAt: new Date(), amount: reservation.totalAmount },
+          });
+        } else {
+          await tx.payment.create({
+            data: {
+              provider: "manual",
+              providerPaymentId: `manual-${Date.now()}`,
+              amount: reservation.totalAmount,
+              status: "APPROVED",
+              paidAt: new Date(),
+              reservationId: reservation.id,
+            },
+          });
+        }
+        await tx.reservation.update({ where: { id }, data: { status: "CONFIRMADA" } });
+        const existingQr = await tx.qrToken.findFirst({ where: { reservationId: reservation.id } });
+        if (!existingQr) {
+          await tx.qrToken.create({ data: { token: crypto.randomUUID(), reservationId: reservation.id } });
+        }
+      });
+
+      // Send confirmation email (best effort)
+      try {
+        const { sendConfirmationEmail } = await import("@/lib/email");
+        sendConfirmationEmail(reservation.id).catch((e) => console.error("Error email:", e));
+      } catch (e) {
+        console.error("Error importando email:", e);
+      }
+
+      return NextResponse.json({ ok: true });
+    }
+
     return NextResponse.json({ error: "Acción no válida" }, { status: 400 });
   } catch (error) {
     console.error("Error:", error);

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Comprobante de Reserva con QR - Parcela SSCC</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; max-width: 700px; margin: 20px auto; padding: 20px; color: #1e293b; }
+  h1 { color: #1e3a8a; margin-bottom: 4px; }
+  .sub { color: #64748b; font-size: 13px; margin-bottom: 20px; }
+  .box { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+  .row:last-child { border-bottom: none; }
+  .label { color: #64748b; }
+  .value { font-weight: 600; }
+  .total { font-size: 18px; font-weight: 800; color: #15803d; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+  .badge-confirmed { background: #dcfce7; color: #166534; }
+  ul { margin: 8px 0; padding-left: 20px; font-size: 13px; }
+  .qr-box { text-align: center; padding: 20px; }
+  .qr-box img { width: 240px; height: 240px; border: 2px solid #e2e8f0; border-radius: 8px; padding: 8px; background: white; }
+  .footer { margin-top: 24px; text-align: center; color: #94a3b8; font-size: 11px; }
+  .guest { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px solid #f1f5f9; }
+  .guest:last-child { border-bottom: none; }
+  @media print { body { margin: 0; } }
+</style>
+</head>
+<body>
+  <h1>Parcela SSCC</h1>
+  <p class="sub">Comprobante de Reserva y Pase de Acceso</p>
+
+  <div class="box">
+    <div class="row"><span class="label">ID Reserva</span><span class="value">cmw2y03dr0000jwrdxwmlz2t9</span></div>
+    <div class="row"><span class="label">Familia</span><span class="value">Familia Moncada</span></div>
+    <div class="row"><span class="label">Titular</span><span class="value">pedro1@test.cl</span></div>
+    <div class="row"><span class="label">Fecha de visita</span><span class="value">sábado, 28 de noviembre de 2026</span></div>
+    <div class="row"><span class="label">Estado</span><span class="badge badge-confirmed">Confirmada</span></div>
+    <div class="row"><span class="label">Total pagado</span><span class="total">$40.000 CLP</span></div>
+  </div>
+
+  <div class="box">
+    <h3 style="margin:0 0 8px 0;font-size:14px;">Núcleo familiar autorizado</h3>
+    <ul>
+      <li>Pedro Moncada (titular) — RUT: 11111111-1</li>
+      <li>Elimig Lopez (cónyuge)</li>
+      <li>Enzo Moncada (hijo/a)</li>
+      <li>Emily Moncada (hijo/a)</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3 style="margin:0 0 8px 0;font-size:14px;">Invitados adicionales (20)</h3>
+    <div class="guest"><span>Juan Perez</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Carlos Soto</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Luis Gomez</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Mario Rojas</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Andres Silva</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Felipe Castro</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Ricardo Vargas</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Diego Herrera</span><span style="color:#16a34a;font-weight:600;">Socio (sin cargo)</span></div>
+    <div class="guest"><span>Amiga 1</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 2</span><span style="color:#6b7280;">Sin piscina</span></div>
+    <div class="guest"><span>Amiga 3</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 4</span><span style="color:#6b7280;">Sin piscina</span></div>
+    <div class="guest"><span>Amiga 5</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 6</span><span style="color:#6b7280;">Sin piscina</span></div>
+    <div class="guest"><span>Amiga 7</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 8</span><span style="color:#6b7280;">Sin piscina</span></div>
+    <div class="guest"><span>Amiga 9</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 10</span><span style="color:#6b7280;">Sin piscina</span></div>
+    <div class="guest"><span>Amiga 11</span><span style="color:#2563eb;">Piscina</span></div>
+    <div class="guest"><span>Amiga 12</span><span style="color:#6b7280;">Sin piscina</span></div>
+  </div>
+
+  <div class="box" style="text-align:center;">
+    <p class="text-sm font-medium text-emerald-800">Pase de acceso (QR)</p>
+    <img src="https://parcelasscc.vercel.app/api/qr/826427e8-137a-4a09-b3fa-384176e630b1" alt="QR de acceso" style="width:220px;height:220px;margin:12px auto;border:2px solid #e2e8f0;border-radius:8px;padding:8px;background:white;" />
+    <p class="break-all font-mono text-xs text-emerald-700">826427e8-137a-4a09-b3fa-384176e630b1</p>
+    <p class="text-xs text-gray-400 mt-2">Escanea este código en la entrada para validar el acceso.</p>
+  </div>
+
+  <div class="box">
+    <h3 style="margin:0 0 8px 0;font-size:14px;">Comprobantes de pago</h3>
+    <div class="row"><span class="label">Pago #1</span><span class="value">Aprobado — $40.000 CLP</span></div>
+  </div>
+
+  <div class="footer">
+    Generado el 05-11-2026 · Parcela SSCC · Sistema de Reservas
+  </div>
+
+  <script>window.print();</script>
+</body>
+</html>
