@@ -10,6 +10,9 @@ export default function AdminCalendarioPage() {
   const [month, setMonth] = useState(now.getUTCMonth() + 1);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [dayReservations, setDayReservations] = useState<any[]>([]);
+  const [loadingDay, setLoadingDay] = useState(false);
 
   const load = () => {
     setLoading(true);
@@ -22,6 +25,15 @@ export default function AdminCalendarioPage() {
   useEffect(() => {
     load();
   }, [year, month]);
+
+  const loadDay = (key: string) => {
+    setSelectedDate(key);
+    setLoadingDay(true);
+    fetch(`/api/admin/reservations?date=${key}`)
+      .then((r) => r.json())
+      .then((d) => setDayReservations(Array.isArray(d.reservations) ? d.reservations : Array.isArray(d) ? d : []))
+      .finally(() => setLoadingDay(false));
+  };
 
   const daysInMonth = new Date(year, month, 0).getDate();
   const firstDay = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
@@ -68,26 +80,64 @@ export default function AdminCalendarioPage() {
                 const total = info?.total ?? 0;
                 const bg = total === 0 ? "bg-white" : total < 3 ? "bg-emerald-50" : total < 6 ? "bg-amber-50" : "bg-red-50";
                 return (
-                  <div key={day} className={`border-b border-r border-gray-100 h-20 p-1 ${bg}`}>
+                  <div
+                  key={day}
+                  onClick={total > 0 ? () => loadDay(key) : undefined}
+                  className={`border-b border-r border-gray-100 h-20 p-1 ${bg} ${total > 0 ? "cursor-pointer hover:ring-1 hover:ring-emerald-400" : ""}`}
+                >
                     <div className="text-xs font-medium text-gray-700">{day}</div>
                     {total > 0 && (
                       <div className="mt-1 text-[10px] text-gray-600">
                         <div>{total} reserva{total > 1 ? "s" : ""}</div>
                         {info.confirmed > 0 && <div className="text-emerald-700">✓ {info.confirmed}</div>}
                         {info.pending > 0 && <div className="text-amber-700">⏳ {info.pending}</div>}
-                        <div className="mt-1 space-y-0.5">
-                          {(info.families ?? []).map((name: string, idx: number) => (
-                            <div key={idx} className="truncate text-[9px] text-gray-500" title={name}>
-                              {name}
-                            </div>
-                          ))}
-                        </div>
                       </div>
                     )}
                   </div>
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {selectedDate && (
+          <div className="mt-6 rounded-xl border border-gray-200 bg-white shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Reservas del {new Date(selectedDate + "T00:00:00.000Z").toLocaleDateString("es-CL", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" })}
+              </h3>
+              <button onClick={() => setSelectedDate(null)} className="text-sm text-gray-500 hover:text-gray-700">Cerrar</button>
+            </div>
+            {loadingDay ? (
+              <p className="text-sm text-gray-500">Cargando...</p>
+            ) : dayReservations.length === 0 ? (
+              <p className="text-sm text-gray-500">Sin reservas.</p>
+            ) : (
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-gray-500 border-b">
+                    <th className="py-2">Familia</th>
+                    <th className="py-2">Estado</th>
+                    <th className="py-2">Total</th>
+                    <th className="py-2">Espacios</th>
+                    <th className="py-2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dayReservations.map((r: any) => (
+                    <tr key={r.id} className="border-b">
+                      <td className="py-2 font-medium">{r.family?.name}</td>
+                      <td className="py-2">{r.status}</td>
+                      <td className="py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
+                      <td className="py-2 text-xs">{r.addOns?.map((a: any) => a.addOnSpace?.name).join(", ") || "Parcela"}</td>
+                      <td className="py-2">
+                        <a href={`/reservas/${r.id}`} className="text-emerald-600 hover:underline text-xs">Ver detalle</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
 
