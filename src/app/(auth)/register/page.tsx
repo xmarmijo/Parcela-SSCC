@@ -24,7 +24,9 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<{
     email?: string;
     rut?: string;
@@ -85,7 +87,6 @@ export default function RegisterPage() {
         return;
       }
 
-      // Automatically sign in after successful registration
       await signIn("credentials", {
         email: email.trim().toLowerCase(),
         password,
@@ -165,15 +166,25 @@ export default function RegisterPage() {
             >
               Contraseña
             </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
-              placeholder="Mínimo 6 caracteres"
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 pr-10"
+                placeholder="Mínimo 6 caracteres"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-xs text-red-500 mt-1">{errors.password}</p>
             )}
@@ -186,15 +197,25 @@ export default function RegisterPage() {
             >
               Confirmar contraseña
             </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
-              placeholder="Repite tu contraseña"
-            />
+            <div className="relative">
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 pr-10"
+                placeholder="Repite tu contraseña"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+                aria-label={showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showConfirmPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
             {errors.confirmPassword && (
               <p className="text-xs text-red-500 mt-1">
                 {errors.confirmPassword}

@@ -7,12 +7,12 @@ import { signIn } from "next-auth/react";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().email("Ingresa un correo electrónico válido"),
+  email: z.string().trim().min(1, "Ingresa tu correo o RUT"),
   password: z.string().min(1, "Ingresa tu contraseña"),
 });
 
 function LoginForm() {
-  // router no longer needed (NextAuth handles redirect)
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/reservar";
   const registered = searchParams.get("registered");
@@ -20,13 +20,14 @@ function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (urlError) {
-      setServerError("Credenciales incorrectas. Verifica tu correo y contraseña.");
+      setServerError("Credenciales incorrectas. Verifica tu correo/RUT y contraseña.");
     }
   }, [urlError]);
 
@@ -50,11 +51,10 @@ function LoginForm() {
 
     try {
       await signIn("credentials", {
-        email: email.trim().toLowerCase(),
+        email: email.trim(),
         password,
         callbackUrl,
       });
-      // Si llega aquí, la redirección la maneja NextAuth
     } catch {
       setServerError("Ocurrió un error inesperado al intentar iniciar sesión.");
       setLoading(false);
@@ -90,16 +90,16 @@ function LoginForm() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
-            Correo electrónico
+            Correo o RUT
           </label>
           <input
             id="email"
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
-            placeholder="socio@ejemplo.cl"
+            placeholder="correo@ejemplo.cl o 12.345.678-9"
           />
           {errors.email && (
             <p className="text-xs text-red-500 mt-1">{errors.email}</p>
@@ -113,15 +113,25 @@ function LoginForm() {
           >
             Contraseña
           </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
-            placeholder="••••••••"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 pr-10"
+              placeholder="••••••••"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-xs text-red-500 mt-1">{errors.password}</p>
           )}

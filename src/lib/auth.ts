@@ -7,7 +7,7 @@ import { authConfig } from "@/lib/auth.config";
 import type { Role } from "@/generated/prisma/client";
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z.string().trim().min(1),
   password: z.string().min(1),
 });
 
@@ -26,10 +26,20 @@ const nextAuth = NextAuth({
           return null;
         }
 
-        const email = parsed.data.email.trim().toLowerCase();
-        const user = await prisma.user.findUnique({
-          where: { email },
+        const loginInput = parsed.data.email.trim();
+        const normalizedRut = loginInput.includes("-") || /^\d{7,8}[\dkK]$/.test(loginInput.replace(/\./g, ""))
+          ? loginInput.replace(/\./g, "").toUpperCase()
+          : null;
+
+        let user = await prisma.user.findUnique({
+          where: { email: loginInput.toLowerCase() },
         });
+
+        if (!user && normalizedRut) {
+          user = await prisma.user.findFirst({
+            where: { rut: normalizedRut },
+          });
+        }
 
         if (!user || !user.passwordHash) {
           return null;
