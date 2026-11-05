@@ -6,20 +6,23 @@ import Link from "next/link";
 
 export default function AdminFamiliasPage() {
   const [q, setQ] = useState("");
+  const [page, setPage] = useState(1);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const load = () => {
+  const load = (p = page) => {
     setLoading(true);
-    fetch(`/api/admin/families?q=${encodeURIComponent(q)}`)
+    fetch(`/api/admin/families?q=${encodeURIComponent(q)}&page=${p}`)
       .then((r) => r.json())
       .then(setData)
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    load();
+    load(1);
   }, []);
+
+  const totalPages = Math.max(1, Math.ceil((data?.total ?? 0) / (data?.pageSize ?? 20)));
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
@@ -34,7 +37,7 @@ export default function AdminFamiliasPage() {
             placeholder="Buscar por nombre, RUT o correo"
             className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
-          <button onClick={load} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+          <button onClick={() => { setPage(1); load(1); }} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             Buscar
           </button>
         </div>
@@ -71,6 +74,13 @@ export default function AdminFamiliasPage() {
               </tbody>
             </table>
             <p className="px-4 py-2 text-xs text-gray-500">Total: {data?.total ?? 0}</p>
+            <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600">
+              <span>Página {data?.page ?? 1} de {totalPages}</span>
+              <div className="flex gap-2">
+                <button disabled={page <= 1} onClick={() => { const p = page - 1; setPage(p); load(p); }} className="rounded border px-3 py-1 disabled:opacity-40">Anterior</button>
+                <button disabled={page >= totalPages} onClick={() => { const p = page + 1; setPage(p); load(p); }} className="rounded border px-3 py-1 disabled:opacity-40">Siguiente</button>
+              </div>
+            </div>
           </div>
         )}
       </div>
