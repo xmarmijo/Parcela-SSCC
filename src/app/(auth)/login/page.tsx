@@ -62,12 +62,12 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white dark:bg-[#12161A] rounded-xl shadow-md border border-gray-100 dark:border-[#2a3440] dark:bg-[#12161A] dark:border-[#2a3440]">
+    <div className="w-full max-w-md p-6 bg-white dark:bg-slate-900 rounded-xl shadow-md border border-gray-100 dark:border-slate-700 dark:bg-slate-900 dark:border-slate-700">
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-[#E2E8F0]">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-50">
           Iniciar Sesión
         </h1>
-        <p className="text-sm text-gray-500 dark:text-[#94a3b8] mt-1 dark:text-[#94a3b8]">
+        <p className="text-sm text-gray-500 dark:text-slate-400 mt-1 dark:text-slate-400">
           Accede al sistema de reservas de la Parcela SSCC
         </p>
       </div>
@@ -88,7 +88,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 dark:text-[#E2E8F0] mb-1"
+            className="block text-sm font-medium text-gray-700 dark:text-slate-50 mb-1"
           >
             Correo o RUT
           </label>
@@ -98,7 +98,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-[#E2E8F0] bg-white dark:bg-[#12161A] dark:bg-[#1A2026] dark:text-[#E2E8F0] dark:border-[#2a3440]"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-slate-50 bg-white dark:bg-slate-900 dark:bg-slate-800 dark:text-slate-50 dark:border-slate-700"
             placeholder="correo@ejemplo.cl o 12.345.678-9"
           />
           {errors.email && (
@@ -109,7 +109,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700 dark:text-[#E2E8F0] mb-1"
+            className="block text-sm font-medium text-gray-700 dark:text-slate-50 mb-1"
           >
             Contraseña
           </label>
@@ -120,13 +120,13 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-[#E2E8F0] bg-white dark:bg-[#12161A] dark:bg-[#1A2026] dark:text-[#E2E8F0] dark:border-[#2a3440] pr-10"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-slate-50 bg-white dark:bg-slate-900 dark:bg-slate-800 dark:text-slate-50 dark:border-slate-700 pr-10"
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-[#94a3b8] hover:text-gray-700 dark:text-[#E2E8F0]"
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:text-slate-50"
               aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
               {showPassword ? "🙈" : "👁️"}
@@ -146,7 +146,7 @@ function LoginForm() {
         </button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-600 dark:text-[#94a3b8]">
+      <div className="mt-6 text-center text-sm text-gray-600 dark:text-slate-400">
         ¿No tienes una cuenta aún?{" "}
         <Link
           href="/register"
@@ -161,8 +161,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-[#12161A]">
-      <Suspense fallback={<div className="text-gray-600 dark:text-[#94a3b8]">Cargando formulario...</div>}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-slate-900">
+      <Suspense fallback={<div className="text-gray-600 dark:text-slate-400">Cargando formulario...</div>}>
         <LoginForm />
       </Suspense>
     </div>

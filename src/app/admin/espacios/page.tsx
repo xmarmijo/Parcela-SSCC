@@ -30,20 +30,20 @@ export default function AdminEspaciosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#12161A] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#E2E8F0]">Espacios arrendables</h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-[#94a3b8]">Edita precio y capacidad de los espacios.</p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-50">Espacios arrendables</h1>
+        <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">Edita precio y capacidad de los espacios.</p>
 
         {loading ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-[#94a3b8]">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500 dark:text-slate-400">Cargando...</p>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] shadow-sm">
+          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 dark:text-[#94a3b8] border-b bg-gray-50 dark:bg-[#12161A]">
+                <tr className="text-left text-gray-500 dark:text-slate-400 border-b bg-gray-50 dark:bg-slate-900">
                   <th className="px-4 py-2">Espacio</th>
                   <th className="px-4 py-2">Precio (CLP)</th>
                   <th className="px-4 py-2">Capacidad</th>
@@ -59,7 +59,7 @@ export default function AdminEspaciosPage() {
                         type="number"
                         defaultValue={s.pricePerUnit}
                         onBlur={(e) => update(s.id, "pricePerUnit", Number(e.target.value))}
-                        className="w-28 rounded border border-gray-300 dark:border-[#2a3440] px-2 py-1 text-sm"
+                        className="w-28 rounded border border-gray-300 dark:border-slate-700 px-2 py-1 text-sm"
                       />
                     </td>
                     <td className="px-4 py-2">
@@ -70,7 +70,7 @@ export default function AdminEspaciosPage() {
                         onBlur={(e) =>
                           update(s.id, "capacityGuests", e.target.value ? Number(e.target.value) : null)
                         }
-                        className="w-28 rounded border border-gray-300 dark:border-[#2a3440] px-2 py-1 text-sm"
+                        className="w-28 rounded border border-gray-300 dark:border-slate-700 px-2 py-1 text-sm"
                       />
                     </td>
                     <td className="px-4 py-2 text-xs text-gray-400">Guardado al salir del campo</td>

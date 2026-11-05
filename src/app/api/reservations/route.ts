@@ -252,7 +252,7 @@ export async function POST(req: Request) {
         data: {
           familyId: targetFamilyId!,
           date: bookingDate,
-          status: "PENDIENTE_PAGO",
+          status: totalAmount === 0 ? "CONFIRMADA" : "PENDIENTE_PAGO",
           totalAmount,
           extraPersons:
             extraPersons.length > 0
@@ -290,15 +290,24 @@ export async function POST(req: Request) {
               addOnSpace: true,
             },
           },
+          qrTokens: true,
         },
       });
     };
 
     let reservation;
     try {
-      reservation = await prisma.$transaction(
-        async (tx) => createData(tx)
-      );
+      reservation = await prisma.$transaction(async (tx) => {
+        const r = await createData(tx);
+        // Si es gratis, generar QR automáticamente
+        if (totalAmount === 0) {
+          const existingQr = await tx.qrToken.findFirst({ where: { reservationId: r.id } });
+          if (!existingQr) {
+            await tx.qrToken.create({ data: { token: crypto.randomUUID(), reservationId: r.id } });
+          }
+        }
+        return r;
+      });
     } catch (err: any) {
       if (err?.code === "P2002") {
         return NextResponse.json(
@@ -310,6 +319,16 @@ export async function POST(req: Request) {
         );
       }
       throw err;
+    }
+
+    // Enviar correo de confirmación si es gratis (no hay webhook de pago)
+    if (totalAmount === 0) {
+      try {
+        const { sendConfirmationEmail } = await import("@/lib/email");
+        sendConfirmationEmail(reservation.id).catch((e) => console.error("Error email:", e));
+      } catch (e) {
+        console.error("Error importando email:", e);
+      }
     }
 
     return NextResponse.json(reservation, { status: 201 });

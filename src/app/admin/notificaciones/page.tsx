@@ -39,19 +39,19 @@ export default function AdminNotificacionesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#12161A] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#E2E8F0]">Notificaciones</h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-[#94a3b8]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-50">Notificaciones</h1>
+        <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">
           Envío manual de recordatorios y resúmenes por correo (Gmail).
         </p>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#2a3440] bg-white dark:bg-[#12161A] p-6 shadow-sm space-y-4">
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm space-y-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#E2E8F0]">Recordatorios de reserva</h2>
-            <p className="text-sm text-gray-600 dark:text-[#94a3b8]">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50">Recordatorios de reserva</h2>
+            <p className="text-sm text-gray-600 dark:text-slate-400">
               Envía un recordatorio a los socios con reserva confirmada en los próximos 2 días.
             </p>
             <button
@@ -62,7 +62,7 @@ export default function AdminNotificacionesPage() {
               {loadingR ? "Enviando..." : "Enviar recordatorios"}
             </button>
             {reminderResult && (
-              <p className="mt-2 text-sm text-gray-700 dark:text-[#E2E8F0]">
+              <p className="mt-2 text-sm text-gray-700 dark:text-slate-50">
                 Enviados: {reminderResult.sent ?? 0} · Omitidos: {reminderResult.skipped ?? 0} · Errores: {reminderResult.errors ?? 0}
                 {reminderResult.error ? ` · ${reminderResult.error}` : ""}
               </p>
@@ -70,8 +70,8 @@ export default function AdminNotificacionesPage() {
           </div>
 
           <div className="border-t pt-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#E2E8F0]">Resumen semanal</h2>
-            <p className="text-sm text-gray-600 dark:text-[#94a3b8]">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50">Resumen semanal</h2>
+            <p className="text-sm text-gray-600 dark:text-slate-400">
               Envía a todos los admins un resumen de la última semana (reservas, ingresos, multas).
             </p>
             <button
@@ -82,7 +82,7 @@ export default function AdminNotificacionesPage() {
               {loadingW ? "Enviando..." : "Enviar resumen semanal"}
             </button>
             {weeklyResult && (
-              <p className="mt-2 text-sm text-gray-700 dark:text-[#E2E8F0]">
+              <p className="mt-2 text-sm text-gray-700 dark:text-slate-50">
                 {weeklyResult.success ? "Enviado correctamente" : weeklyResult.skipped ? "Omitido (sin admin o sin correo)" : weeklyResult.error ?? "Error"}
               </p>
             )}
