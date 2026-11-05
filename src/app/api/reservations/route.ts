@@ -173,6 +173,17 @@ export async function POST(req: Request) {
       }
     }
 
+    // Bloquear si la familia tiene multas pendientes de pago
+    const unpaidFines = await prisma.fine.count({
+      where: { familyId: targetFamilyId, paidAt: null },
+    });
+    if (unpaidFines > 0) {
+      return NextResponse.json(
+        { error: "Tu familia tiene multas pendientes de pago. Regularízalas antes de reservar." },
+        { status: 400 }
+      );
+    }
+
     // Check for existing active reservation for family+date (409)
     const existingReservation = await prisma.reservation.findFirst({
       where: {

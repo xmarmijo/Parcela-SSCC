@@ -13,6 +13,7 @@ import { GET as getAddOnSpaces } from "../src/app/api/addon-spaces/route";
 describe("Reservations and AddOnSpace API endpoints", () => {
   beforeEach(() => {
     (prisma.blockedDate as any).findUnique = async () => null;
+    (prisma.fine as any).count = async () => 0;
   });
   beforeEach(() => {
     delete (globalThis as any).__mockSession;
