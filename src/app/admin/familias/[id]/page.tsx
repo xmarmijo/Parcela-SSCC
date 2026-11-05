@@ -45,6 +45,7 @@ export default function AdminFamiliaDetallePage() {
           ← Volver
         </Link>
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">{family.name}</h1>
+        {family.code && <p className="text-sm text-gray-500 dark:text-slate-400 font-mono">Código: {family.code}</p>}
         <p className="mt-1 text-sm text-gray-600 dark:text-[#637777]">
           Titular: {family.owner?.email ?? "Sin registrar"} {family.owner?.rut ? `(${family.owner.rut})` : ""}
         </p>

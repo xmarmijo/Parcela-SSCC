@@ -79,9 +79,12 @@ export async function POST(req: Request) {
 
         let family = await prisma.family.findUnique({ where: { importKey: idNucleo } });
         if (!family) {
+          const count = await prisma.family.count();
+          const code = `FAM-${String(count + 1).padStart(4, "0")}`;
           family = await prisma.family.create({
             data: {
               name: familyName,
+              code,
               importKey: idNucleo,
               importedAt: new Date(),
             },

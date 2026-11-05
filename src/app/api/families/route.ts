@@ -60,9 +60,12 @@ export async function POST(req: Request) {
       );
     }
 
+    const count = await prisma.family.count();
+    const code = `FAM-${String(count + 1).padStart(4, "0")}`;
     const family = await prisma.family.create({
       data: {
         name: parseResult.data.name,
+        code,
         ownerId: session.user.id,
       },
     });

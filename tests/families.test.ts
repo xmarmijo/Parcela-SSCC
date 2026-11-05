@@ -11,6 +11,7 @@ describe("Family and FamilyMember API endpoints", () => {
   beforeEach(() => {
     delete (globalThis as any).__mockSession;
     (prisma.familyMember as any).findFirst = async () => null;
+    (prisma.family as any).count = async () => 0;
   });
 
   describe("POST /api/families", () => {

@@ -51,6 +51,7 @@ export default function AdminFamiliasPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-gray-500 dark:text-[#637777] border-b bg-gray-50 dark:bg-[#011627]">
+                  <th className="px-4 py-2">Código</th>
                   <th className="px-4 py-2">Familia</th>
                   <th className="px-4 py-2">Titular</th>
                   <th className="px-4 py-2">Integrantes</th>
@@ -60,6 +61,7 @@ export default function AdminFamiliasPage() {
               <tbody>
                 {data?.families?.map((f: any) => (
                   <tr key={f.id} className="border-b">
+                    <td className="px-4 py-2 font-mono text-xs text-gray-500 dark:text-slate-400">{f.code ?? "-"}</td>
                     <td className="px-4 py-2 font-medium">{f.name}</td>
                     <td className="px-4 py-2">
                       {f.owner?.email ?? "Sin titular registrado"}
