@@ -208,9 +208,21 @@ export default function FamiliaPage() {
                 </p>
                 <ul className="divide-y divide-red-100 dark:divide-red-900">
                   {fines.filter((f: any) => !f.paidAt).map((f: any) => (
-                    <li key={f.id} className="py-2 flex justify-between text-sm">
+                    <li key={f.id} className="py-2 flex flex-wrap items-center justify-between gap-2 text-sm">
                       <span className="text-red-800 dark:text-red-300">{f.reason}</span>
-                      <span className="font-bold text-red-900 dark:text-red-200">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-red-900 dark:text-red-200">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
+                        <button
+                          onClick={() =>
+                            alert(
+                              `Para pagar la multa de $${Number(f.amount).toLocaleString("es-CL")} CLP, realiza una transferencia a la cuenta del club y envía el comprobante a la administración. El admin marcará la multa como pagada.`
+                            )
+                          }
+                          className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700"
+                        >
+                          Pagar
+                        </button>
+                      </div>
                     </li>
                   ))}
                 </ul>
