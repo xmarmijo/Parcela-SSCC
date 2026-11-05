@@ -70,6 +70,9 @@ export default function AdminDashboardPage() {
           <a href="/admin/usuarios" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             Usuarios
           </a>
+          <a href="/admin/espacios" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
+            Espacios
+          </a>
           <a href="/admin/familias/importar" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
             Importar núcleos
           </a>

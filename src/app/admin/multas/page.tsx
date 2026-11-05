@@ -97,7 +97,8 @@ export default function AdminMultasPage() {
                   <th className="py-2">Familia</th>
                   <th className="py-2">Motivo</th>
                   <th className="py-2">Monto</th>
-                  <th className="py-2">Fecha</th>
+                  <th className="py-2">Estado</th>
+                  <th className="py-2"></th>
                 </tr>
               </thead>
               <tbody>
@@ -106,7 +107,24 @@ export default function AdminMultasPage() {
                     <td className="py-2">{f.family?.name}</td>
                     <td className="py-2">{f.reason}</td>
                     <td className="py-2">${Number(f.amount).toLocaleString("es-CL")}</td>
-                    <td className="py-2">{new Date(f.createdAt).toLocaleDateString("es-CL")}</td>
+                    <td className="py-2">{f.paidAt ? "Pagada" : "Pendiente"}</td>
+                    <td className="py-2">
+                      {!f.paidAt && (
+                        <button
+                          onClick={async () => {
+                            await fetch(`/api/admin/fines/${f.id}`, {
+                              method: "PATCH",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ paid: true }),
+                            });
+                            load();
+                          }}
+                          className="text-xs text-emerald-600 hover:underline"
+                        >
+                          Marcar pagada
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
