@@ -11,12 +11,16 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const date = searchParams.get("date");
     const rut = searchParams.get("rut")?.trim();
+    const status = searchParams.get("status")?.trim();
     const page = parseInt(searchParams.get("page") ?? "1", 10);
     const pageSize = 20;
     const where: any = {};
     if (date) {
       const d = new Date(date + "T00:00:00.000Z");
       where.date = d;
+    }
+    if (status) {
+      where.status = status;
     }
     if (rut) {
       const normalized = rut.replace(/\./g, "").replace(/\s/g, "").toUpperCase();

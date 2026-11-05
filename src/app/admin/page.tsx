@@ -7,6 +7,7 @@ import { AdminNav } from "@/components/AdminNav";
 export default function AdminDashboardPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch("/api/admin/dashboard")
@@ -57,7 +58,15 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Últimas reservas</h2>
+          <div className="flex items-center justify-between mb-4 gap-2">
+            <h2 className="text-lg font-semibold text-gray-900">Últimas reservas</h2>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar por familia"
+              className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+            />
+          </div>
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-gray-500 border-b">
@@ -68,11 +77,21 @@ export default function AdminDashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {data.recentReservations?.map((r: any) => (
+              {(data.recentReservations ?? [])
+                .filter((r: any) =>
+                  (r.family?.name ?? "")
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                )
+                .map((r: any) => (
                 <tr key={r.id} className="border-b">
                   <td className="py-2">{r.family?.name ?? "-"}</td>
                   <td className="py-2">{new Date(r.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
-                  <td className="py-2">{r.status}</td>
+                  <td className="py-2">
+                    <a href={`/admin/reservas?status=${r.status}`} className="text-emerald-600 hover:underline">
+                      {r.status}
+                    </a>
+                  </td>
                   <td className="py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
                 </tr>
               ))}
@@ -80,29 +99,7 @@ export default function AdminDashboardPage() {
           </table>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a href="/admin/familias" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            Gestionar familias
-          </a>
-          <a href="/admin/multas" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            Multas
-          </a>
-          <a href="/admin/reservas" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            Reservas
-          </a>
-          <a href="/admin/usuarios" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            Usuarios
-          </a>
-          <a href="/admin/espacios" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
-            Espacios
-          </a>
-          <a href="/admin/familias/importar" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
-            Importar núcleos
-          </a>
-          <a href="/api/admin/export" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
-            Exportar Excel
-          </a>
-        </div>
+
       </div>
     </div>
   );

@@ -53,6 +53,7 @@ export async function validateQrToken(
           family: {
             include: {
               owner: true,
+              members: true,
             },
           },
           addOns: {
@@ -88,6 +89,7 @@ export async function validateQrToken(
           family: {
             include: {
               owner: true,
+              members: true,
             },
           },
           addOns: {

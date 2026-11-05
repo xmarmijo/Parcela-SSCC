@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AppNav } from "@/components/AppNav";
 import { AdminNav } from "@/components/AdminNav";
 
-export default function AdminReservasPage() {
+import { Suspense } from "react";
+
+function AdminReservasInner() {
   const [date, setDate] = useState("");
   const [rut, setRut] = useState("");
+  const searchParams = useSearchParams();
+  const [status, setStatus] = useState(searchParams.get("status") ?? "");
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ total: number; page: number; pageSize: number; reservations: any[] }>({ total: 0, page: 1, pageSize: 20, reservations: [] });
   const [loading, setLoading] = useState(false);
@@ -16,6 +21,7 @@ export default function AdminReservasPage() {
     const params = new URLSearchParams();
     if (date) params.set("date", date);
     if (rut) params.set("rut", rut);
+    if (status) params.set("status", status);
     params.set("page", String(p));
     fetch(`/api/admin/reservations?${params.toString()}`)
       .then((r) => r.json())
@@ -64,6 +70,17 @@ export default function AdminReservasPage() {
             placeholder="Filtrar por RUT del titular"
             className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          >
+            <option value="">Todos los estados</option>
+            <option value="PENDIENTE_PAGO">Pendiente de pago</option>
+            <option value="CONFIRMADA">Confirmada</option>
+            <option value="COMPLETADA">Completada</option>
+            <option value="CANCELADA">Cancelada</option>
+          </select>
           <button
             onClick={() => { setPage(1); load(1); }}
             className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
@@ -71,7 +88,7 @@ export default function AdminReservasPage() {
             Filtrar
           </button>
           <button
-            onClick={() => { setDate(""); setRut(""); setPage(1); load(1); }}
+            onClick={() => { setDate(""); setRut(""); setStatus(""); setPage(1); load(1); }}
             className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
           >
             Limpiar
@@ -135,5 +152,11 @@ export default function AdminReservasPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AdminReservasPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Cargando...</div>}><AdminReservasInner /></Suspense>
   );
 }
