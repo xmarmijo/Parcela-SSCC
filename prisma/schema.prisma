@@ -41,6 +41,7 @@ enum PaymentStatus {
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
+  rut          String?  @unique
   passwordHash String
   role         Role     @default(SOCIO)
   createdAt    DateTime @default(now())
@@ -62,9 +63,13 @@ model Family {
   name        String
   createdAt   DateTime       @default(now())
 
-  // The SOCIO who owns this family record
-  ownerId     String         @unique
-  owner       User           @relation("FamilyOwner", fields: [ownerId], references: [id])
+  // The SOCIO who owns this family record (optional: imported nuclei may have no owner yet)
+  ownerId     String?        @unique
+  owner       User?          @relation("FamilyOwner", fields: [ownerId], references: [id])
+
+  // Import traceability
+  importKey   String?        @unique
+  importedAt  DateTime?
 
   members     FamilyMember[]
   reservations Reservation[]
@@ -77,6 +82,10 @@ model FamilyMember {
   id        String   @id @default(cuid())
   fullName  String
   relation  String   // e.g. "titular", "cónyuge", "hijo", etc.
+  rut       String?
+  email     String?
+  course    String?
+  exAlumno  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   familyId  String
