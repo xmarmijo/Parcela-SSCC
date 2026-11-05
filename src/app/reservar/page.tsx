@@ -202,6 +202,13 @@ export default function ReservarPage() {
       return;
     }
 
+    if (newGuestName.trim()) {
+      setErrorMessage(
+        "Tienes un invitado sin agregar. Haz clic en 'Agregar' o borra el campo antes de reservar."
+      );
+      return;
+    }
+
     setSubmitting(true);
     try {
       const dates = recurring ? generateRecurringDates() : [date];
