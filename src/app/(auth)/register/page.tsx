@@ -9,6 +9,7 @@ import { z } from "zod";
 const registerSchema = z
   .object({
     email: z.string().email("Ingresa un correo electrónico válido"),
+    rut: z.string().min(1, "El RUT es obligatorio"),
     password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
     confirmPassword: z.string().min(1, "Confirma tu contraseña"),
   })
@@ -21,10 +22,12 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{
     email?: string;
+    rut?: string;
     password?: string;
     confirmPassword?: string;
   }>({});
@@ -37,6 +40,7 @@ export default function RegisterPage() {
 
     const validation = registerSchema.safeParse({
       email,
+      rut,
       password,
       confirmPassword,
     });
@@ -44,11 +48,13 @@ export default function RegisterPage() {
     if (!validation.success) {
       const fieldErrors: {
         email?: string;
+        rut?: string;
         password?: string;
         confirmPassword?: string;
       } = {};
       for (const issue of validation.error.issues) {
         if (issue.path[0] === "email") fieldErrors.email = issue.message;
+        if (issue.path[0] === "rut") fieldErrors.rut = issue.message;
         if (issue.path[0] === "password") fieldErrors.password = issue.message;
         if (issue.path[0] === "confirmPassword")
           fieldErrors.confirmPassword = issue.message;
@@ -66,6 +72,7 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email.trim().toLowerCase(),
+          rut: rut.trim(),
           password,
         }),
       });
@@ -79,18 +86,11 @@ export default function RegisterPage() {
       }
 
       // Automatically sign in after successful registration
-      const signInRes = await signIn("credentials", {
+      await signIn("credentials", {
         email: email.trim().toLowerCase(),
         password,
-        redirect: false,
+        callbackUrl: "/reservar",
       });
-
-      if (signInRes?.ok) {
-        router.push("/reservar");
-        router.refresh();
-      } else {
-        router.push("/login?registered=true");
-      }
     } catch {
       setServerError("Error de conexión. Inténtalo nuevamente.");
       setLoading(false);
@@ -134,6 +134,27 @@ export default function RegisterPage() {
             />
             {errors.email && (
               <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="rut"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              RUT
+            </label>
+            <input
+              id="rut"
+              type="text"
+              value={rut}
+              onChange={(e) => setRut(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
+              placeholder="12.345.678-9"
+            />
+            {errors.rut && (
+              <p className="text-xs text-red-500 mt-1">{errors.rut}</p>
             )}
           </div>
 
