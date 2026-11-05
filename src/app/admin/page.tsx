@@ -74,6 +74,7 @@ export default function AdminDashboardPage() {
                 <th className="py-2">Fecha</th>
                 <th className="py-2">Estado</th>
                 <th className="py-2">Total</th>
+                <th className="py-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -95,6 +96,11 @@ export default function AdminDashboardPage() {
                     </a>
                   </td>
                   <td className="py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
+                  <td className="py-2">
+                    <a href={`/reservas/${r.id}`} className="text-emerald-600 hover:underline text-xs">
+                      Ver
+                    </a>
+                  </td>
                 </tr>
               ))}
             </tbody>

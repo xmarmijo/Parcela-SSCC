@@ -117,7 +117,10 @@ function AdminReservasInner() {
                       <td className="px-4 py-2">{new Date(r.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                       <td className="px-4 py-2">{r.status}</td>
                       <td className="px-4 py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
-                      <td className="px-4 py-2">
+                      <td className="px-4 py-2 space-x-2">
+                        <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 hover:underline">
+                          Ver detalle
+                        </a>
                         {r.status !== "CANCELADA" && r.status !== "COMPLETADA" && (
                           <button onClick={() => cancel(r.id)} className="text-xs text-red-600 hover:underline">
                             Cancelar
