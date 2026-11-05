@@ -39,7 +39,7 @@ export default function AdminFamiliasPage() {
             placeholder="Buscar por nombre, RUT o correo"
             className="flex-1 rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-2 text-sm"
           />
-          <button onClick={() => { setPage(1); load(1); }} className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600">
+          <button onClick={() => { setPage(1); load(1); }} className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Buscar
           </button>
         </div>
@@ -69,7 +69,7 @@ export default function AdminFamiliasPage() {
                     </td>
                     <td className="px-4 py-2">{f.members?.length ?? 0}</td>
                     <td className="px-4 py-2">
-                      <Link href={`/admin/familias/${f.id}`} className="text-emerald-600 dark:text-indigo-400 hover:underline">
+                      <Link href={`/admin/familias/${f.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline">
                         Ver
                       </Link>
                     </td>

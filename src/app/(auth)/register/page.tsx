@@ -226,7 +226,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-emerald-600 dark:bg-indigo-700 hover:bg-emerald-700 dark:hover:bg-indigo-600 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            className="w-full py-2.5 px-4 bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
           >
             {loading ? "Creando cuenta..." : "Registrarme"}
           </button>
@@ -236,7 +236,7 @@ export default function RegisterPage() {
           ¿Ya tienes una cuenta?{" "}
           <Link
             href="/login"
-            className="font-medium text-emerald-600 hover:text-emerald-500 hover:underline dark:text-indigo-400"
+            className="font-medium text-emerald-600 hover:text-emerald-500 hover:underline dark:text-emerald-400"
           >
             Inicia sesión aquí
           </Link>

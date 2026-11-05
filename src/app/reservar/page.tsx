@@ -350,7 +350,7 @@ export default function ReservarPage() {
                   <p className="text-xs text-gray-500 dark:text-slate-400 mb-3">
                     Los integrantes de tu núcleo no pagan entrada. Para agregar o
                     editar integrantes ve a{" "}
-                    <a href="/familia" className="font-medium text-emerald-600 dark:text-indigo-400 underline">
+                    <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
                       Mi familia
                     </a>
                     .
@@ -369,7 +369,7 @@ export default function ReservarPage() {
                   ) : family.members.length === 0 ? (
                     <p className="text-sm text-gray-600 dark:text-slate-400">
                       La familia &quot;{family.name}&quot; aún no tiene integrantes.{" "}
-                      <a href="/familia" className="font-medium text-emerald-600 dark:text-indigo-400 underline">
+                      <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
                         Agrégalos aquí
                       </a>
                       .
@@ -379,10 +379,10 @@ export default function ReservarPage() {
                       {family.members.map((m) => (
                         <li
                           key={m.id}
-                          className="rounded-full bg-emerald-50 dark:bg-indigo-950 px-3 py-1 text-sm text-emerald-800"
+                          className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-sm text-emerald-800"
                         >
                           {m.fullName}{" "}
-                          <span className="text-emerald-600 dark:text-indigo-400">· {m.relation}</span>
+                          <span className="text-emerald-600 dark:text-emerald-400">· {m.relation}</span>
                         </li>
                       ))}
                     </ul>
@@ -473,7 +473,7 @@ export default function ReservarPage() {
                                   </span>
                                 )}
                                  {space.dailyLimit != null && (
-                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600 dark:text-red-400" : "text-emerald-600 dark:text-indigo-400"}`}>
+                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600 dark:text-red-400" : "text-emerald-600 dark:text-emerald-400"}`}>
                                      {space.familyAlreadyBooked ? "Ya reservaste uno hoy" : `Disponibles: ${space.availableToday} de ${space.dailyLimit}`}
                                    </span>
                                  )}
@@ -534,7 +534,7 @@ export default function ReservarPage() {
                         type="button"
                         onClick={handleAddGuest}
                         disabled={!newGuestName.trim()}
-                        className="px-4 py-2 bg-emerald-600 dark:bg-indigo-700 text-white rounded-md text-sm font-medium hover:bg-emerald-700 dark:hover:bg-indigo-600 transition disabled:opacity-40 dark:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-700 dark:hover:bg-indigo-600"
+                        className="px-4 py-2 bg-emerald-600 dark:bg-emerald-700 text-white rounded-md text-sm font-medium hover:bg-emerald-700 dark:hover:bg-emerald-600 transition disabled:opacity-40 dark:bg-emerald-600 dark:bg-emerald-700 dark:hover:bg-emerald-700 dark:hover:bg-emerald-600"
                       >
                         Agregar
                       </button>

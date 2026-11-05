@@ -74,7 +74,7 @@ export default function ImportarFamiliasPage() {
           <button
             onClick={handleImport}
             disabled={!file || loading}
-            className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-5 py-2 font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600 disabled:opacity-50"
+            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
           >
             {loading ? "Importando..." : "Importar"}
           </button>
@@ -86,7 +86,7 @@ export default function ImportarFamiliasPage() {
           )}
 
           {result && (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-indigo-950 p-4 text-sm text-emerald-800 space-y-1">
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-4 text-sm text-emerald-800 space-y-1">
               <p>Núcleos creados: {result.created}</p>
               <p>Núcleos actualizados: {result.updated}</p>
               <p>Integrantes procesados: {result.members}</p>

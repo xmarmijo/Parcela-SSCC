@@ -53,7 +53,7 @@ export default function AdminIntegrantesPage() {
                     <td className="px-4 py-2">{m.family?.name}</td>
                     <td className="px-4 py-2">{m.family?.owner?.email ?? "Sin titular"}</td>
                     <td className="px-4 py-2">
-                      <Link href={`/admin/familias/${m.family?.id}`} className="text-emerald-600 dark:text-indigo-400 hover:underline text-xs">
+                      <Link href={`/admin/familias/${m.family?.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline text-xs">
                         Ir a la familia
                       </Link>
                     </td>

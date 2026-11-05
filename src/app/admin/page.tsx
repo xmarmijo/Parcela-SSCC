@@ -156,13 +156,13 @@ export default function AdminDashboardPage() {
                   <td className="py-2">{r.family?.name ?? "-"}</td>
                   <td className="py-2">{new Date(r.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                   <td className="py-2">
-                    <a href={`/admin/reservas?status=${r.status}`} className="text-emerald-600 dark:text-indigo-400 hover:underline">
+                    <a href={`/admin/reservas?status=${r.status}`} className="text-emerald-600 dark:text-emerald-400 hover:underline">
                       {r.status}
                     </a>
                   </td>
                   <td className="py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
                   <td className="py-2">
-                    <a href={`/reservas/${r.id}`} className="text-emerald-600 dark:text-indigo-400 hover:underline text-xs">
+                    <a href={`/reservas/${r.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline text-xs">
                       Ver
                     </a>
                   </td>

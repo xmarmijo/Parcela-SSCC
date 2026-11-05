@@ -92,7 +92,7 @@ function AdminReservasInner() {
           </select>
           <button
             onClick={() => { setPage(1); load(1); }}
-            className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600"
+            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
           >
             Filtrar
           </button>
@@ -127,7 +127,7 @@ function AdminReservasInner() {
                       <td className="px-4 py-2">{r.status}</td>
                       <td className="px-4 py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
                       <td className="px-4 py-2 space-x-2">
-                        <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 dark:text-indigo-400 hover:underline">
+                        <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">
                           Ver detalle
                         </a>
                         {r.status === "PENDIENTE_PAGO" && (
@@ -166,7 +166,7 @@ function AdminReservasInner() {
                                   alert(d.error || "Error");
                                 }
                               }}
-                              className="text-xs text-emerald-600 dark:text-indigo-400 hover:underline"
+                              className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
                             >
                               Confirmar efectivo
                             </button>

@@ -56,7 +56,7 @@ export default function AdminUsuariosPage() {
             <option value="ADMIN">ADMIN</option>
             <option value="SOCIO">SOCIO</option>
           </select>
-          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600">
+          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
             Crear usuario
           </button>
         </form>
