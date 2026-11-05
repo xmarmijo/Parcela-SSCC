@@ -1,7 +1,6 @@
 /**
  * prisma/seed.ts
- * Seeds the AddOnSpace table with the three rentable spaces.
- * Prices are placeholders (0) — set real prices via admin UI or a later migration.
+ * Seeds the AddOnSpace table with the rentable spaces and their prices.
  *
  * Run with: npx prisma db seed
  */
@@ -19,18 +18,23 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   const spaces = [
     {
-      name: "quincho",
-      pricePerUnit: 0,
+      name: "quincho_grande",
+      pricePerUnit: 20000,
       capacityGuests: null,
     },
     {
-      name: "sala_eventos",
-      pricePerUnit: 0,
+      name: "quincho_chico",
+      pricePerUnit: 10000,
+      capacityGuests: null,
+    },
+    {
+      name: "casino",
+      pricePerUnit: 60000,
       capacityGuests: 80,
     },
     {
       name: "sala_cafeteria",
-      pricePerUnit: 0,
+      pricePerUnit: 40000,
       capacityGuests: 30,
     },
   ];
