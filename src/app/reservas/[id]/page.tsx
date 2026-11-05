@@ -37,6 +37,7 @@ export default function ReservaDetallePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [paying, setPaying] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const load = useCallback(async () => {
     if (!id) return;
@@ -122,6 +123,64 @@ export default function ReservaDetallePage() {
 
   const qrToken = reservation?.qrTokens?.[0]?.token;
 
+  const saveEdit = async (extraPersons: any[], addOns: any[]) => {
+    if (!reservation) return;
+    try {
+      const res = await fetch(`/api/reservations/${reservation.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ extraPersons, addOns }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "No se pudo actualizar la reserva.");
+        return;
+      }
+      setReservation(data);
+    } catch {
+      setError("Error de conexión al actualizar.");
+    }
+  };
+
+  const handleAddGuestDetail = async () => {
+    if (!reservation) return;
+    const name = prompt("Nombre del invitado:");
+    if (!name?.trim()) return;
+    const rut = prompt("RUT (opcional):") ?? "";
+    const pool = confirm("¿Usa piscina?");
+    const newGuests = [
+      ...reservation.extraPersons.map((p) => ({
+        fullName: p.fullName,
+        rut: p.rut,
+        isSocio: p.isSocio,
+        usesPool: p.usesPool,
+      })),
+      { fullName: name.trim(), rut: rut.trim() || null, usesPool: pool },
+    ];
+    const newAddOns = reservation.addOns.map((a) => ({
+      addOnSpaceId: a.addOnSpace?.name || "",
+      quantity: a.quantity,
+    }));
+    await saveEdit(newGuests, newAddOns);
+  };
+
+  const handleRemoveGuestDetail = async (guestId: string) => {
+    if (!reservation) return;
+    const newGuests = reservation.extraPersons
+      .filter((p) => p.id !== guestId)
+      .map((p) => ({
+        fullName: p.fullName,
+        rut: p.rut,
+        isSocio: p.isSocio,
+        usesPool: p.usesPool,
+      }));
+    const newAddOns = reservation.addOns.map((a) => ({
+      addOnSpaceId: a.addOnSpace?.name || "",
+      quantity: a.quantity,
+    }));
+    await saveEdit(newGuests, newAddOns);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
@@ -203,7 +262,12 @@ export default function ReservaDetallePage() {
                       </ul>
                     ) : (
                       "Sin invitados extra"
-                    )}
+                  )}
+                  {reservation.status === "PENDIENTE_PAGO" && (
+                    <div className="mt-2">
+                      <button onClick={handleAddGuestDetail} className="text-xs text-emerald-600 hover:underline">+ Agregar invitado</button>
+                    </div>
+                  )}
                   </span>
                 </div>
                 <div className="flex justify-between border-t border-gray-100 dark:border-[#1d3b53] pt-3">

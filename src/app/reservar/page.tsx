@@ -326,7 +326,7 @@ export default function ReservarPage() {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm text-red-700 font-medium">{errorMessage}</p>
+                    <p className="text-sm text-red-700 font-medium">{errorMessage}</p>\n                    {errorMessage.includes("multas") && (<a href="/familia" className="mt-1 inline-block text-sm text-red-700 underline">Ver mis multas en Mi familia</a>)}
                   </div>
                 </div>
               </div>

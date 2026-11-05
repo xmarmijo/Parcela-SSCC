@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppNav } from "@/components/AppNav";
+import { normalizeRut } from "@/lib/rut";
 
 interface Member {
   id: string;
@@ -39,6 +40,14 @@ export default function FamiliaPage() {
   const [memberMsg, setMemberMsg] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
 
+  const [fines, setFines] = useState<any[]>([]);
+  const loadFines = () => {
+    fetch("/api/fines")
+      .then((r) => r.json())
+      .then((d) => setFines(Array.isArray(d) ? d : []))
+      .catch(() => setFines([]));
+  };
+
   const load = useCallback(async () => {
     setLoading(true);
     try {
@@ -67,6 +76,7 @@ export default function FamiliaPage() {
         // ignore
       }
       load();
+      loadFines();
     })();
   }, [load]);
 
@@ -154,7 +164,7 @@ export default function FamiliaPage() {
         </p>
 
         {error && (
-          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 p-3 text-sm text-red-700">
+          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 p-3 text-sm text-red-700 dark:text-red-300">
             {error}
           </div>
         )}
@@ -175,7 +185,7 @@ export default function FamiliaPage() {
                 value={familyName}
                 onChange={(e) => setFamilyName(e.target.value)}
                 placeholder="Nombre de la familia"
-                className="flex-1 rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="flex-1 rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] bg-white dark:bg-[#0b253a] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <button
                 type="submit"
@@ -188,6 +198,28 @@ export default function FamiliaPage() {
           </div>
         ) : (
           <>
+            {fines.length > 0 && (
+              <div className="mt-6 rounded-xl border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-red-800 dark:text-red-300 mb-2">
+                  Multas pendientes
+                </h2>
+                <p className="text-sm text-red-700 dark:text-red-300 mb-3">
+                  Tu familia tiene multas pendientes. Regularízalas con la administración antes de reservar.
+                </p>
+                <ul className="divide-y divide-red-100 dark:divide-red-900">
+                  {fines.filter((f: any) => !f.paidAt).map((f: any) => (
+                    <li key={f.id} className="py-2 flex justify-between text-sm">
+                      <span className="text-red-800 dark:text-red-300">{f.reason}</span>
+                      <span className="font-bold text-red-900 dark:text-red-200">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
+                    </li>
+                  ))}
+                </ul>
+                {fines.filter((f: any) => !f.paidAt).length === 0 && (
+                  <p className="text-sm text-red-700 dark:text-red-300">Todas las multas están pagadas.</p>
+                )}
+              </div>
+            )}
+
             <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb]">
                 {family.name}
@@ -201,40 +233,27 @@ export default function FamiliaPage() {
                   Todavía no has agregado integrantes.
                 </p>
               ) : (
-                <ul className="mt-4 divide-y divide-gray-100">
+                <ul className="mt-4 divide-y divide-gray-100 dark:divide-[#1d3b53]">
                   {family.members.map((m) => (
                     <li
                       key={m.id}
                       className="flex flex-wrap items-center justify-between gap-2 py-3"
                     >
-                      <div className="space-y-0.5">
+                      <div>
                         <p className="font-medium text-gray-900 dark:text-[#d6deeb]">{m.fullName}</p>
-                        <p className="text-xs text-gray-500 dark:text-[#637777]">
-                          {m.relation}
-                          {m.rut ? " · RUT " + m.rut : ""}
-                          {m.course ? " · " + m.course : ""}
-                          {m.exAlumno ? " · Exalumno" : ""}
-                        </p>
+                        <p className="text-xs text-gray-500 dark:text-[#637777]">{m.relation}</p>
+                        {m.rut && <p className="text-xs text-gray-500 dark:text-[#637777]">RUT: {m.rut}</p>}
+                        {m.course && <p className="text-xs text-gray-500 dark:text-[#637777]">Curso: {m.course}</p>}
+                        {m.exAlumno && <p className="text-xs text-gray-500 dark:text-[#637777]">Exalumno</p>}
                         {(m.email || m.user?.email) && (
-                          <p className="text-xs text-emerald-700">
-                            {m.email || m.user?.email}
-                          </p>
+                          <p className="text-xs text-emerald-700 dark:text-emerald-400">{m.email || m.user?.email}</p>
                         )}
                       </div>
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          if (!confirm(`Eliminar a ${m.fullName}?`)) return;
-                          const res = await fetch(
-                            `/api/families/${family!.id}/members/${m.id}`,
-                            { method: "DELETE" }
-                          );
-                          if (res.ok) load();
-                        }}
-                        className="text-xs text-red-600 hover:text-red-800"
-                      >
-                        Eliminar
-                      </button>
+                      {m.user?.email && (
+                        <span className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-xs text-emerald-700 dark:text-emerald-400">
+                          {m.user.email}
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -251,7 +270,7 @@ export default function FamiliaPage() {
               </p>
 
               {memberMsg && (
-                <div className="mt-3 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                <div className="mt-3 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950 p-3 text-sm text-green-700 dark:text-green-300">
                   {memberMsg}
                 </div>
               )}
@@ -259,38 +278,38 @@ export default function FamiliaPage() {
               <form onSubmit={handleAddMember} className="mt-4 space-y-3">
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">
                       Nombre completo
                     </label>
                     <input
                       type="text"
                       value={memberName}
                       onChange={(e) => setMemberName(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="Ej: María Armijo"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">
                       RUT (obligatorio)
-                      </label>
-                      <input
-                        type="text"
-                        value={memberRut}
-                        onChange={(e) => setMemberRut(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        placeholder="Ej: 12.345.678-9"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">
+                    </label>
+                    <input
+                      type="text"
+                      value={memberRut}
+                      onChange={(e) => setMemberRut(e.target.value)}
+                      required
+                      className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="Ej: 12.345.678-9"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">
                       Parentesco
                     </label>
                     <select
                       value={relation}
                       onChange={(e) => setRelation(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     >
                       <option value="titular">Titular</option>
                       <option value="cónyuge">Cónyuge</option>
@@ -299,26 +318,26 @@ export default function FamiliaPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">
                       Correo (opcional)
                     </label>
                     <input
                       type="email"
                       value={memberEmail}
                       onChange={(e) => setMemberEmail(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="correo@ejemplo.cl"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">
                       Contraseña (opcional)
                     </label>
                     <input
                       type="password"
                       value={memberPassword}
                       onChange={(e) => setMemberPassword(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-gray-900 dark:text-[#d6deeb] focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="Mínimo 6 caracteres"
                     />
                   </div>
@@ -337,8 +356,8 @@ export default function FamiliaPage() {
               </form>
             </div>
 
-            <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-6">
-              <p className="text-sm text-emerald-800">
+            <div className="mt-6 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 p-6">
+              <p className="text-sm text-emerald-800 dark:text-emerald-300">
                 ¿Listo? Ya puedes{" "}
                 <a href="/reservar" className="font-semibold underline">
                   hacer una reserva
