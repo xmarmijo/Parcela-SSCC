@@ -131,8 +131,9 @@ function AdminReservasInner() {
                                   headers: { "Content-Type": "application/json" },
                                   body: JSON.stringify({ id: r.id, action: "confirm" }),
                                 });
-                                if (res.ok) load(page);
-                                else {
+                                if (res.ok) {
+                                  window.location.href = `/reservas/${r.id}`;
+                                } else {
                                   const d = await res.json();
                                   alert(d.error || "Error");
                                 }
