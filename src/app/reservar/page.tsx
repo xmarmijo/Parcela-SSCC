@@ -3,6 +3,19 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { calculateTotal, DEFAULT_PRICING, type AddOnSpacePrice } from "@/lib/pricing";
+import { AppNav } from "@/components/AppNav";
+
+interface FamilyMemberItem {
+  id: string;
+  fullName: string;
+  relation: string;
+}
+
+interface FamilyInfo {
+  id: string;
+  name: string;
+  members: FamilyMemberItem[];
+}
 
 interface AddOnSpaceItem extends AddOnSpacePrice {
   id: string;
@@ -29,6 +42,8 @@ export default function ReservarPage() {
   const [newGuestPool, setNewGuestPool] = useState(false);
 
   const [loadingSpaces, setLoadingSpaces] = useState(true);
+  const [family, setFamily] = useState<FamilyInfo | null>(null);
+  const [loadingFamily, setLoadingFamily] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successReservation, setSuccessReservation] = useState<any | null>(null);
@@ -62,6 +77,23 @@ export default function ReservarPage() {
     }
     loadSpaces();
   }, [router]);
+
+  // Load family info (nucleus members)
+  useEffect(() => {
+    async function loadFamily() {
+      try {
+        const res = await fetch("/api/families");
+        if (res.ok) {
+          setFamily(await res.json());
+        }
+      } catch (err) {
+        console.error("Error al cargar la familia:", err);
+      } finally {
+        setLoadingFamily(false);
+      }
+    }
+    loadFamily();
+  }, []);
 
   // Selected add-ons for calculation
   const addOnsPayload = useMemo(() => {
@@ -184,6 +216,7 @@ export default function ReservarPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
+        <AppNav />
         {/* Header */}
         <div className="mb-8 text-center sm:text-left">
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
@@ -268,6 +301,53 @@ export default function ReservarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column: Form Controls */}
               <div className="lg:col-span-2 space-y-6">
+                {/* Núcleo familiar */}
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <h2 className="text-base font-semibold text-gray-900 mb-2">
+                    Tu núcleo familiar
+                  </h2>
+                  <p className="text-xs text-gray-500 mb-3">
+                    Los integrantes de tu núcleo no pagan entrada. Para agregar o
+                    editar integrantes ve a{" "}
+                    <a href="/familia" className="font-medium text-emerald-600 underline">
+                      Mi familia
+                    </a>
+                    .
+                  </p>
+
+                  {loadingFamily ? (
+                    <p className="text-sm text-gray-500">Cargando...</p>
+                  ) : !family ? (
+                    <p className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+                      Aún no has creado tu familia.{" "}
+                      <a href="/familia" className="font-semibold underline">
+                        Créala aquí
+                      </a>{" "}
+                      para poder reservar.
+                    </p>
+                  ) : family.members.length === 0 ? (
+                    <p className="text-sm text-gray-600">
+                      La familia &quot;{family.name}&quot; aún no tiene integrantes.{" "}
+                      <a href="/familia" className="font-medium text-emerald-600 underline">
+                        Agrégalos aquí
+                      </a>
+                      .
+                    </p>
+                  ) : (
+                    <ul className="flex flex-wrap gap-2">
+                      {family.members.map((m) => (
+                        <li
+                          key={m.id}
+                          className="rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-800"
+                        >
+                          {m.fullName}{" "}
+                          <span className="text-emerald-600">· {m.relation}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
                 {/* 1. Date Picker */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                   <label htmlFor="reservation-date" className="block text-base font-semibold text-gray-900 mb-2">

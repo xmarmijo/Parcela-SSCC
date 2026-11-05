@@ -18,9 +18,9 @@ export async function POST(req: Request) {
       );
     }
 
-    if (session.user.role !== "SOCIO") {
+    if (session.user.role !== "SOCIO" && session.user.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Se requiere rol SOCIO" },
+        { error: "Se requiere rol SOCIO o ADMIN" },
         { status: 403 }
       );
     }

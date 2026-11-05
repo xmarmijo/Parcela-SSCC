@@ -1,0 +1,254 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { AppNav } from "@/components/AppNav";
+
+interface Reservation {
+  id: string;
+  date: string;
+  status: string;
+  totalAmount: number;
+  family?: { name: string } | null;
+  extraPersons: Array<{ id: string; fullName: string; usesPool: boolean }>;
+  addOns: Array<{
+    id: string;
+    quantity: number;
+    addOnSpace?: { name: string; pricePerUnit: number } | null;
+  }>;
+  payments: Array<{ id: string; status: string; amount: number }>;
+  qrTokens: Array<{ id: string; token: string }>;
+}
+
+const STATUS_LABEL: Record<string, string> = {
+  PENDIENTE_PAGO: "Pendiente de pago",
+  CONFIRMADA: "Confirmada",
+  COMPLETADA: "Completada",
+  CANCELADA: "Cancelada",
+};
+
+export default function ReservaDetallePage() {
+  const params = useParams<{ id: string }>();
+  const router = useRouter();
+  const id = params?.id as string;
+
+  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [paying, setPaying] = useState(false);
+
+  const load = useCallback(async () => {
+    if (!id) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/reservations/${id}`);
+      if (res.status === 401) {
+        router.push(`/login?callbackUrl=/reservas/${id}`);
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "No se pudo cargar la reserva.");
+        return;
+      }
+      setReservation(data);
+    } catch {
+      setError("Error de conexión al cargar la reserva.");
+    } finally {
+      setLoading(false);
+    }
+  }, [id, router]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const handlePay = async () => {
+    if (!reservation) return;
+    setError(null);
+    setPaying(true);
+    try {
+      const res = await fetch("/api/payments/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reservationId: reservation.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(
+          data.error ||
+            "No se pudo iniciar el pago. Revisa la configuración de Mercado Pago."
+        );
+        return;
+      }
+      if (data.free) {
+        await load();
+        return;
+      }
+      const url = data.init_point || data.sandbox_init_point;
+      if (url) {
+        window.location.href = url;
+        return;
+      }
+      setError("Mercado Pago no devolvió un enlace de pago.");
+    } catch {
+      setError("Error de conexión al iniciar el pago.");
+    } finally {
+      setPaying(false);
+    }
+  };
+
+  const handleCancel = async () => {
+    if (!reservation) return;
+    if (!confirm("¿Seguro que quieres cancelar esta reserva?")) return;
+    setError(null);
+    try {
+      const res = await fetch(`/api/reservations/${reservation.id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "No se pudo cancelar la reserva.");
+        return;
+      }
+      await load();
+    } catch {
+      setError("Error de conexión al cancelar la reserva.");
+    }
+  };
+
+  const qrToken = reservation?.qrTokens?.[0]?.token;
+
+  return (
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl">
+        <AppNav />
+
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          Detalle de la Reserva
+        </h1>
+
+        {error && (
+          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
+
+        {loading ? (
+          <p className="mt-8 text-sm text-gray-500">Cargando...</p>
+        ) : !reservation ? (
+          <div className="mt-6 rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <p className="text-gray-600">Reserva no encontrada.</p>
+            <Link href="/mis-reservas" className="mt-4 inline-block text-emerald-700 underline">
+              Volver a mis reservas
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-6 space-y-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="text-sm text-gray-500">
+                    {reservation.family?.name}
+                  </p>
+                  <p className="mt-1 text-xl font-semibold text-gray-900">
+                    {new Date(reservation.date).toLocaleDateString("es-CL", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      timeZone: "UTC",
+                    })}
+                  </p>
+                </div>
+                <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700">
+                  {STATUS_LABEL[reservation.status] || reservation.status}
+                </span>
+              </div>
+
+              <div className="mt-5 space-y-2 border-t border-gray-100 pt-4 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Espacios</span>
+                  <span className="font-medium text-gray-900">
+                    {reservation.addOns.length > 0
+                      ? reservation.addOns
+                          .map((a) => a.addOnSpace?.name || "Espacio")
+                          .join(", ")
+                      : "Uso general de parcela"}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Invitados extra</span>
+                  <span className="font-medium text-gray-900">
+                    {reservation.extraPersons.length > 0
+                      ? reservation.extraPersons
+                          .map(
+                            (p) =>
+                              `${p.fullName}${p.usesPool ? " (con piscina)" : ""}`
+                          )
+                          .join(", ")
+                      : "Sin invitados extra"}
+                  </span>
+                </div>
+                <div className="flex justify-between border-t border-gray-100 pt-3">
+                  <span className="font-semibold text-gray-800">Total</span>
+                  <span className="text-lg font-bold text-emerald-700">
+                    ${Number(reservation.totalAmount).toLocaleString("es-CL")} CLP
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {qrToken && (
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
+                <p className="text-sm font-medium text-emerald-800">
+                  Tu pase de acceso está listo
+                </p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/api/qr/${qrToken}`}
+                  alt="Código QR de acceso"
+                  className="mx-auto mt-4 h-56 w-56 rounded-lg border border-emerald-200 bg-white p-2"
+                />
+                <p className="mt-3 break-all font-mono text-xs text-emerald-700">
+                  {qrToken}
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-3">
+              {reservation.status === "PENDIENTE_PAGO" && (
+                <>
+                  <button
+                    onClick={handlePay}
+                    disabled={paying}
+                    className="rounded-lg bg-emerald-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                  >
+                    {paying
+                      ? "Procesando..."
+                      : reservation.totalAmount > 0
+                      ? "Pagar ahora"
+                      : "Confirmar reserva"}
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    className="rounded-lg border border-gray-300 bg-white px-6 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                  >
+                    Cancelar reserva
+                  </button>
+                </>
+              )}
+              <Link
+                href="/mis-reservas"
+                className="rounded-lg border border-gray-300 bg-white px-6 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+              >
+                Volver
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

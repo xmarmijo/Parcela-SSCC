@@ -26,7 +26,9 @@ export default auth((req) => {
   // Protect /reservar and /mis-reservas routes (authenticated users only)
   if (
     pathname.startsWith("/reservar") ||
-    pathname.startsWith("/mis-reservas")
+    pathname.startsWith("/reservas") ||
+    pathname.startsWith("/mis-reservas") ||
+    pathname.startsWith("/familia")
   ) {
     if (!isLoggedIn) {
       const loginUrl = new URL("/login", nextUrl.origin);
@@ -41,7 +43,9 @@ export default auth((req) => {
 export const config = {
   matcher: [
     "/reservar/:path*",
+    "/reservas/:path*",
     "/mis-reservas/:path*",
+    "/familia/:path*",
     "/admin/:path*",
   ],
 };
