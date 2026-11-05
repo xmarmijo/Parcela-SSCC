@@ -31,9 +31,9 @@ export function AppNav() {
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800"
+          className="rounded-lg border border-gray-200 px-3 py-1.5 font-medium text-gray-600 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600"
         >
-          Salir
+          Cerrar sesión
         </button>
       </div>
     </nav>
