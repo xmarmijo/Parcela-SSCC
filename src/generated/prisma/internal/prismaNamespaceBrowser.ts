@@ -64,7 +64,8 @@ export const ModelName = {
   Visit: 'Visit',
   AppSetting: 'AppSetting',
   AuditLog: 'AuditLog',
-  BlockedDate: 'BlockedDate'
+  BlockedDate: 'BlockedDate',
+  WaitlistEntry: 'WaitlistEntry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -249,6 +250,16 @@ export const BlockedDateScalarFieldEnum = {
 } as const
 
 export type BlockedDateScalarFieldEnum = (typeof BlockedDateScalarFieldEnum)[keyof typeof BlockedDateScalarFieldEnum]
+
+
+export const WaitlistEntryScalarFieldEnum = {
+  id: 'id',
+  familyId: 'familyId',
+  date: 'date',
+  createdAt: 'createdAt'
+} as const
+
+export type WaitlistEntryScalarFieldEnum = (typeof WaitlistEntryScalarFieldEnum)[keyof typeof WaitlistEntryScalarFieldEnum]
 
 
 export const SortOrder = {

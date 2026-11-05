@@ -78,6 +78,7 @@ model Family {
   members     FamilyMember[]
   reservations Reservation[]
   fines       Fine[]
+  waitlistEntries WaitlistEntry[]
 
   @@map("families")
 }
@@ -252,4 +253,15 @@ model BlockedDate {
   createdAt DateTime @default(now())
 
   @@map("blocked_dates")
+}
+
+model WaitlistEntry {
+  id        String   @id @default(cuid())
+  familyId  String
+  family    Family   @relation(fields: [familyId], references: [id])
+  date      DateTime @db.Date
+  createdAt DateTime @default(now())
+
+  @@unique([familyId, date])
+  @@map("waitlist_entries")
 }

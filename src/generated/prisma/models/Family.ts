@@ -194,6 +194,7 @@ export type FamilyWhereInput = {
   members?: Prisma.FamilyMemberListRelationFilter
   reservations?: Prisma.ReservationListRelationFilter
   fines?: Prisma.FineListRelationFilter
+  waitlistEntries?: Prisma.WaitlistEntryListRelationFilter
 }
 
 export type FamilyOrderByWithRelationInput = {
@@ -207,6 +208,7 @@ export type FamilyOrderByWithRelationInput = {
   members?: Prisma.FamilyMemberOrderByRelationAggregateInput
   reservations?: Prisma.ReservationOrderByRelationAggregateInput
   fines?: Prisma.FineOrderByRelationAggregateInput
+  waitlistEntries?: Prisma.WaitlistEntryOrderByRelationAggregateInput
 }
 
 export type FamilyWhereUniqueInput = Prisma.AtLeast<{
@@ -223,6 +225,7 @@ export type FamilyWhereUniqueInput = Prisma.AtLeast<{
   members?: Prisma.FamilyMemberListRelationFilter
   reservations?: Prisma.ReservationListRelationFilter
   fines?: Prisma.FineListRelationFilter
+  waitlistEntries?: Prisma.WaitlistEntryListRelationFilter
 }, "id" | "ownerId" | "importKey">
 
 export type FamilyOrderByWithAggregationInput = {
@@ -259,6 +262,7 @@ export type FamilyCreateInput = {
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUncheckedCreateInput = {
@@ -271,6 +275,7 @@ export type FamilyUncheckedCreateInput = {
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUpdateInput = {
@@ -283,6 +288,7 @@ export type FamilyUpdateInput = {
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyUncheckedUpdateInput = {
@@ -295,6 +301,7 @@ export type FamilyUncheckedUpdateInput = {
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyCreateManyInput = {
@@ -438,6 +445,20 @@ export type FamilyUpdateOneRequiredWithoutFinesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FamilyUpdateToOneWithWhereWithoutFinesInput, Prisma.FamilyUpdateWithoutFinesInput>, Prisma.FamilyUncheckedUpdateWithoutFinesInput>
 }
 
+export type FamilyCreateNestedOneWithoutWaitlistEntriesInput = {
+  create?: Prisma.XOR<Prisma.FamilyCreateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedCreateWithoutWaitlistEntriesInput>
+  connectOrCreate?: Prisma.FamilyCreateOrConnectWithoutWaitlistEntriesInput
+  connect?: Prisma.FamilyWhereUniqueInput
+}
+
+export type FamilyUpdateOneRequiredWithoutWaitlistEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.FamilyCreateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedCreateWithoutWaitlistEntriesInput>
+  connectOrCreate?: Prisma.FamilyCreateOrConnectWithoutWaitlistEntriesInput
+  upsert?: Prisma.FamilyUpsertWithoutWaitlistEntriesInput
+  connect?: Prisma.FamilyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FamilyUpdateToOneWithWhereWithoutWaitlistEntriesInput, Prisma.FamilyUpdateWithoutWaitlistEntriesInput>, Prisma.FamilyUncheckedUpdateWithoutWaitlistEntriesInput>
+}
+
 export type FamilyCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -447,6 +468,7 @@ export type FamilyCreateWithoutOwnerInput = {
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUncheckedCreateWithoutOwnerInput = {
@@ -458,6 +480,7 @@ export type FamilyUncheckedCreateWithoutOwnerInput = {
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyCreateOrConnectWithoutOwnerInput = {
@@ -485,6 +508,7 @@ export type FamilyUpdateWithoutOwnerInput = {
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyUncheckedUpdateWithoutOwnerInput = {
@@ -496,6 +520,7 @@ export type FamilyUncheckedUpdateWithoutOwnerInput = {
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyCreateWithoutMembersInput = {
@@ -507,6 +532,7 @@ export type FamilyCreateWithoutMembersInput = {
   owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUncheckedCreateWithoutMembersInput = {
@@ -518,6 +544,7 @@ export type FamilyUncheckedCreateWithoutMembersInput = {
   importedAt?: Date | string | null
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyCreateOrConnectWithoutMembersInput = {
@@ -545,6 +572,7 @@ export type FamilyUpdateWithoutMembersInput = {
   owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyUncheckedUpdateWithoutMembersInput = {
@@ -556,6 +584,7 @@ export type FamilyUncheckedUpdateWithoutMembersInput = {
   importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyCreateWithoutReservationsInput = {
@@ -567,6 +596,7 @@ export type FamilyCreateWithoutReservationsInput = {
   owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUncheckedCreateWithoutReservationsInput = {
@@ -578,6 +608,7 @@ export type FamilyUncheckedCreateWithoutReservationsInput = {
   importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyCreateOrConnectWithoutReservationsInput = {
@@ -605,6 +636,7 @@ export type FamilyUpdateWithoutReservationsInput = {
   owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyUncheckedUpdateWithoutReservationsInput = {
@@ -616,6 +648,7 @@ export type FamilyUncheckedUpdateWithoutReservationsInput = {
   importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyCreateWithoutFinesInput = {
@@ -627,6 +660,7 @@ export type FamilyCreateWithoutFinesInput = {
   owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyUncheckedCreateWithoutFinesInput = {
@@ -638,6 +672,7 @@ export type FamilyUncheckedCreateWithoutFinesInput = {
   importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedCreateNestedManyWithoutFamilyInput
 }
 
 export type FamilyCreateOrConnectWithoutFinesInput = {
@@ -665,6 +700,7 @@ export type FamilyUpdateWithoutFinesInput = {
   owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUpdateManyWithoutFamilyNestedInput
 }
 
 export type FamilyUncheckedUpdateWithoutFinesInput = {
@@ -676,6 +712,71 @@ export type FamilyUncheckedUpdateWithoutFinesInput = {
   importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
+  waitlistEntries?: Prisma.WaitlistEntryUncheckedUpdateManyWithoutFamilyNestedInput
+}
+
+export type FamilyCreateWithoutWaitlistEntriesInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  importKey?: string | null
+  importedAt?: Date | string | null
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
+  members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
+  reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
+  fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
+}
+
+export type FamilyUncheckedCreateWithoutWaitlistEntriesInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
+  members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
+  reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
+  fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
+}
+
+export type FamilyCreateOrConnectWithoutWaitlistEntriesInput = {
+  where: Prisma.FamilyWhereUniqueInput
+  create: Prisma.XOR<Prisma.FamilyCreateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedCreateWithoutWaitlistEntriesInput>
+}
+
+export type FamilyUpsertWithoutWaitlistEntriesInput = {
+  update: Prisma.XOR<Prisma.FamilyUpdateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedUpdateWithoutWaitlistEntriesInput>
+  create: Prisma.XOR<Prisma.FamilyCreateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedCreateWithoutWaitlistEntriesInput>
+  where?: Prisma.FamilyWhereInput
+}
+
+export type FamilyUpdateToOneWithWhereWithoutWaitlistEntriesInput = {
+  where?: Prisma.FamilyWhereInput
+  data: Prisma.XOR<Prisma.FamilyUpdateWithoutWaitlistEntriesInput, Prisma.FamilyUncheckedUpdateWithoutWaitlistEntriesInput>
+}
+
+export type FamilyUpdateWithoutWaitlistEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
+  members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
+  reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
+  fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
+}
+
+export type FamilyUncheckedUpdateWithoutWaitlistEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
+  reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
+  fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
 }
 
 
@@ -687,12 +788,14 @@ export type FamilyCountOutputType = {
   members: number
   reservations: number
   fines: number
+  waitlistEntries: number
 }
 
 export type FamilyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   members?: boolean | FamilyCountOutputTypeCountMembersArgs
   reservations?: boolean | FamilyCountOutputTypeCountReservationsArgs
   fines?: boolean | FamilyCountOutputTypeCountFinesArgs
+  waitlistEntries?: boolean | FamilyCountOutputTypeCountWaitlistEntriesArgs
 }
 
 /**
@@ -726,6 +829,13 @@ export type FamilyCountOutputTypeCountFinesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.FineWhereInput
 }
 
+/**
+ * FamilyCountOutputType without action
+ */
+export type FamilyCountOutputTypeCountWaitlistEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WaitlistEntryWhereInput
+}
+
 
 export type FamilySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -738,6 +848,7 @@ export type FamilySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   members?: boolean | Prisma.Family$membersArgs<ExtArgs>
   reservations?: boolean | Prisma.Family$reservationsArgs<ExtArgs>
   fines?: boolean | Prisma.Family$finesArgs<ExtArgs>
+  waitlistEntries?: boolean | Prisma.Family$waitlistEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FamilyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["family"]>
 
@@ -776,6 +887,7 @@ export type FamilyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   members?: boolean | Prisma.Family$membersArgs<ExtArgs>
   reservations?: boolean | Prisma.Family$reservationsArgs<ExtArgs>
   fines?: boolean | Prisma.Family$finesArgs<ExtArgs>
+  waitlistEntries?: boolean | Prisma.Family$waitlistEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.FamilyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FamilyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -792,6 +904,7 @@ export type $FamilyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     members: Prisma.$FamilyMemberPayload<ExtArgs>[]
     reservations: Prisma.$ReservationPayload<ExtArgs>[]
     fines: Prisma.$FinePayload<ExtArgs>[]
+    waitlistEntries: Prisma.$WaitlistEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1198,6 +1311,7 @@ export interface Prisma__FamilyClient<T, Null = never, ExtArgs extends runtime.T
   members<T extends Prisma.Family$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FamilyMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reservations<T extends Prisma.Family$reservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fines<T extends Prisma.Family$finesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$finesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  waitlistEntries<T extends Prisma.Family$waitlistEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$waitlistEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WaitlistEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1722,6 +1836,30 @@ export type Family$finesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.FineScalarFieldEnum | Prisma.FineScalarFieldEnum[]
+}
+
+/**
+ * Family.waitlistEntries
+ */
+export type Family$waitlistEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WaitlistEntry
+   */
+  select?: Prisma.WaitlistEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WaitlistEntry
+   */
+  omit?: Prisma.WaitlistEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WaitlistEntryInclude<ExtArgs> | null
+  where?: Prisma.WaitlistEntryWhereInput
+  orderBy?: Prisma.WaitlistEntryOrderByWithRelationInput | Prisma.WaitlistEntryOrderByWithRelationInput[]
+  cursor?: Prisma.WaitlistEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WaitlistEntryScalarFieldEnum | Prisma.WaitlistEntryScalarFieldEnum[]
 }
 
 /**

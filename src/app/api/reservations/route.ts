@@ -22,7 +22,7 @@ const addOnSchema = z.object({
 
 const createReservationSchema = z.object({
   familyId: z.string().trim().optional(),
-  date: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, "La fecha debe tener el formato YYYY-MM-DD"),
+  date: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, "La fecha debe tener el formato YYYY-MM-DD").optional(),
   extraPersons: z.array(extraPersonSchema).optional().default([]),
   addOns: z.array(addOnSchema).optional().default([]),
 });
@@ -90,7 +90,8 @@ export async function POST(req: Request) {
     const { familyId, date: rawDate, extraPersons, addOns } = parseResult.data;
 
     // Validate date
-    const bookingDate = parseBookingDate(rawDate);
+    // Validate date
+    const bookingDate = parseBookingDate(rawDate!);
     if (!bookingDate) {
       return NextResponse.json(
         { error: "Formato de fecha inválido" },

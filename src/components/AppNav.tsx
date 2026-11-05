@@ -64,6 +64,12 @@ export function AppNav() {
         >
           Mi familia
         </Link>
+        <Link
+          href="/perfil"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+        >
+          Mi perfil
+        </Link>
         <button
           type="button"
           onClick={toggleTheme}

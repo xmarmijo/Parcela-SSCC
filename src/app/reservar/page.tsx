@@ -47,6 +47,10 @@ export default function ReservarPage() {
   const [newGuestRut, setNewGuestRut] = useState("");
   const [newGuestPool, setNewGuestPool] = useState(false);
 
+  const [recurring, setRecurring] = useState(false);
+  const [recurringDay, setRecurringDay] = useState(6); // 0=Dom..6=Sab
+  const [recurringWeeks, setRecurringWeeks] = useState(4);
+
   const [loadingSpaces, setLoadingSpaces] = useState(true);
   const [family, setFamily] = useState<FamilyInfo | null>(null);
   const [loadingFamily, setLoadingFamily] = useState(true);
@@ -174,6 +178,21 @@ export default function ReservarPage() {
   };
 
   // Submit reservation
+  const generateRecurringDates = (): string[] => {
+    const dates: string[] = [];
+    const start = new Date(date + "T00:00:00.000Z");
+    for (let w = 0; w < recurringWeeks; w++) {
+      const d = new Date(start);
+      d.setUTCDate(d.getUTCDate() + w * 7);
+      // adjust to the selected weekday
+      const diff = (recurringDay - d.getUTCDay() + 7) % 7;
+      d.setUTCDate(d.getUTCDate() + diff);
+      const iso = d.toISOString().slice(0, 10);
+      if (!dates.includes(iso)) dates.push(iso);
+    }
+    return dates;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -185,8 +204,9 @@ export default function ReservarPage() {
 
     setSubmitting(true);
     try {
+      const dates = recurring ? generateRecurringDates() : [date];
+
       const payload = {
-        date,
         extraPersons: extraGuests.map((g) => ({
           fullName: g.fullName,
           rut: g.rut,
@@ -198,26 +218,26 @@ export default function ReservarPage() {
         })),
       };
 
-      const res = await fetch("/api/reservations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        if (res.status === 409) {
-          setErrorMessage(
-            "Ya existe una reserva activa para tu familia en esta fecha."
-          );
-        } else {
-          setErrorMessage(data.error || "Ocurrió un error al procesar la reserva.");
+      const results: any[] = [];
+      for (const d of dates) {
+        const res = await fetch("/api/reservations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...payload, date: d }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          if (res.status === 409) {
+            setErrorMessage(`Ya existe una reserva activa para tu familia el ${d}.`);
+          } else {
+            setErrorMessage(data.error || "Ocurrió un error al procesar la reserva.");
+          }
+          return;
         }
-        return;
+        results.push(data);
       }
 
-      setSuccessReservation(data);
+      setSuccessReservation(results.length === 1 ? results[0] : { multiple: results.length, ids: results.map((r) => r.id) });
     } catch (err: any) {
       setErrorMessage(err.message || "Error de conexión al enviar la reserva.");
     } finally {
@@ -380,6 +400,28 @@ export default function ReservarPage() {
                     className="w-full sm:w-72 px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 dark:text-slate-100"
                   />
                 </div>
+                  <div className="mt-3">
+                    <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-slate-300">
+                      <input type="checkbox" checked={recurring} onChange={(e) => setRecurring(e.target.checked)} className="h-4 w-4 text-green-600 rounded border-gray-300" />
+                      Reserva recurrente (varias semanas, mismo d�a de la semana)
+                    </label>
+                    {recurring && (
+                      <div className="mt-2 flex flex-wrap gap-3 text-sm">
+                        <div>
+                          <label className="block text-xs text-gray-500 dark:text-slate-400 mb-1">D�a de la semana</label>
+                          <select value={recurringDay} onChange={(e) => setRecurringDay(Number(e.target.value))} className="rounded border border-gray-300 dark:border-slate-600 px-2 py-1 bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100">
+                            {["Domingo","Lunes","Martes","Mi�rcoles","Jueves","Viernes","S�bado"].map((d,i) => (<option key={i} value={i}>{d}</option>))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-500 dark:text-slate-400 mb-1">Semanas</label>
+                          <select value={recurringWeeks} onChange={(e) => setRecurringWeeks(Number(e.target.value))} className="rounded border border-gray-300 dark:border-slate-600 px-2 py-1 bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100">
+                            {[2,3,4,6,8].map((w) => (<option key={w} value={w}>{w}</option>))}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                 {/* 2. Rentable Spaces */}
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700">
