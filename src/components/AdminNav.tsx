@@ -7,6 +7,7 @@ const links = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/familias", label: "Familias" },
   { href: "/admin/integrantes", label: "Sin cuenta" },
+  { href: "/admin/auditoria", label: "Auditoría" },
   { href: "/admin/multas", label: "Multas" },
   { href: "/admin/reservas", label: "Reservas" },
   { href: "/admin/usuarios", label: "Usuarios" },

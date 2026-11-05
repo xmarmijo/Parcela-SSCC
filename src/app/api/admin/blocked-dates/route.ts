@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { logAudit } from "@/lib/audit";
 
 const schema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -37,6 +38,7 @@ export async function POST(req: Request) {
     const blocked = await prisma.blockedDate.create({
       data: { date: d, reason: parsed.data.reason || null },
     });
+    logAudit("blocked_date.create", "blocked_date", blocked.id, session.user.id, parsed.data.date);
     return NextResponse.json(blocked, { status: 201 });
   } catch (error: any) {
     if (error?.code === "P2002") {
@@ -57,6 +59,7 @@ export async function DELETE(req: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID requerido" }, { status: 400 });
     await prisma.blockedDate.delete({ where: { id } });
+    logAudit("blocked_date.delete", "blocked_date", id, session.user.id);
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Error:", error);

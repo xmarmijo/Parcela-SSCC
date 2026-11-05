@@ -63,6 +63,7 @@ export const ModelName = {
   Fine: 'Fine',
   Visit: 'Visit',
   AppSetting: 'AppSetting',
+  AuditLog: 'AuditLog',
   BlockedDate: 'BlockedDate'
 } as const
 
@@ -225,6 +226,19 @@ export const AppSettingScalarFieldEnum = {
 } as const
 
 export type AppSettingScalarFieldEnum = (typeof AppSettingScalarFieldEnum)[keyof typeof AppSettingScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  userId: 'userId',
+  details: 'details',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
 export const BlockedDateScalarFieldEnum = {

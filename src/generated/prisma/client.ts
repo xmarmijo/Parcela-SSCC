@@ -102,6 +102,11 @@ export type Visit = Prisma.VisitModel
  */
 export type AppSetting = Prisma.AppSettingModel
 /**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
  * Model BlockedDate
  * 
  */

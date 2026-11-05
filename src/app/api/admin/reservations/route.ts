@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(req: Request) {
   try {
@@ -63,6 +64,7 @@ export async function PATCH(req: Request) {
         return NextResponse.json({ error: "No se puede cancelar una reserva completada" }, { status: 400 });
       }
       await prisma.reservation.update({ where: { id }, data: { status: "CANCELADA" } });
+      logAudit("reservation.cancel", "reservation", id, session.user.id);
       return NextResponse.json({ ok: true });
     }
 
@@ -99,6 +101,7 @@ export async function PATCH(req: Request) {
           });
         }
         await tx.reservation.update({ where: { id }, data: { status: "CONFIRMADA" } });
+      await logAudit("reservation.confirm", "reservation", id, session.user.id);
         const existingQr = await tx.qrToken.findFirst({ where: { reservationId: reservation.id } });
         if (!existingQr) {
           await tx.qrToken.create({ data: { token: crypto.randomUUID(), reservationId: reservation.id } });

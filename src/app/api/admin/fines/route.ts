@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { logAudit } from "@/lib/audit";
 
 const createFineSchema = z.object({
   familyId: z.string().min(1),
@@ -62,6 +63,7 @@ export async function POST(req: Request) {
     } catch (e) {
       console.error("Error importando notify:", e);
     }
+    logAudit("fine.create", "fine", fine.id, session.user.id, `${reason} - $${amount}`);
     return NextResponse.json(fine, { status: 201 });
   } catch (error) {
     console.error("Error:", error);
