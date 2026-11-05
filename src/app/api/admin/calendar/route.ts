@@ -17,16 +17,17 @@ export async function GET(req: Request) {
 
     const reservations = await prisma.reservation.findMany({
       where: { date: { gte: start, lte: end } },
-      select: { date: true, status: true },
+      select: { date: true, status: true, family: { select: { name: true } } },
     });
 
-    const counts: Record<string, { total: number; confirmed: number; pending: number }> = {};
+    const counts: Record<string, { total: number; confirmed: number; pending: number; families: string[] }> = {};
     for (const r of reservations) {
       const key = r.date.toISOString().slice(0, 10);
-      if (!counts[key]) counts[key] = { total: 0, confirmed: 0, pending: 0 };
+      if (!counts[key]) counts[key] = { total: 0, confirmed: 0, pending: 0, families: [] };
       counts[key].total++;
       if (r.status === "CONFIRMADA" || r.status === "COMPLETADA") counts[key].confirmed++;
       if (r.status === "PENDIENTE_PAGO") counts[key].pending++;
+      if (r.family?.name) counts[key].families.push(r.family.name);
     }
 
     return NextResponse.json({ year, month, counts });

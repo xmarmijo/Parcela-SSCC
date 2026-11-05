@@ -75,6 +75,13 @@ export default function AdminCalendarioPage() {
                         <div>{total} reserva{total > 1 ? "s" : ""}</div>
                         {info.confirmed > 0 && <div className="text-emerald-700">✓ {info.confirmed}</div>}
                         {info.pending > 0 && <div className="text-amber-700">⏳ {info.pending}</div>}
+                        <div className="mt-1 space-y-0.5">
+                          {(info.families ?? []).map((name: string, idx: number) => (
+                            <div key={idx} className="truncate text-[9px] text-gray-500" title={name}>
+                              {name}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
