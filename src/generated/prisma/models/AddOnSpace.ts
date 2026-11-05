@@ -29,11 +29,13 @@ export type AggregateAddOnSpace = {
 export type AddOnSpaceAvgAggregateOutputType = {
   pricePerUnit: number | null
   capacityGuests: number | null
+  dailyLimit: number | null
 }
 
 export type AddOnSpaceSumAggregateOutputType = {
   pricePerUnit: number | null
   capacityGuests: number | null
+  dailyLimit: number | null
 }
 
 export type AddOnSpaceMinAggregateOutputType = {
@@ -41,6 +43,7 @@ export type AddOnSpaceMinAggregateOutputType = {
   name: string | null
   pricePerUnit: number | null
   capacityGuests: number | null
+  dailyLimit: number | null
   createdAt: Date | null
 }
 
@@ -49,6 +52,7 @@ export type AddOnSpaceMaxAggregateOutputType = {
   name: string | null
   pricePerUnit: number | null
   capacityGuests: number | null
+  dailyLimit: number | null
   createdAt: Date | null
 }
 
@@ -57,6 +61,7 @@ export type AddOnSpaceCountAggregateOutputType = {
   name: number
   pricePerUnit: number
   capacityGuests: number
+  dailyLimit: number
   createdAt: number
   _all: number
 }
@@ -65,11 +70,13 @@ export type AddOnSpaceCountAggregateOutputType = {
 export type AddOnSpaceAvgAggregateInputType = {
   pricePerUnit?: true
   capacityGuests?: true
+  dailyLimit?: true
 }
 
 export type AddOnSpaceSumAggregateInputType = {
   pricePerUnit?: true
   capacityGuests?: true
+  dailyLimit?: true
 }
 
 export type AddOnSpaceMinAggregateInputType = {
@@ -77,6 +84,7 @@ export type AddOnSpaceMinAggregateInputType = {
   name?: true
   pricePerUnit?: true
   capacityGuests?: true
+  dailyLimit?: true
   createdAt?: true
 }
 
@@ -85,6 +93,7 @@ export type AddOnSpaceMaxAggregateInputType = {
   name?: true
   pricePerUnit?: true
   capacityGuests?: true
+  dailyLimit?: true
   createdAt?: true
 }
 
@@ -93,6 +102,7 @@ export type AddOnSpaceCountAggregateInputType = {
   name?: true
   pricePerUnit?: true
   capacityGuests?: true
+  dailyLimit?: true
   createdAt?: true
   _all?: true
 }
@@ -188,6 +198,7 @@ export type AddOnSpaceGroupByOutputType = {
   name: string
   pricePerUnit: number
   capacityGuests: number | null
+  dailyLimit: number | null
   createdAt: Date
   _count: AddOnSpaceCountAggregateOutputType | null
   _avg: AddOnSpaceAvgAggregateOutputType | null
@@ -219,6 +230,7 @@ export type AddOnSpaceWhereInput = {
   name?: Prisma.StringFilter<"AddOnSpace"> | string
   pricePerUnit?: Prisma.IntFilter<"AddOnSpace"> | number
   capacityGuests?: Prisma.IntNullableFilter<"AddOnSpace"> | number | null
+  dailyLimit?: Prisma.IntNullableFilter<"AddOnSpace"> | number | null
   createdAt?: Prisma.DateTimeFilter<"AddOnSpace"> | Date | string
   reservationAddOns?: Prisma.ReservationAddOnListRelationFilter
 }
@@ -228,6 +240,7 @@ export type AddOnSpaceOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   reservationAddOns?: Prisma.ReservationAddOnOrderByRelationAggregateInput
 }
@@ -240,6 +253,7 @@ export type AddOnSpaceWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AddOnSpaceWhereInput | Prisma.AddOnSpaceWhereInput[]
   pricePerUnit?: Prisma.IntFilter<"AddOnSpace"> | number
   capacityGuests?: Prisma.IntNullableFilter<"AddOnSpace"> | number | null
+  dailyLimit?: Prisma.IntNullableFilter<"AddOnSpace"> | number | null
   createdAt?: Prisma.DateTimeFilter<"AddOnSpace"> | Date | string
   reservationAddOns?: Prisma.ReservationAddOnListRelationFilter
 }, "id" | "name">
@@ -249,6 +263,7 @@ export type AddOnSpaceOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AddOnSpaceCountOrderByAggregateInput
   _avg?: Prisma.AddOnSpaceAvgOrderByAggregateInput
@@ -265,6 +280,7 @@ export type AddOnSpaceScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"AddOnSpace"> | string
   pricePerUnit?: Prisma.IntWithAggregatesFilter<"AddOnSpace"> | number
   capacityGuests?: Prisma.IntNullableWithAggregatesFilter<"AddOnSpace"> | number | null
+  dailyLimit?: Prisma.IntNullableWithAggregatesFilter<"AddOnSpace"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AddOnSpace"> | Date | string
 }
 
@@ -273,6 +289,7 @@ export type AddOnSpaceCreateInput = {
   name: string
   pricePerUnit?: number
   capacityGuests?: number | null
+  dailyLimit?: number | null
   createdAt?: Date | string
   reservationAddOns?: Prisma.ReservationAddOnCreateNestedManyWithoutAddOnSpaceInput
 }
@@ -282,6 +299,7 @@ export type AddOnSpaceUncheckedCreateInput = {
   name: string
   pricePerUnit?: number
   capacityGuests?: number | null
+  dailyLimit?: number | null
   createdAt?: Date | string
   reservationAddOns?: Prisma.ReservationAddOnUncheckedCreateNestedManyWithoutAddOnSpaceInput
 }
@@ -291,6 +309,7 @@ export type AddOnSpaceUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reservationAddOns?: Prisma.ReservationAddOnUpdateManyWithoutAddOnSpaceNestedInput
 }
@@ -300,6 +319,7 @@ export type AddOnSpaceUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reservationAddOns?: Prisma.ReservationAddOnUncheckedUpdateManyWithoutAddOnSpaceNestedInput
 }
@@ -309,6 +329,7 @@ export type AddOnSpaceCreateManyInput = {
   name: string
   pricePerUnit?: number
   capacityGuests?: number | null
+  dailyLimit?: number | null
   createdAt?: Date | string
 }
 
@@ -317,6 +338,7 @@ export type AddOnSpaceUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -325,6 +347,7 @@ export type AddOnSpaceUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -333,12 +356,14 @@ export type AddOnSpaceCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type AddOnSpaceAvgOrderByAggregateInput = {
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrder
 }
 
 export type AddOnSpaceMaxOrderByAggregateInput = {
@@ -346,6 +371,7 @@ export type AddOnSpaceMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -354,12 +380,14 @@ export type AddOnSpaceMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type AddOnSpaceSumOrderByAggregateInput = {
   pricePerUnit?: Prisma.SortOrder
   capacityGuests?: Prisma.SortOrder
+  dailyLimit?: Prisma.SortOrder
 }
 
 export type AddOnSpaceScalarRelationFilter = {
@@ -402,6 +430,7 @@ export type AddOnSpaceCreateWithoutReservationAddOnsInput = {
   name: string
   pricePerUnit?: number
   capacityGuests?: number | null
+  dailyLimit?: number | null
   createdAt?: Date | string
 }
 
@@ -410,6 +439,7 @@ export type AddOnSpaceUncheckedCreateWithoutReservationAddOnsInput = {
   name: string
   pricePerUnit?: number
   capacityGuests?: number | null
+  dailyLimit?: number | null
   createdAt?: Date | string
 }
 
@@ -434,6 +464,7 @@ export type AddOnSpaceUpdateWithoutReservationAddOnsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -442,6 +473,7 @@ export type AddOnSpaceUncheckedUpdateWithoutReservationAddOnsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerUnit?: Prisma.IntFieldUpdateOperationsInput | number
   capacityGuests?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  dailyLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -481,6 +513,7 @@ export type AddOnSpaceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   name?: boolean
   pricePerUnit?: boolean
   capacityGuests?: boolean
+  dailyLimit?: boolean
   createdAt?: boolean
   reservationAddOns?: boolean | Prisma.AddOnSpace$reservationAddOnsArgs<ExtArgs>
   _count?: boolean | Prisma.AddOnSpaceCountOutputTypeDefaultArgs<ExtArgs>
@@ -491,6 +524,7 @@ export type AddOnSpaceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   name?: boolean
   pricePerUnit?: boolean
   capacityGuests?: boolean
+  dailyLimit?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["addOnSpace"]>
 
@@ -499,6 +533,7 @@ export type AddOnSpaceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   name?: boolean
   pricePerUnit?: boolean
   capacityGuests?: boolean
+  dailyLimit?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["addOnSpace"]>
 
@@ -507,10 +542,11 @@ export type AddOnSpaceSelectScalar = {
   name?: boolean
   pricePerUnit?: boolean
   capacityGuests?: boolean
+  dailyLimit?: boolean
   createdAt?: boolean
 }
 
-export type AddOnSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "pricePerUnit" | "capacityGuests" | "createdAt", ExtArgs["result"]["addOnSpace"]>
+export type AddOnSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "pricePerUnit" | "capacityGuests" | "dailyLimit" | "createdAt", ExtArgs["result"]["addOnSpace"]>
 export type AddOnSpaceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reservationAddOns?: boolean | Prisma.AddOnSpace$reservationAddOnsArgs<ExtArgs>
   _count?: boolean | Prisma.AddOnSpaceCountOutputTypeDefaultArgs<ExtArgs>
@@ -528,6 +564,7 @@ export type $AddOnSpacePayload<ExtArgs extends runtime.Types.Extensions.Internal
     name: string
     pricePerUnit: number
     capacityGuests: number | null
+    dailyLimit: number | null
     createdAt: Date
   }, ExtArgs["result"]["addOnSpace"]>
   composites: {}
@@ -957,6 +994,7 @@ export interface AddOnSpaceFieldRefs {
   readonly name: Prisma.FieldRef<"AddOnSpace", 'String'>
   readonly pricePerUnit: Prisma.FieldRef<"AddOnSpace", 'Int'>
   readonly capacityGuests: Prisma.FieldRef<"AddOnSpace", 'Int'>
+  readonly dailyLimit: Prisma.FieldRef<"AddOnSpace", 'Int'>
   readonly createdAt: Prisma.FieldRef<"AddOnSpace", 'DateTime'>
 }
     

@@ -41,6 +41,8 @@ describe("Reservations and AddOnSpace API endpoints", () => {
       ];
 
       (prisma.addOnSpace as any).findMany = async () => mockSpaces;
+      (prisma.family as any).findUnique = async () => null;
+      (prisma.familyMember as any).findFirst = async () => null;
 
       const res = await getAddOnSpaces();
       assert.strictEqual(res.status, 200);

@@ -103,9 +103,10 @@ model FamilyMember {
 
 model AddOnSpace {
   id              String              @id @default(cuid())
-  name            String              @unique // quincho | sala_eventos | sala_cafeteria
+  name            String              @unique // quincho | sala_eventos | sala_cafeteria | quincho_libre
   pricePerUnit    Int                 @default(0) // CLP, placeholder
   capacityGuests  Int?                // null = no limit (e.g. quincho)
+  dailyLimit      Int?                // max units bookable per day (null = unlimited)
   createdAt       DateTime            @default(now())
 
   reservationAddOns ReservationAddOn[]

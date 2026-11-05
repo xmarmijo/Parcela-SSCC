@@ -23,6 +23,9 @@ interface AddOnSpaceItem extends AddOnSpacePrice {
   name: string;
   pricePerUnit: number;
   capacityGuests: number | null;
+  dailyLimit?: number | null;
+  availableToday?: number | null;
+  familyAlreadyBooked?: boolean;
 }
 
 interface ExtraGuest {
@@ -60,12 +63,13 @@ export default function ReservarPage() {
     return `${yyyy}-${mm}-${dd}`;
   }, []);
 
-  // Fetch add-on spaces
+  // Fetch add-on spaces (con disponibilidad si hay fecha)
   useEffect(() => {
     async function loadSpaces() {
       try {
         setLoadingSpaces(true);
-        const res = await fetch("/api/addon-spaces");
+        const url = date ? `/api/addon-spaces?date=${date}` : "/api/addon-spaces";
+        const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
           setSpaces(data);
@@ -79,7 +83,7 @@ export default function ReservarPage() {
       }
     }
     loadSpaces();
-  }, [router]);
+  }, [router, date]);
 
   // Load family info (nucleus members)
   useEffect(() => {
@@ -159,6 +163,10 @@ export default function ReservarPage() {
   };
 
   const handleToggleSpace = (spaceId: string) => {
+    const space = spaces.find((s) => s.id === spaceId);
+    if (space?.dailyLimit != null) {
+      if (space.availableToday === 0 || space.familyAlreadyBooked) return;
+    }
     setSelectedSpaces((prev) => ({
       ...prev,
       [spaceId]: !prev[spaceId],
@@ -415,6 +423,11 @@ export default function ReservarPage() {
                                     Capacidad: hasta {space.capacityGuests} invitados
                                   </span>
                                 )}
+                                 {space.dailyLimit != null && (
+                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600" : "text-emerald-600"}`}>
+                                     {space.familyAlreadyBooked ? "Ya reservaste uno hoy" : `Disponibles: ${space.availableToday} de ${space.dailyLimit}`}
+                                   </span>
+                                 )}
                               </div>
                             </div>
                             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">

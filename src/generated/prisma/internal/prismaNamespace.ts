@@ -1400,6 +1400,7 @@ export const AddOnSpaceScalarFieldEnum = {
   name: 'name',
   pricePerUnit: 'pricePerUnit',
   capacityGuests: 'capacityGuests',
+  dailyLimit: 'dailyLimit',
   createdAt: 'createdAt'
 } as const
 
