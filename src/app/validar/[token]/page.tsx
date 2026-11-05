@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
 import { validateQrToken } from "@/lib/qr";
 
 interface ValidarPageProps {
@@ -8,7 +9,14 @@ interface ValidarPageProps {
 
 export default async function ValidarPage(props: ValidarPageProps) {
   const { token } = await Promise.resolve(props.params);
-  const result = await validateQrToken(token);
+  let checkedInBy: string | null = null;
+  try {
+    const session = await auth();
+    checkedInBy = session?.user?.id ?? null;
+  } catch {
+    checkedInBy = null;
+  }
+  const result = await validateQrToken(token, checkedInBy);
 
   const formatDateTime = (d: Date | string | null | undefined) => {
     if (!d) return "-";

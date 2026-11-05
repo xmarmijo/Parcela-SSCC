@@ -38,7 +38,8 @@ export type QrValidationResult =
   | { status: "VALID"; qrRecord: any; usedAt: Date };
 
 export async function validateQrToken(
-  token: string
+  token: string,
+  checkedInBy?: string | null
 ): Promise<QrValidationResult> {
   if (!token || typeof token !== "string") {
     return { status: "INVALID", qrRecord: null, usedAt: null };
@@ -99,6 +100,18 @@ export async function validateQrToken(
       },
     },
   });
+
+  // Registrar visita (quién validó)
+  try {
+    await prisma.visit.create({
+      data: {
+        reservationId: qrRecord.reservationId,
+        checkedInBy: checkedInBy || "anonimo",
+      },
+    });
+  } catch (e) {
+    console.error("Error registrando visita:", e);
+  }
 
   return {
     status: "VALID",

@@ -67,8 +67,14 @@ export default function AdminDashboardPage() {
           <a href="/admin/reservas" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             Reservas
           </a>
+          <a href="/admin/usuarios" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+            Usuarios
+          </a>
           <a href="/admin/familias/importar" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
             Importar núcleos
+          </a>
+          <a href="/api/admin/export" className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
+            Exportar Excel
           </a>
         </div>
       </div>
