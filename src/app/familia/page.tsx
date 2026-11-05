@@ -213,11 +213,27 @@ export default function FamiliaPage() {
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-red-900 dark:text-red-200">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
                         <button
-                          onClick={() =>
+                          onClick={async () => {
+                            let bankInfo = "la cuenta del club";
+                            try {
+                              const res = await fetch("/api/admin/settings");
+                              if (res.ok) {
+                                const s = await res.json();
+                                const parts = [];
+                                if (s.bankName) parts.push(`Banco: ${s.bankName}`);
+                                if (s.bankAccountType) parts.push(`Tipo: ${s.bankAccountType}`);
+                                if (s.bankAccountNumber) parts.push(`Cuenta: ${s.bankAccountNumber}`);
+                                if (s.bankRut) parts.push(`RUT: ${s.bankRut}`);
+                                if (s.bankEmail) parts.push(`Correo: ${s.bankEmail}`);
+                                if (parts.length) bankInfo = parts.join("\\n");
+                              }
+                            } catch {
+                              // ignore
+                            }
                             alert(
-                              `Para pagar la multa de $${Number(f.amount).toLocaleString("es-CL")} CLP, realiza una transferencia a la cuenta del club y envía el comprobante a la administración. El admin marcará la multa como pagada.`
-                            )
-                          }
+                              `Para pagar la multa de $${Number(f.amount).toLocaleString("es-CL")} CLP, realiza una transferencia con los siguientes datos:\\n\\n${bankInfo}\\n\\nEnvía el comprobante a la administración. El admin marcará la multa como pagada.`
+                            );
+                          }}
                           className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700"
                         >
                           Pagar

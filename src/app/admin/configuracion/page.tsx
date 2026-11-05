@@ -9,6 +9,11 @@ export default function AdminConfiguracionPage() {
   const [gmailAppPassword, setGmailAppPassword] = useState("");
   const [emailFrom, setEmailFrom] = useState("");
   const [hasPassword, setHasPassword] = useState(false);
+  const [bankName, setBankName] = useState("");
+  const [bankAccountType, setBankAccountType] = useState("");
+  const [bankAccountNumber, setBankAccountNumber] = useState("");
+  const [bankRut, setBankRut] = useState("");
+  const [bankEmail, setBankEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -21,6 +26,11 @@ export default function AdminConfiguracionPage() {
         setGmailUser(d.gmailUser ?? "");
         setHasPassword(!!d.hasPassword);
         setEmailFrom(d.emailFrom ?? "");
+        setBankName(d.bankName ?? "");
+        setBankAccountType(d.bankAccountType ?? "");
+        setBankAccountNumber(d.bankAccountNumber ?? "");
+        setBankRut(d.bankRut ?? "");
+        setBankEmail(d.bankEmail ?? "");
       })
       .finally(() => setLoading(false));
   };
@@ -34,7 +44,7 @@ export default function AdminConfiguracionPage() {
     setSaving(true);
     setMsg(null);
     try {
-      const body: any = { gmailUser, emailFrom };
+      const body: any = { gmailUser, emailFrom, bankName, bankAccountType, bankAccountNumber, bankRut, bankEmail };
       if (gmailAppPassword.trim() !== "") body.gmailAppPassword = gmailAppPassword;
       const res = await fetch("/api/admin/settings", {
         method: "PATCH",
@@ -111,7 +121,7 @@ export default function AdminConfiguracionPage() {
             />
           </div>
 
-          {msg && (
+          <div className="border-t pt-4">\n            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Datos bancarios (para transferencias)</h2>\n            <div className="space-y-3">\n              <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Banco (ej. Banco Estado)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountType} onChange={(e) => setBankAccountType(e.target.value)} placeholder="Tipo de cuenta (ej. Cuenta Corriente)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountNumber} onChange={(e) => setBankAccountNumber(e.target.value)} placeholder="Numero de cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankRut} onChange={(e) => setBankRut(e.target.value)} placeholder="RUT de la cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankEmail} onChange={(e) => setBankEmail(e.target.value)} placeholder="Correo para comprobantes" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n            </div>\n          </div>\n\n          {msg && (
             <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-3 text-sm text-emerald-700">
               {msg}
             </div>

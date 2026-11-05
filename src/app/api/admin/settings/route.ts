@@ -9,7 +9,7 @@ export async function GET() {
       return NextResponse.json({ error: "No autorizado" }, { status: 403 });
     }
     const settings = await prisma.appSetting.findMany({
-      where: { key: { in: ["gmail_user", "gmail_app_password", "email_from"] } },
+      where: { key: { in: ["gmail_user", "gmail_app_password", "email_from", "bank_name", "bank_account_type", "bank_account_number", "bank_rut", "bank_email"] } },
     });
     const map: Record<string, string> = {};
     for (const s of settings) map[s.key] = s.value;
@@ -17,6 +17,11 @@ export async function GET() {
       gmailUser: map.gmail_user ?? process.env.GMAIL_USER ?? "",
       hasPassword: !!(map.gmail_app_password || process.env.GMAIL_APP_PASSWORD),
       emailFrom: map.email_from ?? process.env.EMAIL_FROM ?? "",
+      bankName: map.bank_name ?? "",
+      bankAccountType: map.bank_account_type ?? "",
+      bankAccountNumber: map.bank_account_number ?? "",
+      bankRut: map.bank_rut ?? "",
+      bankEmail: map.bank_email ?? "",
     });
   } catch (error) {
     console.error("Error:", error);
@@ -37,6 +42,11 @@ export async function PATCH(req: Request) {
       upserts.push({ key: "gmail_app_password", value: body.gmailAppPassword.trim() });
     }
     if (typeof body.emailFrom === "string") upserts.push({ key: "email_from", value: body.emailFrom.trim() });
+    if (typeof body.bankName === "string") upserts.push({ key: "bank_name", value: body.bankName.trim() });
+    if (typeof body.bankAccountType === "string") upserts.push({ key: "bank_account_type", value: body.bankAccountType.trim() });
+    if (typeof body.bankAccountNumber === "string") upserts.push({ key: "bank_account_number", value: body.bankAccountNumber.trim() });
+    if (typeof body.bankRut === "string") upserts.push({ key: "bank_rut", value: body.bankRut.trim() });
+    if (typeof body.bankEmail === "string") upserts.push({ key: "bank_email", value: body.bankEmail.trim() });
 
     for (const u of upserts) {
       await prisma.appSetting.upsert({
