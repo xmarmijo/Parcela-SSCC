@@ -229,6 +229,42 @@ export default function ReservaDetallePage() {
                 <p className="mt-3 break-all font-mono text-xs text-emerald-700">
                   {qrToken}
                 </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <a
+                    href={`/api/qr/${qrToken}`}
+                    download={`qr-${qrToken}.png`}
+                    className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+                  >
+                    Descargar QR
+                  </a>
+                  <button
+                    onClick={() => window.print()}
+                    className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    Imprimir comprobante
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {reservation.payments.length > 0 && (
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-gray-900 mb-3">Comprobantes de pago</h2>
+                <ul className="divide-y divide-gray-100">
+                  {reservation.payments.map((p) => (
+                    <li key={p.id} className="py-2 text-sm flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {p.status === "APPROVED" ? "Pago aprobado" : p.status}
+                        </p>
+                        <p className="text-xs text-gray-500">Ref: {p.id}</p>
+                      </div>
+                      <span className="font-semibold text-gray-900">
+                        ${Number(p.amount).toLocaleString("es-CL")} CLP
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 
