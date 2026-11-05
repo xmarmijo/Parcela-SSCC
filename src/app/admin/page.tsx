@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
 import { AdminNav } from "@/components/AdminNav";
+import Link from "next/link";
 
 export default function AdminDashboardPage() {
   const [data, setData] = useState<any>(null);
@@ -19,6 +20,24 @@ export default function AdminDashboardPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
   if (!data) return <div className="min-h-screen flex items-center justify-center">Sin datos</div>;
 
+  const statusColors: Record<string, string> = {
+    PENDIENTE_PAGO: "#f59e0b",
+    CONFIRMADA: "#10b981",
+    COMPLETADA: "#3b82f6",
+    CANCELADA: "#ef4444",
+  };
+
+  const totalStatus = (data.byStatus ?? []).reduce((a: number, b: any) => a + b.count, 0) || 1;
+  const statusGradient = (data.byStatus ?? []).reduce((acc: { stops: string[]; offset: number }, s: any) => {
+    const pct = (s.count / totalStatus) * 100;
+    const color = statusColors[s.status] ?? "#94a3b8";
+    acc.stops.push(`${color} ${acc.offset}% ${acc.offset + pct}%`);
+    acc.offset += pct;
+    return acc;
+  }, { stops: [], offset: 0 });
+
+  const maxDay = Math.max(...(data.dayStats ?? []).map((d: any) => d.count), 1);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -26,49 +45,54 @@ export default function AdminDashboardPage() {
         <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">Panel de Administración</h1>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card title="Familias" value={data.familiesCount} />
-          <Card title="Usuarios" value={data.usersCount} />
-          <Card title="Reservas hoy" value={data.reservationsToday} />
-          <Card title="Reservas este mes" value={data.reservationsMonth} />
+        {/* Stat cards (clickable) */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <StatCard title="Familias" value={data.familiesCount} href="/admin/familias" />
+          <StatCard title="Usuarios" value={data.usersCount} href="/admin/usuarios" />
+          <StatCard title="Reservas hoy" value={data.reservationsToday} href="/admin/reservas" />
+          <StatCard title="Reservas este mes" value={data.reservationsMonth} href="/admin/reservas" />
+          <StatCard title="Ingresos este mes" value={`$${(data.incomeMonth ?? 0).toLocaleString("es-CL")}`} href="/admin/reservas" />
         </div>
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card title="Ingresos este mes (CLP)" value={`$${(data.incomeMonth ?? 0).toLocaleString("es-CL")}`} />
-          <Card title="Cancelaciones este mes" value={data.cancellationsMonth ?? 0} />
-          <Card title="Reservas hoy" value={data.reservationsToday ?? 0} />
-        </div>
-
-        <div className="mt-8 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Reservas por estado</h2>
-          <div className="space-y-3">
-            {(data.byStatus ?? []).map((s: any) => {
-              const total = (data.byStatus ?? []).reduce((a: number, b: any) => a + b.count, 0) || 1;
-              const pct = Math.round((s.count / total) * 100);
-              return (
-                <div key={s.status}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <a href={`/admin/reservas?status=${s.status}`} className="text-gray-700 dark:text-[#d6deeb] hover:text-emerald-700 hover:underline">{s.status}</a>
-                    <span className="font-medium text-gray-900 dark:text-[#d6deeb]">{s.count} ({pct}%)</span>
-                  </div>
-                  <div className="h-3 w-full rounded-full bg-gray-100 dark:bg-[#0b253a] overflow-hidden">
-                    <div className="h-full rounded-full bg-emerald-50 dark:bg-emerald-9500" style={{ width: `${pct}%` }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <StatCard title="Cancelaciones este mes" value={data.cancellationsMonth ?? 0} href="/admin/reservas?status=CANCELADA" />
+          <StatCard title="Multas pendientes" value={null} href="/admin/multas" placeholder="Ver" />
         </div>
 
+        {/* Charts */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Pie chart: reservations by status */}
           <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Dias mas usados (este mes)</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Reservas por estado</h2>
+            <div className="flex items-center gap-6">
+              <div
+                className="w-32 h-32 rounded-full flex-shrink-0"
+                style={{ background: `conic-gradient(${statusGradient.stops.join(", ")})` }}
+              />
+              <div className="space-y-2 text-sm">
+                {(data.byStatus ?? []).map((s: any) => (
+                  <a
+                    key={s.status}
+                    href={`/admin/reservas?status=${s.status}`}
+                    className="flex items-center gap-2 hover:underline"
+                  >
+                    <span className="inline-block w-3 h-3 rounded-full" style={{ backgroundColor: statusColors[s.status] ?? "#94a3b8" }} />
+                    <span className="text-gray-700 dark:text-[#d6deeb]">{s.status}</span>
+                    <span className="font-medium text-gray-900 dark:text-[#d6deeb] ml-auto">{s.count}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bar chart: most used days */}
+          <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Días más usados (este mes)</h2>
             <div className="space-y-2">
               {(data.dayStats ?? []).map((d: any) => {
-                const max = Math.max(...(data.dayStats ?? []).map((x: any) => x.count), 1);
-                const pct = Math.round((d.count / max) * 100);
+                const pct = Math.round((d.count / maxDay) * 100);
                 return (
                   <div key={d.day}>
-                    <div className="flex justify-between text-sm mb-1">
+                    <div className="flex justify-between text-xs mb-1">
                       <span className="text-gray-700 dark:text-[#d6deeb]">{d.day}</span>
                       <span className="font-medium text-gray-900 dark:text-[#d6deeb]">{d.count}</span>
                     </div>
@@ -80,19 +104,24 @@ export default function AdminDashboardPage() {
               })}
             </div>
           </div>
-          <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Familias mas activas</h2>
-            <ul className="space-y-2 text-sm">
+        </div>
+
+        {/* Top families */}
+        <div className="mt-8 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Familias más activas</h2>
+          <div className="flex flex-wrap gap-6 items-center">
+            <div className="space-y-2 text-sm flex-1">
               {(data.topFamilies ?? []).map((f: any, i: number) => (
-                <li key={i} className="flex justify-between">
+                <div key={i} className="flex justify-between">
                   <span className="text-gray-700 dark:text-[#d6deeb]">{f.name}</span>
                   <span className="font-medium text-gray-900 dark:text-[#d6deeb]">{f.count} reserva{f.count !== 1 ? "s" : ""}</span>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
+        {/* Recent reservations */}
         <div className="mt-8 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4 gap-2">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb]">Últimas reservas</h2>
@@ -100,7 +129,7 @@ export default function AdminDashboardPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por familia o RUT"
-              className="rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-1.5 text-sm"
+              className="rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-1.5 text-sm bg-white dark:bg-[#0b253a] text-gray-900 dark:text-[#d6deeb]"
             />
           </div>
           <table className="w-full text-sm">
@@ -123,7 +152,7 @@ export default function AdminDashboardPage() {
                   return name.includes(q) || rut.includes(q) || email.includes(q);
                 })
                 .map((r: any) => (
-                <tr key={r.id} className="border-b">
+                <tr key={r.id} className="border-b dark:border-[#1d3b53]">
                   <td className="py-2">{r.family?.name ?? "-"}</td>
                   <td className="py-2">{new Date(r.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                   <td className="py-2">
@@ -142,18 +171,16 @@ export default function AdminDashboardPage() {
             </tbody>
           </table>
         </div>
-
-
       </div>
     </div>
   );
 }
 
-function Card({ title, value }: { title: string; value: any }) {
+function StatCard({ title, value, href, placeholder }: { title: string; value: any; href: string; placeholder?: string }) {
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-4 shadow-sm">
+    <Link href={href} className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-4 shadow-sm hover:shadow-md transition">
       <p className="text-xs text-gray-500 dark:text-[#637777]">{title}</p>
-      <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-[#d6deeb]">{value}</p>
-    </div>
+      <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-[#d6deeb]">{value ?? placeholder ?? "-"}</p>
+    </Link>
   );
 }
