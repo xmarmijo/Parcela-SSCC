@@ -86,7 +86,7 @@ export async function PATCH(req: Request) {
         if (pendingPayment) {
           await tx.payment.update({
             where: { id: pendingPayment.id },
-            data: { status: "APPROVED", paidAt: new Date(), amount: reservation.totalAmount },
+            data: { status: "APPROVED", paidAt: new Date(), amount: reservation.totalAmount, method: body.method || "manual" },
           });
         } else {
           await tx.payment.create({

@@ -1672,6 +1672,7 @@ export type ExtraPersonScalarFieldEnum = (typeof ExtraPersonScalarFieldEnum)[key
 export const PaymentScalarFieldEnum = {
   id: 'id',
   provider: 'provider',
+  method: 'method',
   providerPaymentId: 'providerPaymentId',
   amount: 'amount',
   status: 'status',

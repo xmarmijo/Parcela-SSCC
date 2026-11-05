@@ -170,7 +170,8 @@ model ExtraPerson {
 
 model Payment {
   id                String        @id @default(cuid())
-  provider          String        // e.g. "mercadopago"
+  provider          String        // e.g. "mercadopago", "manual"
+  method            String        @default("mercadopago") // mercadopago | transferencia | efectivo
   providerPaymentId String?       @unique
   amount            Int           // CLP
   status            PaymentStatus @default(PENDING)

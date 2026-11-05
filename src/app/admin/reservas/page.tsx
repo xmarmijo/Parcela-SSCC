@@ -125,11 +125,11 @@ function AdminReservasInner() {
                           <>
                             <button
                               onClick={async () => {
-                                if (!confirm("¿Confirmar pago manualmente?")) return;
+                                if (!confirm("¿Confirmar pago por transferencia?")) return;
                                 const res = await fetch("/api/admin/reservations", {
                                   method: "PATCH",
                                   headers: { "Content-Type": "application/json" },
-                                  body: JSON.stringify({ id: r.id, action: "confirm" }),
+                                  body: JSON.stringify({ id: r.id, action: "confirm", method: "transferencia" }),
                                 });
                                 if (res.ok) {
                                   window.location.href = `/reservas/${r.id}`;
@@ -140,7 +140,26 @@ function AdminReservasInner() {
                               }}
                               className="text-xs text-blue-600 hover:underline"
                             >
-                              Confirmar pago
+                              Confirmar transferencia
+                            </button>
+                            <button
+                              onClick={async () => {
+                                if (!confirm("¿Confirmar pago en efectivo?")) return;
+                                const res = await fetch("/api/admin/reservations", {
+                                  method: "PATCH",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ id: r.id, action: "confirm", method: "efectivo" }),
+                                });
+                                if (res.ok) {
+                                  window.location.href = `/reservas/${r.id}`;
+                                } else {
+                                  const d = await res.json();
+                                  alert(d.error || "Error");
+                                }
+                              }}
+                              className="text-xs text-emerald-600 hover:underline"
+                            >
+                              Confirmar efectivo
                             </button>
                             <button onClick={() => cancel(r.id)} className="text-xs text-red-600 hover:underline">
                               Cancelar

@@ -13,7 +13,7 @@ export async function GET() {
     const startOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
     const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
 
-    const [familiesCount, usersCount, reservationsToday, reservationsMonth, paymentsMonth, recentReservations, byStatus] =
+    const [familiesCount, usersCount, reservationsToday, reservationsMonth, paymentsMonth, recentReservations, byStatus, allReservations, cancellationsCount, topFamilies] =
       await Promise.all([
         prisma.family.count(),
         prisma.user.count(),
@@ -32,7 +32,25 @@ export async function GET() {
           by: ["status"],
           _count: { _all: true },
         }),
+        prisma.reservation.findMany({
+          where: { date: { gte: startOfMonth } },
+          select: { date: true },
+        }),
+        prisma.reservation.count({ where: { status: "CANCELADA", createdAt: { gte: startOfMonth } } }),
+        prisma.family.findMany({
+          take: 5,
+          orderBy: { reservations: { _count: "desc" } },
+          include: { _count: { select: { reservations: true } }, owner: { select: { email: true } } },
+        }),
       ]);
+
+    // Most/least used days of week
+    const dayCounts: number[] = [0, 0, 0, 0, 0, 0, 0];
+    for (const r of allReservations) {
+      dayCounts[r.date.getUTCDay()]++;
+    }
+    const dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const dayStats = dayNames.map((name, i) => ({ day: name, count: dayCounts[i] }));
 
     return NextResponse.json({
       familiesCount,
@@ -40,8 +58,11 @@ export async function GET() {
       reservationsToday,
       reservationsMonth,
       incomeMonth: paymentsMonth._sum.amount ?? 0,
+      cancellationsMonth: cancellationsCount,
       recentReservations,
       byStatus: byStatus.map((s) => ({ status: s.status, count: s._count._all })),
+      dayStats,
+      topFamilies: topFamilies.map((f) => ({ name: f.name, count: f._count.reservations, email: f.owner?.email })),
     });
   } catch (error) {
     console.error("Error dashboard:", error);

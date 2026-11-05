@@ -32,8 +32,10 @@ export default function AdminDashboardPage() {
           <Card title="Reservas hoy" value={data.reservationsToday} />
           <Card title="Reservas este mes" value={data.reservationsMonth} />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card title="Ingresos este mes (CLP)" value={`$${(data.incomeMonth ?? 0).toLocaleString("es-CL")}`} />
+          <Card title="Cancelaciones este mes" value={data.cancellationsMonth ?? 0} />
+          <Card title="Reservas hoy" value={data.reservationsToday ?? 0} />
         </div>
 
         <div className="mt-8 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
@@ -54,6 +56,40 @@ export default function AdminDashboardPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Dias mas usados (este mes)</h2>
+            <div className="space-y-2">
+              {(data.dayStats ?? []).map((d: any) => {
+                const max = Math.max(...(data.dayStats ?? []).map((x: any) => x.count), 1);
+                const pct = Math.round((d.count / max) * 100);
+                return (
+                  <div key={d.day}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-gray-700 dark:text-[#d6deeb]">{d.day}</span>
+                      <span className="font-medium text-gray-900 dark:text-[#d6deeb]">{d.count}</span>
+                    </div>
+                    <div className="h-2 w-full rounded-full bg-gray-100 dark:bg-[#0b253a] overflow-hidden">
+                      <div className="h-full rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-4">Familias mas activas</h2>
+            <ul className="space-y-2 text-sm">
+              {(data.topFamilies ?? []).map((f: any, i: number) => (
+                <li key={i} className="flex justify-between">
+                  <span className="text-gray-700 dark:text-[#d6deeb]">{f.name}</span>
+                  <span className="font-medium text-gray-900 dark:text-[#d6deeb]">{f.count} reserva{f.count !== 1 ? "s" : ""}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
