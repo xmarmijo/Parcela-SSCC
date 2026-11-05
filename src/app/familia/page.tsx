@@ -55,7 +55,14 @@ export default function FamiliaPage() {
   }, [router]);
 
   useEffect(() => {
-    load();
+    (async () => {
+      try {
+        await fetch("/api/families/link", { method: "POST" });
+      } catch {
+        // ignore
+      }
+      load();
+    })();
   }, [load]);
 
   const handleCreate = async (e: React.FormEvent) => {
