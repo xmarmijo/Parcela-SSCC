@@ -26,7 +26,7 @@ export async function GET() {
         prisma.reservation.findMany({
           take: 10,
           orderBy: { createdAt: "desc" },
-          include: { family: true, extraPersons: true },
+          include: { family: { include: { owner: { select: { email: true, rut: true } } } }, extraPersons: true },
         }),
         prisma.reservation.groupBy({
           by: ["status"],

@@ -63,7 +63,7 @@ export default function AdminDashboardPage() {
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Buscar por familia"
+              placeholder="Buscar por familia o RUT"
               className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
             />
           </div>
@@ -78,11 +78,13 @@ export default function AdminDashboardPage() {
             </thead>
             <tbody>
               {(data.recentReservations ?? [])
-                .filter((r: any) =>
-                  (r.family?.name ?? "")
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
-                )
+                .filter((r: any) => {
+                  const q = search.toLowerCase();
+                  const name = (r.family?.name ?? "").toLowerCase();
+                  const rut = (r.family?.owner?.rut ?? "").toLowerCase();
+                  const email = (r.family?.owner?.email ?? "").toLowerCase();
+                  return name.includes(q) || rut.includes(q) || email.includes(q);
+                })
                 .map((r: any) => (
                 <tr key={r.id} className="border-b">
                   <td className="py-2">{r.family?.name ?? "-"}</td>
