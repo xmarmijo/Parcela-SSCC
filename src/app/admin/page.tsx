@@ -45,7 +45,7 @@ export default function AdminDashboardPage() {
               return (
                 <div key={s.status}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-700">{s.status}</span>
+                    <a href={`/admin/reservas?status=${s.status}`} className="text-gray-700 hover:text-emerald-700 hover:underline">{s.status}</a>
                     <span className="font-medium text-gray-900">{s.count} ({pct}%)</span>
                   </div>
                   <div className="h-3 w-full rounded-full bg-gray-100 overflow-hidden">
