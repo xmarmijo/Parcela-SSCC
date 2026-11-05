@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -12,16 +12,23 @@ const loginSchema = z.object({
 });
 
 function LoginForm() {
-  const router = useRouter();
+  // router no longer needed (NextAuth handles redirect)
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/reservar";
   const registered = searchParams.get("registered");
+  const urlError = searchParams.get("error");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (urlError) {
+      setServerError("Credenciales incorrectas. Verifica tu correo y contraseña.");
+    }
+  }, [urlError]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,20 +49,12 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await signIn("credentials", {
+      await signIn("credentials", {
         email: email.trim().toLowerCase(),
         password,
-        redirect: false,
         callbackUrl,
       });
-
-      if (res?.error) {
-        setServerError("Credenciales incorrectas. Verifica tu correo y contraseña.");
-        setLoading(false);
-      } else {
-        router.push(callbackUrl);
-        router.refresh();
-      }
+      // Si llega aquí, la redirección la maneja NextAuth
     } catch {
       setServerError("Ocurrió un error inesperado al intentar iniciar sesión.");
       setLoading(false);
