@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-white">
+    <main className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 dark:bg-emerald-700 text-sm font-bold text-white">
@@ -29,7 +29,7 @@ export default function Home() {
       </header>
 
       <section className="mx-auto max-w-3xl px-6 pb-16 pt-12 text-center sm:pt-20">
-        <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+        <span className="inline-block rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
           Colegio Sagrados Corazones
         </span>
         <h1 className="mt-6 text-4xl font-bold leading-tight text-gray-900 dark:text-slate-50 sm:text-5xl">
