@@ -41,7 +41,7 @@ export function AdminNav() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   return (
-    <nav className="mb-6 flex flex-wrap items-center gap-2 rounded-xl border border-gray-200 dark:border-[#00ffff] bg-white dark:bg-[#ff00ff] px-4 py-3 shadow-sm">
+    <nav className="mb-6 flex flex-wrap items-center gap-2 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 shadow-sm">
       {groups.map((g) => {
         const isActive = g.items.some((i) => i.href === pathname);
         return (
@@ -58,7 +58,7 @@ export function AdminNav() {
               {g.label} ▾
             </button>
             {openGroup === g.label && (
-              <div className="absolute left-0 top-full z-20 mt-1 min-w-[160px] rounded-lg border border-gray-200 dark:border-[#00ffff] bg-white dark:bg-[#ff00ff] shadow-lg">
+              <div className="absolute left-0 top-full z-20 mt-1 min-w-[160px] rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg">
                 {g.items.map((item) => (
                   <Link
                     key={item.href}
@@ -66,7 +66,7 @@ export function AdminNav() {
                     onClick={() => setOpenGroup(null)}
                     className={`block px-4 py-2 text-sm ${
                       pathname === item.href
-                        ? "bg-emerald-50 dark:bg-[#ff69b4] text-emerald-700 dark:text-emerald-400 font-medium"
+                        ? "bg-emerald-50 dark:bg-slate-800 text-emerald-700 dark:text-emerald-400 font-medium"
                         : "text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800"
                     }`}
                   >
@@ -80,7 +80,7 @@ export function AdminNav() {
       })}
       <a
         href="/api/admin/export"
-        className="ml-auto rounded-lg bg-gray-100 dark:bg-[#ff69b4] px-3 py-1.5 text-sm font-medium text-gray-800 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700"
+        className="ml-auto rounded-lg bg-gray-100 dark:bg-slate-800 px-3 py-1.5 text-sm font-medium text-gray-800 dark:text-slate-200 hover:bg-gray-200 dark:hover:bg-slate-700"
       >
         Exportar Excel
       </a>
