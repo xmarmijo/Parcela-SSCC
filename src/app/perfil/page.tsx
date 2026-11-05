@@ -57,32 +57,32 @@ export default function PerfilPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">Mi perfil</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">Mi perfil</h1>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Datos de la cuenta</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Datos de la cuenta</h2>
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-slate-400">Correo</span><span className="font-medium">{user?.email}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-slate-400">RUT</span><span className="font-medium">{user?.rut ?? "-"}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-slate-400">Rol</span><span className="font-medium">{user?.role}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500 dark:text-[#637777]">Correo</span><span className="font-medium">{user?.email}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500 dark:text-[#637777]">RUT</span><span className="font-medium">{user?.rut ?? "-"}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500 dark:text-[#637777]">Rol</span><span className="font-medium">{user?.role}</span></div>
           </div>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Cambiar contraseña</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Cambiar contraseña</h2>
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Contraseña actual</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Contraseña actual</label>
               <div className="relative">
                 <input
                   type={showCurrent ? "text" : "password"}
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 pr-10"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-[#0b253a] dark:text-[#d6deeb] dark:border-[#1d3b53] pr-10"
                 />
                 <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700">
                   {showCurrent ? "🙈" : "👁️"}
@@ -90,14 +90,14 @@ export default function PerfilPage() {
               </div>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Nueva contraseña</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Nueva contraseña</label>
               <div className="relative">
                 <input
                   type={showNew ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 pr-10"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-[#0b253a] dark:text-[#d6deeb] dark:border-[#1d3b53] pr-10"
                   placeholder="Mínimo 6 caracteres"
                 />
                 <button type="button" onClick={() => setShowNew(!showNew)} className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700">
@@ -106,13 +106,13 @@ export default function PerfilPage() {
               </div>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Confirmar nueva contraseña</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Confirmar nueva contraseña</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-[#0b253a] dark:text-[#d6deeb] dark:border-[#1d3b53]"
               />
             </div>
 

@@ -37,15 +37,15 @@ export default function AdminFamiliaDetallePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
         <Link href="/admin/familias" className="text-sm text-emerald-600 hover:underline">
           ← Volver
         </Link>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">{family.name}</h1>
-        <p className="mt-1 text-sm text-gray-600 dark:text-slate-400">
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">{family.name}</h1>
+        <p className="mt-1 text-sm text-gray-600 dark:text-[#637777]">
           Titular: {family.owner?.email ?? "Sin registrar"} {family.owner?.rut ? `(${family.owner.rut})` : ""}
         </p>
         {family.owner && (
@@ -54,7 +54,7 @@ export default function AdminFamiliaDetallePage() {
             <select
               value={family.owner.role}
               onChange={(e) => handleRoleChange(e.target.value)}
-              className="rounded border border-gray-300 dark:border-slate-600 px-2 py-1"
+              className="rounded border border-gray-300 dark:border-[#2d4a66] px-2 py-1"
             >
               <option value="SOCIO">SOCIO</option>
               <option value="ADMIN">ADMIN</option>
@@ -62,13 +62,13 @@ export default function AdminFamiliaDetallePage() {
           </div>
         )}
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Integrantes</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Integrantes</h2>
           <ul className="divide-y divide-gray-100">
             {family.members?.map((m: any) => (
               <li key={m.id} className="py-2 text-sm">
                 <span className="font-medium">{m.fullName}</span>
-                <span className="ml-2 text-gray-500 dark:text-slate-400">
+                <span className="ml-2 text-gray-500 dark:text-[#637777]">
                   {m.relation}
                   {m.rut ? ` · ${m.rut}` : ""}
                   {m.course ? ` · ${m.course}` : ""}
@@ -79,7 +79,7 @@ export default function AdminFamiliaDetallePage() {
                     {m.user.email}
                   </span>
                 ) : (
-                  <span className="ml-2 rounded-full bg-gray-100 dark:bg-slate-800 px-2 py-0.5 text-xs text-gray-500 dark:text-slate-400">
+                  <span className="ml-2 rounded-full bg-gray-100 dark:bg-[#0b253a] px-2 py-0.5 text-xs text-gray-500 dark:text-[#637777]">
                     Sin cuenta de acceso
                   </span>
                 )}
@@ -88,11 +88,11 @@ export default function AdminFamiliaDetallePage() {
           </ul>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Reservas</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Reservas</h2>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-500 dark:text-slate-400 border-b">
+              <tr className="text-left text-gray-500 dark:text-[#637777] border-b">
                 <th className="py-2">Fecha</th>
                 <th className="py-2">Estado</th>
                 <th className="py-2">Total</th>
@@ -110,8 +110,8 @@ export default function AdminFamiliaDetallePage() {
           </table>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3">Multas</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Multas</h2>
           <ul className="divide-y divide-gray-100">
             {family.fines?.map((f: any) => (
               <li key={f.id} className="py-2 text-sm flex justify-between">
@@ -119,7 +119,7 @@ export default function AdminFamiliaDetallePage() {
                 <span className="font-medium">${Number(f.amount).toLocaleString("es-CL")}</span>
               </li>
             ))}
-            {!family.fines?.length && <li className="text-sm text-gray-500 dark:text-slate-400">Sin multas</li>}
+            {!family.fines?.length && <li className="text-sm text-gray-500 dark:text-[#637777]">Sin multas</li>}
           </ul>
         </div>
       </div>

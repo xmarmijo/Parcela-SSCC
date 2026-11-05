@@ -58,56 +58,56 @@ export default function AdminConfiguracionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-950 px-4 py-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8">
         <div className="mx-auto max-w-3xl">
           <AppNav />
           <AdminNav />
-          <p className="mt-6 text-sm text-gray-500 dark:text-slate-400">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500 dark:text-[#637777]">Cargando...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#011627] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">Configuracion de correo</h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-slate-400">Configura Gmail para enviar notificaciones a los socios.</p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-[#d6deeb]">Configuracion de correo</h1>
+        <p className="mt-2 text-sm text-gray-600 dark:text-[#637777]">Configura Gmail para enviar notificaciones a los socios.</p>
 
-        <form onSubmit={handleSave} className="mt-6 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm space-y-4">
+        <form onSubmit={handleSave} className="mt-6 rounded-xl border border-gray-200 dark:border-[#1d3b53] bg-white dark:bg-[#011627] p-6 shadow-sm space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Correo Gmail</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Correo Gmail</label>
             <input
               type="email"
               value={gmailUser}
               onChange={(e) => setGmailUser(e.target.value)}
               placeholder="tucorreo@gmail.com"
-              className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Contrasena de aplicacion (App Password)</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Contrasena de aplicacion (App Password)</label>
             <input
               type="password"
               value={gmailAppPassword}
               onChange={(e) => setGmailAppPassword(e.target.value)}
               placeholder={hasPassword ? "Dejar vacio para no cambiar" : "16 caracteres de Gmail"}
-              className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
+            <p className="mt-1 text-xs text-gray-500 dark:text-[#637777]">
               Se crea en https://myaccount.google.com/apppasswords (requiere verificacion en 2 pasos).
             </p>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-slate-300">Remitente (opcional)</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-[#d6deeb]">Remitente (opcional)</label>
             <input
               type="text"
               value={emailFrom}
               onChange={(e) => setEmailFrom(e.target.value)}
               placeholder="Parcela SSCC <tucorreo@gmail.com>"
-              className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm"
+              className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
             />
           </div>
 
