@@ -86,7 +86,9 @@ export default function ReservaDetallePage() {
         await load();
         return;
       }
-      const url = data.init_point || data.sandbox_init_point;
+      const url = data.isTest
+        ? data.sandbox_init_point || data.init_point
+        : data.init_point || data.sandbox_init_point;
       if (url) {
         window.location.href = url;
         return;

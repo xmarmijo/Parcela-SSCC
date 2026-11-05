@@ -190,6 +190,7 @@ export async function POST(req: Request) {
       preferenceId: preference.id,
       init_point: preference.init_point,
       sandbox_init_point: preference.sandbox_init_point,
+      isTest: (process.env.MERCADOPAGO_ACCESS_TOKEN || "").startsWith("TEST-"),
     });
   } catch (error) {
     console.error("Error creating payment preference:", error);
