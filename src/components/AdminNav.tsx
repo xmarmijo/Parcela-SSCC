@@ -19,7 +19,7 @@ const links = [
 export function AdminNav() {
   const pathname = usePathname();
   return (
-    <nav className="mb-6 flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm whitespace-nowrap">
+    <nav className="mb-6 flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 shadow-sm whitespace-nowrap">
       {links.map((l) => (
         <Link
           key={l.href}
@@ -27,7 +27,7 @@ export function AdminNav() {
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
             pathname === l.href
               ? "bg-emerald-600 text-white"
-              : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
+              : "text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
           }`}
         >
           {l.label}
@@ -35,7 +35,7 @@ export function AdminNav() {
       ))}
       <a
         href="/api/admin/export"
-        className="ml-auto rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-200"
+        className="ml-auto rounded-lg bg-gray-100 dark:bg-gray-800 px-3 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-gray-700"
       >
         Exportar Excel
       </a>

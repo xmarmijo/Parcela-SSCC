@@ -40,34 +40,34 @@ export default function ImportarFamiliasPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
           Importar núcleos familiares
         </h1>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
           Carga el Excel del colegio para crear/actualizar los núcleos familiares.
         </p>
 
-        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-4">
+        <div className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm space-y-4">
           <button
             onClick={handleDownload}
-            className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
+            className="rounded-lg bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-gray-700"
           >
             Descargar plantilla Excel
           </button>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Archivo Excel
             </label>
             <input
               type="file"
               accept=".xlsx,.xls"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="block w-full text-sm text-gray-700"
+              className="block w-full text-sm text-gray-700 dark:text-gray-300"
             />
           </div>
 
@@ -80,13 +80,13 @@ export default function ImportarFamiliasPage() {
           </button>
 
           {error && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            <div className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 p-3 text-sm text-red-700">
               {error}
             </div>
           )}
 
           {result && (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800 space-y-1">
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-4 text-sm text-emerald-800 space-y-1">
               <p>Núcleos creados: {result.created}</p>
               <p>Núcleos actualizados: {result.updated}</p>
               <p>Integrantes procesados: {result.members}</p>

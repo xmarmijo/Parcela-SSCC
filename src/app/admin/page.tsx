@@ -20,11 +20,11 @@ export default function AdminDashboardPage() {
   if (!data) return <div className="min-h-screen flex items-center justify-center">Sin datos</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Panel de Administración</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">Panel de Administración</h1>
 
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card title="Familias" value={data.familiesCount} />
@@ -36,8 +36,8 @@ export default function AdminDashboardPage() {
           <Card title="Ingresos este mes (CLP)" value={`$${(data.incomeMonth ?? 0).toLocaleString("es-CL")}`} />
         </div>
 
-        <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Reservas por estado</h2>
+        <div className="mt-8 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Reservas por estado</h2>
           <div className="space-y-3">
             {(data.byStatus ?? []).map((s: any) => {
               const total = (data.byStatus ?? []).reduce((a: number, b: any) => a + b.count, 0) || 1;
@@ -45,11 +45,11 @@ export default function AdminDashboardPage() {
               return (
                 <div key={s.status}>
                   <div className="flex justify-between text-sm mb-1">
-                    <a href={`/admin/reservas?status=${s.status}`} className="text-gray-700 hover:text-emerald-700 hover:underline">{s.status}</a>
-                    <span className="font-medium text-gray-900">{s.count} ({pct}%)</span>
+                    <a href={`/admin/reservas?status=${s.status}`} className="text-gray-700 dark:text-gray-300 hover:text-emerald-700 hover:underline">{s.status}</a>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{s.count} ({pct}%)</span>
                   </div>
-                  <div className="h-3 w-full rounded-full bg-gray-100 overflow-hidden">
-                    <div className="h-full rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
+                  <div className="h-3 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                    <div className="h-full rounded-full bg-emerald-50 dark:bg-emerald-9500" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               );
@@ -57,19 +57,19 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="mt-8 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4 gap-2">
-            <h2 className="text-lg font-semibold text-gray-900">Últimas reservas</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Últimas reservas</h2>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por familia o RUT"
-              className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+              className="rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-1.5 text-sm"
             />
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-500 border-b">
+              <tr className="text-left text-gray-500 dark:text-gray-400 border-b">
                 <th className="py-2">Familia</th>
                 <th className="py-2">Fecha</th>
                 <th className="py-2">Estado</th>
@@ -115,9 +115,9 @@ export default function AdminDashboardPage() {
 
 function Card({ title, value }: { title: string; value: any }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-      <p className="text-xs text-gray-500">{title}</p>
-      <p className="mt-1 text-2xl font-bold text-gray-900">{value}</p>
+    <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 shadow-sm">
+      <p className="text-xs text-gray-500 dark:text-gray-400">{title}</p>
+      <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-gray-100">{value}</p>
     </div>
   );
 }

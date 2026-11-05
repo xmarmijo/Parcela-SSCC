@@ -21,10 +21,10 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  PENDIENTE_PAGO: "bg-amber-50 text-amber-700 border-amber-200",
+  PENDIENTE_PAGO: "bg-amber-50 dark:bg-amber-950 text-amber-700 border-amber-200",
   CONFIRMADA: "bg-green-50 text-green-700 border-green-200",
-  COMPLETADA: "bg-gray-100 text-gray-700 border-gray-200",
-  CANCELADA: "bg-red-50 text-red-700 border-red-200",
+  COMPLETADA: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-800",
+  CANCELADA: "bg-red-50 dark:bg-red-950 text-red-700 border-red-200",
 };
 
 export default function MisReservasPage() {
@@ -58,12 +58,12 @@ export default function MisReservasPage() {
   }, [load]);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
 
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
             Mis Reservas
           </h1>
           <Link
@@ -75,16 +75,16 @@ export default function MisReservasPage() {
         </div>
 
         {error && (
-          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 p-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {loading ? (
-          <p className="mt-8 text-sm text-gray-500">Cargando...</p>
+          <p className="mt-8 text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
         ) : reservations.length === 0 ? (
-          <div className="mt-6 rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-            <p className="text-gray-600">Todavía no tienes reservas.</p>
+          <div className="mt-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 text-center shadow-sm">
+            <p className="text-gray-600 dark:text-gray-400">Todavía no tienes reservas.</p>
             <Link
               href="/reservar"
               className="mt-4 inline-block rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white hover:bg-emerald-700"
@@ -98,11 +98,11 @@ export default function MisReservasPage() {
               <li key={r.id}>
                 <Link
                   href={`/reservas/${r.id}`}
-                  className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300"
+                  className="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 shadow-sm transition-colors hover:border-emerald-300"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-gray-900 dark:text-gray-100">
                         {new Date(r.date).toLocaleDateString("es-CL", {
                           weekday: "long",
                           day: "numeric",
@@ -111,13 +111,13 @@ export default function MisReservasPage() {
                           timeZone: "UTC",
                         })}
                       </p>
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Total: ${Number(r.totalAmount).toLocaleString("es-CL")} CLP
                       </p>
                     </div>
                     <span
                       className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                        STATUS_STYLE[r.status] || "border-gray-200 bg-gray-50 text-gray-700"
+                        STATUS_STYLE[r.status] || "border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 text-gray-700 dark:text-gray-300"
                       }`}
                     >
                       {STATUS_LABEL[r.status] || r.status}

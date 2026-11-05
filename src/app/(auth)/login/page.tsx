@@ -62,12 +62,12 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+    <div className="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:border-gray-800">
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Iniciar Sesión
         </h1>
-        <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 dark:text-gray-400">
           Accede al sistema de reservas de la Parcela SSCC
         </p>
       </div>
@@ -79,7 +79,7 @@ function LoginForm() {
       )}
 
       {serverError && (
-        <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800">
+        <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-950 text-red-700 text-sm border border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800">
           {serverError}
         </div>
       )}
@@ -98,7 +98,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
             placeholder="correo@ejemplo.cl o 12.345.678-9"
           />
           {errors.email && (
@@ -120,13 +120,13 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 pr-10"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 pr-10"
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300"
               aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
               {showPassword ? "🙈" : "👁️"}
@@ -162,7 +162,7 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-950">
-      <Suspense fallback={<div className="text-gray-600">Cargando formulario...</div>}>
+      <Suspense fallback={<div className="text-gray-600 dark:text-gray-400">Cargando formulario...</div>}>
         <LoginForm />
       </Suspense>
     </div>
