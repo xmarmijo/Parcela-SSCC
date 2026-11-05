@@ -228,7 +228,7 @@ export default function ReservarPage() {
         const data = await res.json();
         if (!res.ok) {
           if (res.status === 409) {
-            setErrorMessage(`Ya existe una reserva activa para tu familia el ${d}.`);
+            setErrorMessage(`Ya tienes una reserva para el ${d}. Puedes verla o cancelarla en "Mis reservas".`);
           } else {
             setErrorMessage(data.error || "Ocurrió un error al procesar la reserva.");
           }
