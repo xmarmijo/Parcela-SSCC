@@ -3,10 +3,12 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { normalizeRut } from "@/lib/rut";
 
 const addMemberSchema = z.object({
   fullName: z.string().trim().min(1, "El nombre completo es obligatorio"),
   relation: z.string().trim().min(1, "El parentesco o relación es obligatorio"),
+  rut: z.string().trim().min(1, "El RUT es obligatorio"),
   email: z
     .string()
     .trim()
@@ -94,7 +96,20 @@ export async function POST(req: Request, context: RouteContext) {
       );
     }
 
-    const { fullName, relation, email, password } = parseResult.data;
+    const { fullName, relation, email, password, rut } = parseResult.data;
+    const normalizedRut = normalizeRut(rut);
+
+    // Evitar duplicados dentro de la misma familia
+    const existingMember = await prisma.familyMember.findFirst({
+      where: { familyId, rut: normalizedRut },
+    });
+    if (existingMember) {
+      return NextResponse.json(
+        { error: "Este integrante ya está registrado en tu núcleo" },
+        { status: 409 }
+      );
+    }
+
     let userId: string | undefined = undefined;
 
     if (email && email.trim() !== "") {
@@ -127,6 +142,7 @@ export async function POST(req: Request, context: RouteContext) {
       data: {
         fullName,
         relation,
+        rut: normalizedRut,
         familyId,
         ...(userId ? { userId } : {}),
       },

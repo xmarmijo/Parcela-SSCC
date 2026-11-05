@@ -10,6 +10,7 @@ import {
 describe("Family and FamilyMember API endpoints", () => {
   beforeEach(() => {
     delete (globalThis as any).__mockSession;
+    (prisma.familyMember as any).findFirst = async () => null;
   });
 
   describe("POST /api/families", () => {
@@ -136,7 +137,7 @@ describe("Family and FamilyMember API endpoints", () => {
       const req = new Request("http://localhost:3000/api/families/fam-1/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName: "Ana Pérez", relation: "Cónyuge" }),
+        body: JSON.stringify({ fullName: "Ana Pérez", relation: "C�nyuge", rut: "11.111.111-1" }),
       });
 
       const res = await addFamilyMember(req, { params: Promise.resolve({ id: "fam-1" }) });
@@ -153,7 +154,7 @@ describe("Family and FamilyMember API endpoints", () => {
       const req = new Request("http://localhost:3000/api/families/fam-404/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName: "Ana Pérez", relation: "Cónyuge" }),
+        body: JSON.stringify({ fullName: "Ana Pérez", relation: "C�nyuge", rut: "11.111.111-1" }),
       });
 
       const res = await addFamilyMember(req, { params: Promise.resolve({ id: "fam-404" }) });
@@ -174,7 +175,7 @@ describe("Family and FamilyMember API endpoints", () => {
       const req = new Request("http://localhost:3000/api/families/fam-1/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName: "Ana Pérez", relation: "Cónyuge" }),
+        body: JSON.stringify({ fullName: "Ana Pérez", relation: "C�nyuge", rut: "11.111.111-1" }),
       });
 
       const res = await addFamilyMember(req, { params: Promise.resolve({ id: "fam-1" }) });
@@ -211,6 +212,7 @@ describe("Family and FamilyMember API endpoints", () => {
         body: JSON.stringify({
           fullName: "Tomás Pérez",
           relation: "Hijo",
+          rut: "22.222.222-2",
         }),
       });
 
@@ -273,6 +275,7 @@ describe("Family and FamilyMember API endpoints", () => {
           fullName: "María Pérez",
           relation: "Cónyuge",
           email: "maria@example.com",
+            rut: "33.333.333-3",
           password: "password123",
         }),
       });

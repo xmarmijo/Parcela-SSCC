@@ -272,7 +272,7 @@ export default function FamiliaPage() {
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
-                      RUT (opcional)
+                      RUT (obligatorio)
                       </label>
                       <input
                         type="text"
@@ -280,6 +280,7 @@ export default function FamiliaPage() {
                         onChange={(e) => setMemberRut(e.target.value)}
                         className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         placeholder="Ej: 12.345.678-9"
+                        required
                       />
                     </div>
                     <div>
