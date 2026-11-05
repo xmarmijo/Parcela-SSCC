@@ -14,6 +14,7 @@ export default function AdminConfiguracionPage() {
   const [bankAccountNumber, setBankAccountNumber] = useState("");
   const [bankRut, setBankRut] = useState("");
   const [bankEmail, setBankEmail] = useState("");
+  const [fineReasonsText, setFineReasonsText] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -31,6 +32,8 @@ export default function AdminConfiguracionPage() {
         setBankAccountNumber(d.bankAccountNumber ?? "");
         setBankRut(d.bankRut ?? "");
         setBankEmail(d.bankEmail ?? "");
+        const fr = Array.isArray(d.fineReasons) ? d.fineReasons : [];
+        setFineReasonsText(fr.map((x: any) => `${x.reason}: ${x.amount}`).join("\\n"));
       })
       .finally(() => setLoading(false));
   };
@@ -46,6 +49,17 @@ export default function AdminConfiguracionPage() {
     try {
       const body: any = { gmailUser, emailFrom, bankName, bankAccountType, bankAccountNumber, bankRut, bankEmail };
       if (gmailAppPassword.trim() !== "") body.gmailAppPassword = gmailAppPassword;
+      // Parse fine reasons
+      const fineReasons = fineReasonsText
+        .split("\\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => {
+          const [reason, amount] = line.split(":").map((s) => s.trim());
+          return { reason, amount: Number(amount) || 0 };
+        })
+        .filter((x) => x.reason);
+      body.fineReasons = fineReasons;
       const res = await fetch("/api/admin/settings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -121,7 +135,19 @@ export default function AdminConfiguracionPage() {
             />
           </div>
 
-          <div className="border-t pt-4">\n            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Datos bancarios (para transferencias)</h2>\n            <div className="space-y-3">\n              <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Banco (ej. Banco Estado)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountType} onChange={(e) => setBankAccountType(e.target.value)} placeholder="Tipo de cuenta (ej. Cuenta Corriente)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountNumber} onChange={(e) => setBankAccountNumber(e.target.value)} placeholder="Numero de cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankRut} onChange={(e) => setBankRut(e.target.value)} placeholder="RUT de la cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankEmail} onChange={(e) => setBankEmail(e.target.value)} placeholder="Correo para comprobantes" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n            </div>\n          </div>\n\n          {msg && (
+          <div className="border-t pt-4">\n            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-3">Datos bancarios (para transferencias)</h2>\n            <div className="space-y-3">\n              <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Banco (ej. Banco Estado)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountType} onChange={(e) => setBankAccountType(e.target.value)} placeholder="Tipo de cuenta (ej. Cuenta Corriente)" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankAccountNumber} onChange={(e) => setBankAccountNumber(e.target.value)} placeholder="Numero de cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankRut} onChange={(e) => setBankRut(e.target.value)} placeholder="RUT de la cuenta" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n              <input value={bankEmail} onChange={(e) => setBankEmail(e.target.value)} placeholder="Correo para comprobantes" className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100" />\n            </div>\n          </div>\n\n          <div className="border-t pt-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-[#d6deeb] mb-2">Motivos de multa (sugeridos)</h2>
+            <p className="text-xs text-gray-500 dark:text-slate-400 mb-2">Un motivo por línea, formato: Motivo: Monto (ej. "Daño a quincho: 15000").</p>
+            <textarea
+              value={fineReasonsText}
+              onChange={(e) => setFineReasonsText(e.target.value)}
+              rows={5}
+              placeholder={"Daño a quincho: 15000\nRuido excesivo: 10000\nNo limpió el espacio: 5000"}
+              className="w-full rounded-lg border border-gray-300 dark:border-slate-600 px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-100"
+            />
+          </div>
+
+          {msg && (
             <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-3 text-sm text-emerald-700">
               {msg}
             </div>

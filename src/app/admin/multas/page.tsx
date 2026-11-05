@@ -11,16 +11,19 @@ export default function AdminMultasPage() {
   const [reason, setReason] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(true);
+  const [reasons, setReasons] = useState<any[]>([]);
 
   const load = () => {
     setLoading(true);
     Promise.all([
       fetch("/api/admin/fines").then((r) => r.json()),
       fetch("/api/admin/families").then((r) => r.json()),
+      fetch("/api/admin/settings").then((r) => r.json()),
     ])
-      .then(([f, fam]) => {
+      .then(([f, fam, s]) => {
         setFines(Array.isArray(f) ? f : []);
         setFamilies(fam?.families ?? []);
+        setReasons(Array.isArray(s?.fineReasons) ? s.fineReasons : []);
       })
       .finally(() => setLoading(false));
   };
@@ -70,11 +73,21 @@ export default function AdminMultasPage() {
           </select>
           <input
             value={reason}
-            onChange={(e) => setReason(e.target.value)}
+            onChange={(e) => {
+              setReason(e.target.value);
+              const match = reasons.find((r: any) => r.reason === e.target.value);
+              if (match) setAmount(String(match.amount));
+            }}
+            list="reason-suggestions"
             placeholder="Motivo"
             required
             className="w-full rounded-lg border border-gray-300 dark:border-[#2d4a66] px-3 py-2 text-sm"
           />
+          <datalist id="reason-suggestions">
+            {reasons.map((r: any, i: number) => (
+              <option key={i} value={r.reason} />
+            ))}
+          </datalist>
           <input
             type="number"
             value={amount}

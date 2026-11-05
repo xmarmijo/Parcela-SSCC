@@ -28,7 +28,7 @@ const groups = [
     label: "Configuración",
     items: [
       { href: "/admin/espacios", label: "Espacios" },
-      { href: "/admin/configuracion", label: "Correo" },
+      { href: "/admin/configuracion", label: "Configuración" },
       { href: "/admin/notificaciones", label: "Notificaciones" },
       { href: "/admin/familias/importar", label: "Importar" },
       { href: "/admin/auditoria", label: "Auditoría" },
