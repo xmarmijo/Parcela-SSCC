@@ -29,6 +29,8 @@ export type FamilyMinAggregateOutputType = {
   name: string | null
   createdAt: Date | null
   ownerId: string | null
+  importKey: string | null
+  importedAt: Date | null
 }
 
 export type FamilyMaxAggregateOutputType = {
@@ -36,6 +38,8 @@ export type FamilyMaxAggregateOutputType = {
   name: string | null
   createdAt: Date | null
   ownerId: string | null
+  importKey: string | null
+  importedAt: Date | null
 }
 
 export type FamilyCountAggregateOutputType = {
@@ -43,6 +47,8 @@ export type FamilyCountAggregateOutputType = {
   name: number
   createdAt: number
   ownerId: number
+  importKey: number
+  importedAt: number
   _all: number
 }
 
@@ -52,6 +58,8 @@ export type FamilyMinAggregateInputType = {
   name?: true
   createdAt?: true
   ownerId?: true
+  importKey?: true
+  importedAt?: true
 }
 
 export type FamilyMaxAggregateInputType = {
@@ -59,6 +67,8 @@ export type FamilyMaxAggregateInputType = {
   name?: true
   createdAt?: true
   ownerId?: true
+  importKey?: true
+  importedAt?: true
 }
 
 export type FamilyCountAggregateInputType = {
@@ -66,6 +76,8 @@ export type FamilyCountAggregateInputType = {
   name?: true
   createdAt?: true
   ownerId?: true
+  importKey?: true
+  importedAt?: true
   _all?: true
 }
 
@@ -145,7 +157,9 @@ export type FamilyGroupByOutputType = {
   id: string
   name: string
   createdAt: Date
-  ownerId: string
+  ownerId: string | null
+  importKey: string | null
+  importedAt: Date | null
   _count: FamilyCountAggregateOutputType | null
   _min: FamilyMinAggregateOutputType | null
   _max: FamilyMaxAggregateOutputType | null
@@ -173,8 +187,10 @@ export type FamilyWhereInput = {
   id?: Prisma.StringFilter<"Family"> | string
   name?: Prisma.StringFilter<"Family"> | string
   createdAt?: Prisma.DateTimeFilter<"Family"> | Date | string
-  ownerId?: Prisma.StringFilter<"Family"> | string
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  ownerId?: Prisma.StringNullableFilter<"Family"> | string | null
+  importKey?: Prisma.StringNullableFilter<"Family"> | string | null
+  importedAt?: Prisma.DateTimeNullableFilter<"Family"> | Date | string | null
+  owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   members?: Prisma.FamilyMemberListRelationFilter
   reservations?: Prisma.ReservationListRelationFilter
   fines?: Prisma.FineListRelationFilter
@@ -184,7 +200,9 @@ export type FamilyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  importKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  importedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   members?: Prisma.FamilyMemberOrderByRelationAggregateInput
   reservations?: Prisma.ReservationOrderByRelationAggregateInput
@@ -194,22 +212,26 @@ export type FamilyOrderByWithRelationInput = {
 export type FamilyWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   ownerId?: string
+  importKey?: string
   AND?: Prisma.FamilyWhereInput | Prisma.FamilyWhereInput[]
   OR?: Prisma.FamilyWhereInput[]
   NOT?: Prisma.FamilyWhereInput | Prisma.FamilyWhereInput[]
   name?: Prisma.StringFilter<"Family"> | string
   createdAt?: Prisma.DateTimeFilter<"Family"> | Date | string
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  importedAt?: Prisma.DateTimeNullableFilter<"Family"> | Date | string | null
+  owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   members?: Prisma.FamilyMemberListRelationFilter
   reservations?: Prisma.ReservationListRelationFilter
   fines?: Prisma.FineListRelationFilter
-}, "id" | "ownerId">
+}, "id" | "ownerId" | "importKey">
 
 export type FamilyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  importKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  importedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FamilyCountOrderByAggregateInput
   _max?: Prisma.FamilyMaxOrderByAggregateInput
   _min?: Prisma.FamilyMinOrderByAggregateInput
@@ -222,14 +244,18 @@ export type FamilyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Family"> | string
   name?: Prisma.StringWithAggregatesFilter<"Family"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Family"> | Date | string
-  ownerId?: Prisma.StringWithAggregatesFilter<"Family"> | string
+  ownerId?: Prisma.StringNullableWithAggregatesFilter<"Family"> | string | null
+  importKey?: Prisma.StringNullableWithAggregatesFilter<"Family"> | string | null
+  importedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Family"> | Date | string | null
 }
 
 export type FamilyCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
+  importKey?: string | null
+  importedAt?: Date | string | null
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
@@ -239,7 +265,9 @@ export type FamilyUncheckedCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  ownerId: string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
@@ -249,7 +277,9 @@ export type FamilyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFamilyNestedInput
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
@@ -259,7 +289,9 @@ export type FamilyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
@@ -269,20 +301,26 @@ export type FamilyCreateManyInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  ownerId: string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
 }
 
 export type FamilyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FamilyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FamilyNullableScalarRelationFilter = {
@@ -295,6 +333,8 @@ export type FamilyCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  importKey?: Prisma.SortOrder
+  importedAt?: Prisma.SortOrder
 }
 
 export type FamilyMaxOrderByAggregateInput = {
@@ -302,6 +342,8 @@ export type FamilyMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  importKey?: Prisma.SortOrder
+  importedAt?: Prisma.SortOrder
 }
 
 export type FamilyMinOrderByAggregateInput = {
@@ -309,6 +351,8 @@ export type FamilyMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
+  importKey?: Prisma.SortOrder
+  importedAt?: Prisma.SortOrder
 }
 
 export type FamilyScalarRelationFilter = {
@@ -346,6 +390,10 @@ export type FamilyUncheckedUpdateOneWithoutOwnerNestedInput = {
   delete?: Prisma.FamilyWhereInput | boolean
   connect?: Prisma.FamilyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.FamilyUpdateToOneWithWhereWithoutOwnerInput, Prisma.FamilyUpdateWithoutOwnerInput>, Prisma.FamilyUncheckedUpdateWithoutOwnerInput>
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type FamilyCreateNestedOneWithoutMembersInput = {
@@ -394,6 +442,8 @@ export type FamilyCreateWithoutOwnerInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  importKey?: string | null
+  importedAt?: Date | string | null
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
@@ -403,6 +453,8 @@ export type FamilyUncheckedCreateWithoutOwnerInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  importKey?: string | null
+  importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
@@ -428,6 +480,8 @@ export type FamilyUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
@@ -437,6 +491,8 @@ export type FamilyUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
@@ -446,7 +502,9 @@ export type FamilyCreateWithoutMembersInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
+  importKey?: string | null
+  importedAt?: Date | string | null
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
 }
@@ -455,7 +513,9 @@ export type FamilyUncheckedCreateWithoutMembersInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  ownerId: string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
 }
@@ -480,7 +540,9 @@ export type FamilyUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFamilyNestedInput
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
 }
@@ -489,7 +551,9 @@ export type FamilyUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
 }
@@ -498,7 +562,9 @@ export type FamilyCreateWithoutReservationsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
+  importKey?: string | null
+  importedAt?: Date | string | null
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyInput
 }
@@ -507,7 +573,9 @@ export type FamilyUncheckedCreateWithoutReservationsInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  ownerId: string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyInput
 }
@@ -532,7 +600,9 @@ export type FamilyUpdateWithoutReservationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFamilyNestedInput
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyNestedInput
 }
@@ -541,7 +611,9 @@ export type FamilyUncheckedUpdateWithoutReservationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyNestedInput
 }
@@ -550,7 +622,9 @@ export type FamilyCreateWithoutFinesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
+  importKey?: string | null
+  importedAt?: Date | string | null
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedFamilyInput
   members?: Prisma.FamilyMemberCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationCreateNestedManyWithoutFamilyInput
 }
@@ -559,7 +633,9 @@ export type FamilyUncheckedCreateWithoutFinesInput = {
   id?: string
   name: string
   createdAt?: Date | string
-  ownerId: string
+  ownerId?: string | null
+  importKey?: string | null
+  importedAt?: Date | string | null
   members?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutFamilyInput
   reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutFamilyInput
 }
@@ -584,7 +660,9 @@ export type FamilyUpdateWithoutFinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFamilyNestedInput
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneWithoutOwnedFamilyNestedInput
   members?: Prisma.FamilyMemberUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUpdateManyWithoutFamilyNestedInput
 }
@@ -593,7 +671,9 @@ export type FamilyUncheckedUpdateWithoutFinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   members?: Prisma.FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput
   reservations?: Prisma.ReservationUncheckedUpdateManyWithoutFamilyNestedInput
 }
@@ -652,7 +732,9 @@ export type FamilySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name?: boolean
   createdAt?: boolean
   ownerId?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  importKey?: boolean
+  importedAt?: boolean
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
   members?: boolean | Prisma.Family$membersArgs<ExtArgs>
   reservations?: boolean | Prisma.Family$reservationsArgs<ExtArgs>
   fines?: boolean | Prisma.Family$finesArgs<ExtArgs>
@@ -664,7 +746,9 @@ export type FamilySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   createdAt?: boolean
   ownerId?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  importKey?: boolean
+  importedAt?: boolean
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
 }, ExtArgs["result"]["family"]>
 
 export type FamilySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -672,7 +756,9 @@ export type FamilySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   name?: boolean
   createdAt?: boolean
   ownerId?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  importKey?: boolean
+  importedAt?: boolean
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
 }, ExtArgs["result"]["family"]>
 
 export type FamilySelectScalar = {
@@ -680,27 +766,29 @@ export type FamilySelectScalar = {
   name?: boolean
   createdAt?: boolean
   ownerId?: boolean
+  importKey?: boolean
+  importedAt?: boolean
 }
 
-export type FamilyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "ownerId", ExtArgs["result"]["family"]>
+export type FamilyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "ownerId" | "importKey" | "importedAt", ExtArgs["result"]["family"]>
 export type FamilyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
   members?: boolean | Prisma.Family$membersArgs<ExtArgs>
   reservations?: boolean | Prisma.Family$reservationsArgs<ExtArgs>
   fines?: boolean | Prisma.Family$finesArgs<ExtArgs>
   _count?: boolean | Prisma.FamilyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FamilyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
 }
 export type FamilyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.Family$ownerArgs<ExtArgs>
 }
 
 export type $FamilyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Family"
   objects: {
-    owner: Prisma.$UserPayload<ExtArgs>
+    owner: Prisma.$UserPayload<ExtArgs> | null
     members: Prisma.$FamilyMemberPayload<ExtArgs>[]
     reservations: Prisma.$ReservationPayload<ExtArgs>[]
     fines: Prisma.$FinePayload<ExtArgs>[]
@@ -709,7 +797,9 @@ export type $FamilyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     name: string
     createdAt: Date
-    ownerId: string
+    ownerId: string | null
+    importKey: string | null
+    importedAt: Date | null
   }, ExtArgs["result"]["family"]>
   composites: {}
 }
@@ -1104,7 +1194,7 @@ readonly fields: FamilyFieldRefs;
  */
 export interface Prisma__FamilyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  owner<T extends Prisma.Family$ownerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$ownerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Family$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FamilyMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reservations<T extends Prisma.Family$reservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$reservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fines<T extends Prisma.Family$finesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Family$finesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1141,6 +1231,8 @@ export interface FamilyFieldRefs {
   readonly name: Prisma.FieldRef<"Family", 'String'>
   readonly createdAt: Prisma.FieldRef<"Family", 'DateTime'>
   readonly ownerId: Prisma.FieldRef<"Family", 'String'>
+  readonly importKey: Prisma.FieldRef<"Family", 'String'>
+  readonly importedAt: Prisma.FieldRef<"Family", 'DateTime'>
 }
     
 
@@ -1539,6 +1631,25 @@ export type FamilyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Families to delete.
    */
   limit?: number
+}
+
+/**
+ * Family.owner
+ */
+export type Family$ownerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

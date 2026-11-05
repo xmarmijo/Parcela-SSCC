@@ -28,6 +28,10 @@ export type FamilyMemberMinAggregateOutputType = {
   id: string | null
   fullName: string | null
   relation: string | null
+  rut: string | null
+  email: string | null
+  course: string | null
+  exAlumno: boolean | null
   createdAt: Date | null
   familyId: string | null
   userId: string | null
@@ -37,6 +41,10 @@ export type FamilyMemberMaxAggregateOutputType = {
   id: string | null
   fullName: string | null
   relation: string | null
+  rut: string | null
+  email: string | null
+  course: string | null
+  exAlumno: boolean | null
   createdAt: Date | null
   familyId: string | null
   userId: string | null
@@ -46,6 +54,10 @@ export type FamilyMemberCountAggregateOutputType = {
   id: number
   fullName: number
   relation: number
+  rut: number
+  email: number
+  course: number
+  exAlumno: number
   createdAt: number
   familyId: number
   userId: number
@@ -57,6 +69,10 @@ export type FamilyMemberMinAggregateInputType = {
   id?: true
   fullName?: true
   relation?: true
+  rut?: true
+  email?: true
+  course?: true
+  exAlumno?: true
   createdAt?: true
   familyId?: true
   userId?: true
@@ -66,6 +82,10 @@ export type FamilyMemberMaxAggregateInputType = {
   id?: true
   fullName?: true
   relation?: true
+  rut?: true
+  email?: true
+  course?: true
+  exAlumno?: true
   createdAt?: true
   familyId?: true
   userId?: true
@@ -75,6 +95,10 @@ export type FamilyMemberCountAggregateInputType = {
   id?: true
   fullName?: true
   relation?: true
+  rut?: true
+  email?: true
+  course?: true
+  exAlumno?: true
   createdAt?: true
   familyId?: true
   userId?: true
@@ -157,6 +181,10 @@ export type FamilyMemberGroupByOutputType = {
   id: string
   fullName: string
   relation: string
+  rut: string | null
+  email: string | null
+  course: string | null
+  exAlumno: boolean
   createdAt: Date
   familyId: string
   userId: string | null
@@ -187,6 +215,10 @@ export type FamilyMemberWhereInput = {
   id?: Prisma.StringFilter<"FamilyMember"> | string
   fullName?: Prisma.StringFilter<"FamilyMember"> | string
   relation?: Prisma.StringFilter<"FamilyMember"> | string
+  rut?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  email?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  course?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  exAlumno?: Prisma.BoolFilter<"FamilyMember"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FamilyMember"> | Date | string
   familyId?: Prisma.StringFilter<"FamilyMember"> | string
   userId?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
@@ -199,6 +231,10 @@ export type FamilyMemberOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   relation?: Prisma.SortOrder
+  rut?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  course?: Prisma.SortOrderInput | Prisma.SortOrder
+  exAlumno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -214,6 +250,10 @@ export type FamilyMemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.FamilyMemberWhereInput | Prisma.FamilyMemberWhereInput[]
   fullName?: Prisma.StringFilter<"FamilyMember"> | string
   relation?: Prisma.StringFilter<"FamilyMember"> | string
+  rut?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  email?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  course?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  exAlumno?: Prisma.BoolFilter<"FamilyMember"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FamilyMember"> | Date | string
   familyId?: Prisma.StringFilter<"FamilyMember"> | string
   userId?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
@@ -226,6 +266,10 @@ export type FamilyMemberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   relation?: Prisma.SortOrder
+  rut?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  course?: Prisma.SortOrderInput | Prisma.SortOrder
+  exAlumno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -241,6 +285,10 @@ export type FamilyMemberScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"FamilyMember"> | string
   fullName?: Prisma.StringWithAggregatesFilter<"FamilyMember"> | string
   relation?: Prisma.StringWithAggregatesFilter<"FamilyMember"> | string
+  rut?: Prisma.StringNullableWithAggregatesFilter<"FamilyMember"> | string | null
+  email?: Prisma.StringNullableWithAggregatesFilter<"FamilyMember"> | string | null
+  course?: Prisma.StringNullableWithAggregatesFilter<"FamilyMember"> | string | null
+  exAlumno?: Prisma.BoolWithAggregatesFilter<"FamilyMember"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FamilyMember"> | Date | string
   familyId?: Prisma.StringWithAggregatesFilter<"FamilyMember"> | string
   userId?: Prisma.StringNullableWithAggregatesFilter<"FamilyMember"> | string | null
@@ -250,6 +298,10 @@ export type FamilyMemberCreateInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutMembersInput
   user?: Prisma.UserCreateNestedOneWithoutFamilyMemberInput
@@ -260,6 +312,10 @@ export type FamilyMemberUncheckedCreateInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   familyId: string
   userId?: string | null
@@ -270,6 +326,10 @@ export type FamilyMemberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutMembersNestedInput
   user?: Prisma.UserUpdateOneWithoutFamilyMemberNestedInput
@@ -280,6 +340,10 @@ export type FamilyMemberUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -290,6 +354,10 @@ export type FamilyMemberCreateManyInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   familyId: string
   userId?: string | null
@@ -299,6 +367,10 @@ export type FamilyMemberUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -306,6 +378,10 @@ export type FamilyMemberUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -325,6 +401,10 @@ export type FamilyMemberCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   relation?: Prisma.SortOrder
+  rut?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  exAlumno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -334,6 +414,10 @@ export type FamilyMemberMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   relation?: Prisma.SortOrder
+  rut?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  exAlumno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -343,6 +427,10 @@ export type FamilyMemberMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   relation?: Prisma.SortOrder
+  rut?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  course?: Prisma.SortOrder
+  exAlumno?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   familyId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -437,8 +525,8 @@ export type FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput = {
   deleteMany?: Prisma.FamilyMemberScalarWhereInput | Prisma.FamilyMemberScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type FamilyMemberCreateNestedOneWithoutFinesInput = {
@@ -461,6 +549,10 @@ export type FamilyMemberCreateWithoutUserInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutMembersInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyMemberInput
@@ -470,6 +562,10 @@ export type FamilyMemberUncheckedCreateWithoutUserInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   familyId: string
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyMemberInput
@@ -508,6 +604,10 @@ export type FamilyMemberScalarWhereInput = {
   id?: Prisma.StringFilter<"FamilyMember"> | string
   fullName?: Prisma.StringFilter<"FamilyMember"> | string
   relation?: Prisma.StringFilter<"FamilyMember"> | string
+  rut?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  email?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  course?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
+  exAlumno?: Prisma.BoolFilter<"FamilyMember"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FamilyMember"> | Date | string
   familyId?: Prisma.StringFilter<"FamilyMember"> | string
   userId?: Prisma.StringNullableFilter<"FamilyMember"> | string | null
@@ -517,6 +617,10 @@ export type FamilyMemberCreateWithoutFamilyInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutFamilyMemberInput
   fines?: Prisma.FineCreateNestedManyWithoutFamilyMemberInput
@@ -526,6 +630,10 @@ export type FamilyMemberUncheckedCreateWithoutFamilyInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   userId?: string | null
   fines?: Prisma.FineUncheckedCreateNestedManyWithoutFamilyMemberInput
@@ -561,6 +669,10 @@ export type FamilyMemberCreateWithoutFinesInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   family: Prisma.FamilyCreateNestedOneWithoutMembersInput
   user?: Prisma.UserCreateNestedOneWithoutFamilyMemberInput
@@ -570,6 +682,10 @@ export type FamilyMemberUncheckedCreateWithoutFinesInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   familyId: string
   userId?: string | null
@@ -595,6 +711,10 @@ export type FamilyMemberUpdateWithoutFinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutMembersNestedInput
   user?: Prisma.UserUpdateOneWithoutFamilyMemberNestedInput
@@ -604,6 +724,10 @@ export type FamilyMemberUncheckedUpdateWithoutFinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -613,6 +737,10 @@ export type FamilyMemberCreateManyUserInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   familyId: string
 }
@@ -621,6 +749,10 @@ export type FamilyMemberUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   family?: Prisma.FamilyUpdateOneRequiredWithoutMembersNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyMemberNestedInput
@@ -630,6 +762,10 @@ export type FamilyMemberUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyMemberNestedInput
@@ -639,6 +775,10 @@ export type FamilyMemberUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -647,6 +787,10 @@ export type FamilyMemberCreateManyFamilyInput = {
   id?: string
   fullName: string
   relation: string
+  rut?: string | null
+  email?: string | null
+  course?: string | null
+  exAlumno?: boolean
   createdAt?: Date | string
   userId?: string | null
 }
@@ -655,6 +799,10 @@ export type FamilyMemberUpdateWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutFamilyMemberNestedInput
   fines?: Prisma.FineUpdateManyWithoutFamilyMemberNestedInput
@@ -664,6 +812,10 @@ export type FamilyMemberUncheckedUpdateWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fines?: Prisma.FineUncheckedUpdateManyWithoutFamilyMemberNestedInput
@@ -673,6 +825,10 @@ export type FamilyMemberUncheckedUpdateManyWithoutFamilyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   relation?: Prisma.StringFieldUpdateOperationsInput | string
+  rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exAlumno?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -712,6 +868,10 @@ export type FamilyMemberSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   fullName?: boolean
   relation?: boolean
+  rut?: boolean
+  email?: boolean
+  course?: boolean
+  exAlumno?: boolean
   createdAt?: boolean
   familyId?: boolean
   userId?: boolean
@@ -725,6 +885,10 @@ export type FamilyMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   fullName?: boolean
   relation?: boolean
+  rut?: boolean
+  email?: boolean
+  course?: boolean
+  exAlumno?: boolean
   createdAt?: boolean
   familyId?: boolean
   userId?: boolean
@@ -736,6 +900,10 @@ export type FamilyMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   fullName?: boolean
   relation?: boolean
+  rut?: boolean
+  email?: boolean
+  course?: boolean
+  exAlumno?: boolean
   createdAt?: boolean
   familyId?: boolean
   userId?: boolean
@@ -747,12 +915,16 @@ export type FamilyMemberSelectScalar = {
   id?: boolean
   fullName?: boolean
   relation?: boolean
+  rut?: boolean
+  email?: boolean
+  course?: boolean
+  exAlumno?: boolean
   createdAt?: boolean
   familyId?: boolean
   userId?: boolean
 }
 
-export type FamilyMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "relation" | "createdAt" | "familyId" | "userId", ExtArgs["result"]["familyMember"]>
+export type FamilyMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "relation" | "rut" | "email" | "course" | "exAlumno" | "createdAt" | "familyId" | "userId", ExtArgs["result"]["familyMember"]>
 export type FamilyMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   family?: boolean | Prisma.FamilyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.FamilyMember$userArgs<ExtArgs>
@@ -779,6 +951,10 @@ export type $FamilyMemberPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id: string
     fullName: string
     relation: string
+    rut: string | null
+    email: string | null
+    course: string | null
+    exAlumno: boolean
     createdAt: Date
     familyId: string
     userId: string | null
@@ -1211,6 +1387,10 @@ export interface FamilyMemberFieldRefs {
   readonly id: Prisma.FieldRef<"FamilyMember", 'String'>
   readonly fullName: Prisma.FieldRef<"FamilyMember", 'String'>
   readonly relation: Prisma.FieldRef<"FamilyMember", 'String'>
+  readonly rut: Prisma.FieldRef<"FamilyMember", 'String'>
+  readonly email: Prisma.FieldRef<"FamilyMember", 'String'>
+  readonly course: Prisma.FieldRef<"FamilyMember", 'String'>
+  readonly exAlumno: Prisma.FieldRef<"FamilyMember", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"FamilyMember", 'DateTime'>
   readonly familyId: Prisma.FieldRef<"FamilyMember", 'String'>
   readonly userId: Prisma.FieldRef<"FamilyMember", 'String'>
