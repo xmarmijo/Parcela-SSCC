@@ -32,6 +32,7 @@ export default function FamiliaPage() {
   const [creating, setCreating] = useState(false);
 
   const [memberName, setMemberName] = useState("");
+  const [memberRut, setMemberRut] = useState("");
   const [relation, setRelation] = useState("hijo/a");
   const [memberEmail, setMemberEmail] = useState("");
   const [memberPassword, setMemberPassword] = useState("");
@@ -116,6 +117,7 @@ export default function FamiliaPage() {
         body: JSON.stringify({
           fullName: memberName.trim(),
           relation,
+          rut: memberRut.trim() || undefined,
           email: memberEmail.trim() || undefined,
           password: memberPassword.trim() || undefined,
         }),
@@ -126,6 +128,7 @@ export default function FamiliaPage() {
         return;
       }
       setMemberName("");
+      setMemberRut("");
       setMemberEmail("");
       setMemberPassword("");
       setMemberMsg("Integrante agregado correctamente.");
@@ -269,6 +272,18 @@ export default function FamiliaPage() {
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
+                      RUT (opcional)
+                      </label>
+                      <input
+                        type="text"
+                        value={memberRut}
+                        onChange={(e) => setMemberRut(e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        placeholder="Ej: 12.345.678-9"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-sm font-medium text-gray-700">
                       Parentesco
                     </label>
                     <select
