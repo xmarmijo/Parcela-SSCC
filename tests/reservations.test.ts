@@ -140,13 +140,13 @@ describe("Reservations and AddOnSpace API endpoints", () => {
 
       assert.strictEqual(data.id, "res-123");
       assert.strictEqual(data.status, "PENDIENTE_PAGO");
-      // 2 extra persons: 2 * 5000 = 10000
-      // 1 with pool: 3000
+      // 2 extra persons: 2 * 2000 = 4000
+      // 1 with pool: 4000
       // quincho: 25000
-      // Total: 38000
-      assert.strictEqual(data.totalAmount, 38000);
+      // Total: 33000
+      assert.strictEqual(data.totalAmount, 33000);
       assert.strictEqual(createdData.status, "PENDIENTE_PAGO");
-      assert.strictEqual(createdData.totalAmount, 38000);
+      assert.strictEqual(createdData.totalAmount, 33000);
     });
 
     it("devuelve 409 si ya existe una reserva activa para el mismo family+date", async () => {

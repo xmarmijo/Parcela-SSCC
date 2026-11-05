@@ -28,9 +28,21 @@ describe("Family and FamilyMember API endpoints", () => {
       assert.match(data.error, /no autorizado/i);
     });
 
-    it("devuelve 403 si el rol no es SOCIO", async () => {
+    it("permite crear familia a un usuario ADMIN", async () => {
       (globalThis as any).__mockSession = {
         user: { id: "user-admin", role: "ADMIN", email: "admin@example.com" },
+      };
+
+      (prisma.family as any).findUnique = async () => null;
+      let createdFamilyPayload: any = null;
+      (prisma.family as any).create = async ({ data }: any) => {
+        createdFamilyPayload = data;
+        return {
+          id: "fam-admin",
+          name: data.name,
+          ownerId: data.ownerId,
+          createdAt: new Date(),
+        };
       };
 
       const req = new Request("http://localhost:3000/api/families", {
@@ -40,7 +52,8 @@ describe("Family and FamilyMember API endpoints", () => {
       });
 
       const res = await createFamily(req);
-      assert.strictEqual(res.status, 403);
+      assert.strictEqual(res.status, 201);
+      assert.strictEqual(createdFamilyPayload.ownerId, "user-admin");
     });
 
     it("devuelve 400 si los datos son inválidos (nombre vacío)", async () => {

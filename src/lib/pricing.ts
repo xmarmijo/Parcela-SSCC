@@ -5,8 +5,8 @@
 
 export const DEFAULT_PRICING = {
   BASE_PRICE: 0,
-  EXTRA_PERSON_PRICE: 5000,
-  POOL_PRICE: 3000,
+  EXTRA_PERSON_PRICE: 2000,
+  POOL_PRICE: 4000,
 } as const;
 
 export interface ExtraPersonInput {
