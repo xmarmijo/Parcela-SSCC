@@ -74,9 +74,13 @@ export default function AdminFamiliaDetallePage() {
                   {m.course ? ` · ${m.course}` : ""}
                   {m.exAlumno ? " · Exalumno" : ""}
                 </span>
-                {m.user?.email && (
+                {m.user?.email ? (
                   <span className="ml-2 rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">
                     {m.user.email}
+                  </span>
+                ) : (
+                  <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                    Sin cuenta de acceso
                   </span>
                 )}
               </li>
