@@ -41,7 +41,7 @@ export default function AdminFamiliaDetallePage() {
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
-        <Link href="/admin/familias" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">
+        <Link href="/admin/familias" className="text-sm text-emerald-600 dark:text-indigo-400 hover:underline">
           ← Volver
         </Link>
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-50">{family.name}</h1>
@@ -76,7 +76,7 @@ export default function AdminFamiliaDetallePage() {
                   {m.exAlumno ? " · Exalumno" : ""}
                 </span>
                 {m.user?.email ? (
-                  <span className="ml-2 rounded-full bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 text-xs text-emerald-700">
+                  <span className="ml-2 rounded-full bg-emerald-50 dark:bg-indigo-950 px-2 py-0.5 text-xs text-emerald-700">
                     {m.user.email}
                   </span>
                 ) : (

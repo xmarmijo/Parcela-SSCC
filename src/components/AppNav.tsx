@@ -15,32 +15,32 @@ export function AppNav() {
         {isAdmin && (
           <Link
             href="/admin"
-            className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+            className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-indigo-950 hover:text-emerald-700"
           >
             Admin
           </Link>
         )}
         <Link
           href="/reservar"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-indigo-950 hover:text-emerald-700"
         >
           Reservar
         </Link>
         <Link
           href="/mis-reservas"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-indigo-950 hover:text-emerald-700"
         >
           Mis reservas
         </Link>
         <Link
           href="/familia"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-indigo-950 hover:text-emerald-700"
         >
           Mi familia
         </Link>
         <Link
           href="/perfil"
-          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-emerald-950 hover:text-emerald-700"
+          className="rounded-lg px-3 py-1.5 font-medium text-gray-700 dark:text-slate-300 transition-colors hover:bg-emerald-50 dark:bg-indigo-950 hover:text-emerald-700"
         >
           Mi perfil
         </Link>

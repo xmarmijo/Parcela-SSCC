@@ -190,7 +190,7 @@ export default function FamiliaPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+                className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-indigo-600 disabled:opacity-50"
               >
                 {creating ? "Creando..." : "Crear familia"}
               </button>
@@ -274,11 +274,11 @@ export default function FamiliaPage() {
                         {m.course && <p className="text-xs text-gray-500 dark:text-slate-400">Curso: {m.course}</p>}
                         {m.exAlumno && <p className="text-xs text-gray-500 dark:text-slate-400">Exalumno</p>}
                         {(m.email || m.user?.email) && (
-                          <p className="text-xs text-emerald-700 dark:text-emerald-400">{m.email || m.user?.email}</p>
+                          <p className="text-xs text-emerald-700 dark:text-indigo-400">{m.email || m.user?.email}</p>
                         )}
                       </div>
                       {m.user?.email && (
-                        <span className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-xs text-emerald-700 dark:text-emerald-400">
+                        <span className="rounded-full bg-emerald-50 dark:bg-indigo-950 px-2 py-1 text-xs text-emerald-700 dark:text-indigo-400">
                           {m.user.email}
                         </span>
                       )}
@@ -377,15 +377,15 @@ export default function FamiliaPage() {
                 <button
                   type="submit"
                   disabled={adding}
-                  className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+                  className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-indigo-600 disabled:opacity-50"
                 >
                   {adding ? "Agregando..." : "Agregar integrante"}
                 </button>
               </form>
             </div>
 
-            <div className="mt-6 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 p-6">
-              <p className="text-sm text-emerald-800 dark:text-emerald-300">
+            <div className="mt-6 rounded-xl border border-emerald-200 dark:border-indigo-800 bg-emerald-50 dark:bg-indigo-950 p-6">
+              <p className="text-sm text-emerald-800 dark:text-indigo-300">
                 ¿Listo? Ya puedes{" "}
                 <a href="/reservar" className="font-semibold underline">
                   hacer una reserva

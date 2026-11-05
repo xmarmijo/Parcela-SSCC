@@ -68,7 +68,7 @@ export default function MisReservasPage() {
           </h1>
           <Link
             href="/reservar"
-            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
+            className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600"
           >
             Nueva reserva
           </Link>
@@ -87,7 +87,7 @@ export default function MisReservasPage() {
             <p className="text-gray-600 dark:text-slate-400">Todavía no tienes reservas.</p>
             <Link
               href="/reservar"
-              className="mt-4 inline-block rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
+              className="mt-4 inline-block rounded-lg bg-emerald-600 dark:bg-indigo-700 px-5 py-2 font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600"
             >
               Hacer mi primera reserva
             </Link>

@@ -265,7 +265,7 @@ export default function ReservaDetallePage() {
                   )}
                   {reservation.status === "PENDIENTE_PAGO" && (
                     <div className="mt-2">
-                      <button onClick={handleAddGuestDetail} className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">+ Agregar invitado</button>
+                      <button onClick={handleAddGuestDetail} className="text-xs text-emerald-600 dark:text-indigo-400 hover:underline">+ Agregar invitado</button>
                     </div>
                   )}
                   </span>
@@ -280,7 +280,7 @@ export default function ReservaDetallePage() {
             </div>
 
             {qrToken && (
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950 p-6 text-center">
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-indigo-950 p-6 text-center">
                 <p className="text-sm font-medium text-emerald-800">
                   Tu pase de acceso está listo
                 </p>
@@ -297,7 +297,7 @@ export default function ReservaDetallePage() {
                   <a
                     href={`/api/qr/${qrToken}`}
                     download={`qr-${qrToken}.png`}
-                    className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
+                    className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600"
                   >
                     Descargar QR
                   </a>
@@ -338,7 +338,7 @@ export default function ReservaDetallePage() {
                   <button
                     onClick={handlePay}
                     disabled={paying}
-                    className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-6 py-2.5 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+                    className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-6 py-2.5 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-indigo-600 disabled:opacity-50"
                   >
                     {paying
                       ? "Procesando..."

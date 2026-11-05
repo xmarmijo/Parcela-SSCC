@@ -67,7 +67,7 @@ export default function AdminBloqueosPage() {
             placeholder="Motivo (opcional)"
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
-          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
+          <button type="submit" className="rounded-lg bg-emerald-600 dark:bg-indigo-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-indigo-600">
             Bloquear fecha
           </button>
         </form>
