@@ -4,6 +4,34 @@ import { useEffect, useState } from "react";
 import { AppNav } from "@/components/AppNav";
 import { AdminNav } from "@/components/AdminNav";
 
+const ACTION_LABELS: Record<string, string> = {
+  "reservation.confirm": "Confirmación de reserva",
+  "reservation.create": "Creación de reserva",
+  "reservation.cancel": "Cancelación de reserva",
+  "blocked_date.create": "Bloqueo de fecha",
+  "blocked_date.delete": "Desbloqueo de fecha",
+  "fine.create": "Creación de multa",
+  "fine.update": "Actualización de multa",
+  "fine.delete": "Eliminación de multa",
+  "user.create": "Creación de usuario",
+  "user.update": "Actualización de usuario",
+  "family.create": "Creación de familia",
+  "family.update": "Actualización de familia",
+  "space.create": "Creación de espacio",
+  "space.update": "Actualización de espacio",
+  "settings.update": "Actualización de configuración",
+};
+
+const ENTITY_LABELS: Record<string, string> = {
+  reservation: "Reserva",
+  blocked_date: "Fecha bloqueada",
+  fine: "Multa",
+  user: "Usuario",
+  family: "Familia",
+  space: "Espacio",
+  settings: "Configuración",
+};
+
 export default function AdminAuditoriaPage() {
   const [data, setData] = useState<any>({ total: 0, page: 1, pageSize: 30, logs: [] });
   const [page, setPage] = useState(1);
@@ -50,8 +78,8 @@ export default function AdminAuditoriaPage() {
                   {data.logs.map((l: any) => (
                     <tr key={l.id} className="border-b">
                       <td className="px-4 py-2 text-xs text-gray-500">{new Date(l.createdAt).toLocaleString("es-CL")}</td>
-                      <td className="px-4 py-2 font-medium">{l.action}</td>
-                      <td className="px-4 py-2">{l.entityType}{l.entityId ? ` (${l.entityId.slice(0, 8)}...)` : ""}</td>
+                      <td className="px-4 py-2 font-medium">{ACTION_LABELS[l.action] ?? l.action}</td>
+                      <td className="px-4 py-2">{ENTITY_LABELS[l.entityType] ?? l.entityType}{l.entityId ? ` (${l.entityId.slice(0, 8)}...)` : ""}</td>
                       <td className="px-4 py-2">{l.user?.email ?? "sistema"}</td>
                       <td className="px-4 py-2 text-xs text-gray-600">{l.details ?? "-"}</td>
                     </tr>
