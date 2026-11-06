@@ -39,11 +39,11 @@ export default function AdminDashboardPage() {
   const maxDay = Math.max(...(data.dayStats ?? []).map((d: any) => d.count), 1);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-50">Panel de Administración</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">Panel de Administración</h1>
 
         {/* Stat cards (clickable) */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -61,8 +61,8 @@ export default function AdminDashboardPage() {
         {/* Charts */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Pie chart: reservations by status */}
-          <div className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50 mb-4">Reservas por estado</h2>
+          <div className="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-4">Reservas por estado</h2>
             <div className="flex items-center gap-6">
               <div
                 className="w-32 h-32 rounded-full flex-shrink-0"
@@ -76,8 +76,8 @@ export default function AdminDashboardPage() {
                     className="flex items-center gap-2 hover:underline"
                   >
                     <span className="inline-block w-3 h-3 rounded-full" style={{ backgroundColor: statusColors[s.status] ?? "#94a3b8" }} />
-                    <span className="text-gray-700 dark:text-slate-50">{s.status}</span>
-                    <span className="font-medium text-gray-900 dark:text-slate-50 ml-auto">{s.count}</span>
+                    <span className="text-gray-700 dark:text-zinc-50">{s.status}</span>
+                    <span className="font-medium text-gray-900 dark:text-zinc-50 ml-auto">{s.count}</span>
                   </a>
                 ))}
               </div>
@@ -85,18 +85,18 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Bar chart: most used days */}
-          <div className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50 mb-4">Días más usados (este mes)</h2>
+          <div className="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-4">Días más usados (este mes)</h2>
             <div className="space-y-2">
               {(data.dayStats ?? []).map((d: any) => {
                 const pct = Math.round((d.count / maxDay) * 100);
                 return (
                   <div key={d.day}>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-gray-700 dark:text-slate-50">{d.day}</span>
-                      <span className="font-medium text-gray-900 dark:text-slate-50">{d.count}</span>
+                      <span className="text-gray-700 dark:text-zinc-50">{d.day}</span>
+                      <span className="font-medium text-gray-900 dark:text-zinc-50">{d.count}</span>
                     </div>
-                    <div className="h-2 w-full rounded-full bg-gray-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="h-2 w-full rounded-full bg-gray-100 dark:bg-zinc-800 overflow-hidden">
                       <div className="h-full rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
                     </div>
                   </div>
@@ -107,14 +107,14 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Top families */}
-        <div className="mt-8 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50 mb-4">Familias más activas</h2>
+        <div className="mt-8 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-4">Familias más activas</h2>
           <div className="flex flex-wrap gap-6 items-center">
             <div className="space-y-2 text-sm flex-1">
               {(data.topFamilies ?? []).map((f: any, i: number) => (
                 <div key={i} className="flex justify-between">
-                  <span className="text-gray-700 dark:text-slate-50">{f.name}</span>
-                  <span className="font-medium text-gray-900 dark:text-slate-50">{f.count} reserva{f.count !== 1 ? "s" : ""}</span>
+                  <span className="text-gray-700 dark:text-zinc-50">{f.name}</span>
+                  <span className="font-medium text-gray-900 dark:text-zinc-50">{f.count} reserva{f.count !== 1 ? "s" : ""}</span>
                 </div>
               ))}
             </div>
@@ -122,19 +122,19 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Recent reservations */}
-        <div className="mt-8 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm">
+        <div className="mt-8 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4 gap-2">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-50">Últimas reservas</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50">Últimas reservas</h2>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por familia o RUT"
-              className="rounded-lg border border-gray-300 dark:border-slate-700 px-3 py-1.5 text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-slate-50"
+              className="rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-1.5 text-sm bg-white dark:bg-zinc-800 text-gray-900 dark:text-zinc-50"
             />
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-500 dark:text-slate-400 border-b">
+              <tr className="text-left text-gray-500 dark:text-zinc-400 border-b">
                 <th className="py-2">Familia</th>
                 <th className="py-2">Fecha</th>
                 <th className="py-2">Estado</th>
@@ -152,7 +152,7 @@ export default function AdminDashboardPage() {
                   return name.includes(q) || rut.includes(q) || email.includes(q);
                 })
                 .map((r: any) => (
-                <tr key={r.id} className="border-b dark:border-slate-700">
+                <tr key={r.id} className="border-b dark:border-zinc-800">
                   <td className="py-2">{r.family?.name ?? "-"}</td>
                   <td className="py-2">{new Date(r.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}</td>
                   <td className="py-2">
@@ -178,9 +178,9 @@ export default function AdminDashboardPage() {
 
 function StatCard({ title, value, href, placeholder }: { title: string; value: any; href: string; placeholder?: string }) {
   return (
-    <Link href={href} className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-sm hover:shadow-md transition">
-      <p className="text-xs text-gray-500 dark:text-slate-400">{title}</p>
-      <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-slate-50">{value ?? placeholder ?? "-"}</p>
+    <Link href={href} className="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm hover:shadow-md transition">
+      <p className="text-xs text-gray-500 dark:text-zinc-400">{title}</p>
+      <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-zinc-50">{value ?? placeholder ?? "-"}</p>
     </Link>
   );
 }
