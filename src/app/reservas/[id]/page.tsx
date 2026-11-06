@@ -102,6 +102,41 @@ export default function ReservaDetallePage() {
     }
   };
 
+  const handlePayBalance = async () => {
+    if (!reservation) return;
+    const paid = (reservation.payments || [])
+      .filter((p: any) => p.status === "APPROVED")
+      .reduce((s: number, p: any) => s + Number(p.amount), 0);
+    const balance = Number(reservation.totalAmount) - paid;
+    if (balance <= 0) return;
+    setError(null);
+    setPaying(true);
+    try {
+      const res = await fetch("/api/payments/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reservationId: reservation.id, amount: balance }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "No se pudo iniciar el pago.");
+        return;
+      }
+      const url = data.isTest
+        ? data.sandbox_init_point || data.init_point
+        : data.init_point || data.sandbox_init_point;
+      if (url) {
+        window.location.href = url;
+        return;
+      }
+      setError("Mercado Pago no devolvió un enlace de pago.");
+    } catch {
+      setError("Error de conexión al iniciar el pago.");
+    } finally {
+      setPaying(false);
+    }
+  };
+
   const handleCancel = async () => {
     if (!reservation) return;
     if (!confirm("¿Seguro que quieres cancelar esta reserva?")) return;
@@ -263,7 +298,7 @@ export default function ReservaDetallePage() {
                     ) : (
                       "Sin invitados extra"
                   )}
-                  {reservation.status === "PENDIENTE_PAGO" && (
+                  {(reservation.status === "PENDIENTE_PAGO" || reservation.status === "CONFIRMADA") && (
                     <div className="mt-2">
                       <button onClick={handleAddGuestDetail} className="text-xs text-emerald-600 hover:underline">+ Agregar invitado</button>
                     </div>
@@ -354,6 +389,21 @@ export default function ReservaDetallePage() {
                   </button>
                 </>
               )}
+              {reservation.status === "CONFIRMADA" && (() => {
+                const paid = (reservation.payments || [])
+                  .filter((p: any) => p.status === "APPROVED")
+                  .reduce((s: number, p: any) => s + Number(p.amount), 0);
+                const balance = Number(reservation.totalAmount) - paid;
+                return balance > 0 ? (
+                  <button
+                    onClick={handlePayBalance}
+                    disabled={paying}
+                    className="rounded-lg bg-amber-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-amber-700 disabled:opacity-50"
+                  >
+                    {paying ? "Procesando..." : `Pagar diferencia ($${balance.toLocaleString("es-CL")} CLP)`}
+                  </button>
+                ) : null;
+              })()}
               <Link
                 href="/mis-reservas"
                 className="rounded-lg border border-gray-300 bg-white px-6 py-2.5 font-medium text-gray-700 transition-colors hover:bg-gray-50"

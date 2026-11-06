@@ -94,8 +94,8 @@ export async function PATCH(req: Request, context: RouteContext) {
       const member = await prisma.familyMember.findFirst({ where: { familyId: reservation.familyId, userId: session.user.id } });
       if (!member) return NextResponse.json({ error: "Sin permiso" }, { status: 403 });
     }
-    if (reservation.status !== "PENDIENTE_PAGO") {
-      return NextResponse.json({ error: "Solo se pueden editar reservas pendientes de pago" }, { status: 400 });
+    if (reservation.status !== "PENDIENTE_PAGO" && reservation.status !== "CONFIRMADA") {
+      return NextResponse.json({ error: "Solo se pueden editar reservas pendientes de pago o confirmadas" }, { status: 400 });
     }
 
     const body = await req.json();

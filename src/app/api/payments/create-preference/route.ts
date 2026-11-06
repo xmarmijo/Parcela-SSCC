@@ -8,6 +8,7 @@ import { getAppUrl } from "@/lib/qr";
 
 const createPreferenceSchema = z.object({
   reservationId: z.string().trim().min(1, "El ID de la reserva es obligatorio"),
+  amount: z.number().positive().optional(),
 });
 
 export async function POST(req: Request) {
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { reservationId } = parseResult.data;
+    const { reservationId, amount } = parseResult.data;
 
     const reservation = await prisma.reservation.findUnique({
       where: { id: reservationId },
@@ -90,9 +91,9 @@ export async function POST(req: Request) {
       }
     }
 
-    if (reservation.status === "CONFIRMADA") {
+    if (reservation.status === "CONFIRMADA" && !amount) {
       return NextResponse.json(
-        { error: "La reserva ya se encuentra confirmada" },
+        { error: "La reserva ya se encuentra confirmada. Indique el monto a pagar para agregar invitados." },
         { status: 400 }
       );
     }
@@ -104,8 +105,10 @@ export async function POST(req: Request) {
       );
     }
 
+    const paymentAmount = amount ?? reservation.totalAmount;
+
     // If reservation has 0 cost (no add-ons, no extra guests), confirm directly
-    if (reservation.totalAmount <= 0) {
+    if (paymentAmount <= 0) {
       let qrRecord = await prisma.qrToken.findFirst({
         where: { reservationId: reservation.id },
       });
@@ -148,7 +151,7 @@ export async function POST(req: Request) {
             title: `Reserva Parcela SSCC - ${reservation.family.name}`,
             description: `Día de reserva: ${formattedDate}`,
             quantity: 1,
-            unit_price: reservation.totalAmount,
+            unit_price: paymentAmount,
             currency_id: "CLP",
           },
         ],
@@ -179,7 +182,7 @@ export async function POST(req: Request) {
       await prisma.payment.create({
         data: {
           provider: "mercadopago",
-          amount: reservation.totalAmount,
+          amount: paymentAmount,
           status: "PENDING",
           reservationId: reservation.id,
         },

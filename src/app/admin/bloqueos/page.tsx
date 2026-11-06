@@ -9,6 +9,8 @@ export default function AdminBloqueosPage() {
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
   const [loading, setLoading] = useState(true);
+  const [blockedWeekdays, setBlockedWeekdays] = useState<number[]>([]);
+  const weekdays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
   const load = () => {
     setLoading(true);
@@ -16,6 +18,10 @@ export default function AdminBloqueosPage() {
       .then((r) => r.json())
       .then((d) => setDates(Array.isArray(d) ? d : []))
       .finally(() => setLoading(false));
+    fetch("/api/admin/settings")
+      .then((r) => r.json())
+      .then((d) => setBlockedWeekdays(Array.isArray(d.blockedWeekdays) ? d.blockedWeekdays : []))
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -52,6 +58,34 @@ export default function AdminBloqueosPage() {
         <AdminNav />
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Fechas bloqueadas</h1>
         <p className="mt-2 text-sm text-gray-600">Cierra la parcela por mantenimiento (no se podrán reservar).</p>
+
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Cierre semanal recurrente</h2>
+          <p className="text-sm text-gray-600 mb-3">Marca los días de la semana que estarán siempre cerrados (mantenimiento).</p>
+          <div className="flex flex-wrap gap-3">
+            {weekdays.map((w, i) => (
+              <label key={i} className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={blockedWeekdays.includes(i)}
+                  onChange={async () => {
+                    const next = blockedWeekdays.includes(i)
+                      ? blockedWeekdays.filter((x) => x !== i)
+                      : [...blockedWeekdays, i];
+                    setBlockedWeekdays(next);
+                    await fetch("/api/admin/settings", {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ blockedWeekdays: next }),
+                    });
+                  }}
+                  className="h-4 w-4 text-emerald-600 rounded border-gray-300"
+                />
+                {w}
+              </label>
+            ))}
+          </div>
+        </div>
 
         <form onSubmit={handleAdd} className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-3">
           <input

@@ -136,6 +136,8 @@ export async function POST(req: Request) {
       include: { qrTokens: true },
     });
 
+    const wasPending = reservation?.status === "PENDIENTE_PAGO";
+
     if (!reservation) {
       return NextResponse.json(
         { error: `Reserva ${reservationId} no encontrada` },
@@ -230,14 +232,16 @@ export async function POST(req: Request) {
       };
     });
 
-    // Send confirmation email (Task 6)
-    try {
-      await sendConfirmationEmail(reservation.id);
-    } catch (emailErr) {
-      console.error(
-        "Error al enviar email de confirmación desde webhook:",
-        emailErr
-      );
+    // Send confirmation email only on first confirmation (not on balance payments)
+    if (wasPending) {
+      try {
+        await sendConfirmationEmail(reservation.id);
+      } catch (emailErr) {
+        console.error(
+          "Error al enviar email de confirmación desde webhook:",
+          emailErr
+        );
+      }
     }
 
     return NextResponse.json({

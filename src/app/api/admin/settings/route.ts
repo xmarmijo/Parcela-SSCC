@@ -9,7 +9,7 @@ export async function GET() {
       return NextResponse.json({ error: "No autorizado" }, { status: 403 });
     }
     const settings = await prisma.appSetting.findMany({
-      where: { key: { in: ["gmail_user", "gmail_app_password", "email_from", "bank_name", "bank_account_type", "bank_account_number", "bank_rut", "bank_email", "fine_reasons"] } },
+      where: { key: { in: ["gmail_user", "gmail_app_password", "email_from", "bank_name", "bank_account_type", "bank_account_number", "bank_rut", "bank_email", "fine_reasons", "blocked_weekdays"] } },
     });
     const map: Record<string, string> = {};
     for (const s of settings) map[s.key] = s.value;
@@ -23,6 +23,7 @@ export async function GET() {
       bankRut: map.bank_rut ?? "",
       bankEmail: map.bank_email ?? "",
       fineReasons: map.fine_reasons ? JSON.parse(map.fine_reasons) : [],
+      blockedWeekdays: map.blocked_weekdays ? map.blocked_weekdays.split(",").map((x) => Number(x)).filter((n) => !isNaN(n)) : [],
     });
   } catch (error) {
     console.error("Error:", error);
@@ -49,6 +50,7 @@ export async function PATCH(req: Request) {
     if (typeof body.bankRut === "string") upserts.push({ key: "bank_rut", value: body.bankRut.trim() });
     if (typeof body.bankEmail === "string") upserts.push({ key: "bank_email", value: body.bankEmail.trim() });
     if (Array.isArray(body.fineReasons)) upserts.push({ key: "fine_reasons", value: JSON.stringify(body.fineReasons) });
+    if (Array.isArray(body.blockedWeekdays)) upserts.push({ key: "blocked_weekdays", value: body.blockedWeekdays.join(",") });
 
     for (const u of upserts) {
       await prisma.appSetting.upsert({

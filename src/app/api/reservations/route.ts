@@ -120,6 +120,22 @@ export async function POST(req: Request) {
       );
     }
 
+    // Check recurring weekday blocks
+    try {
+      const weekdaySetting = await prisma.appSetting.findUnique({ where: { key: "blocked_weekdays" } });
+      if (weekdaySetting?.value) {
+        const blockedWeekdays = weekdaySetting.value.split(",").map((x) => Number(x)).filter((n) => !isNaN(n));
+        if (blockedWeekdays.includes(bookingDate.getUTCDay())) {
+          return NextResponse.json(
+            { error: "La parcela está cerrada ese día (mantenimiento semanal)." },
+            { status: 400 }
+          );
+        }
+      }
+    } catch {
+      // ignore if appSetting not available (e.g. test env)
+    }
+
     // Determine target family
     let targetFamilyId = familyId;
 
