@@ -116,7 +116,7 @@ function AdminReservasInner() {
                     <th className="px-4 py-2">Fecha</th>
                     <th className="px-4 py-2">Estado</th>
                     <th className="px-4 py-2">Total</th>
-                    <th className="px-4 py-2"></th>
+                    <th className="px-4 py-2">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
