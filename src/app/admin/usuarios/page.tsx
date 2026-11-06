@@ -134,7 +134,28 @@ export default function AdminUsuariosPage() {
                           <option value="GUARDIA">GUARDIA</option>
                         </select>
                       </td>
-                      <td className="py-2 px-2 text-xs">{u.rut ?? "-"}</td>
+                      <td className="py-2 px-2 text-xs">
+                        {u.rut ?? "-"}
+                        <button
+                          onClick={async () => {
+                            const r = prompt("RUT (dejar vacío para quitar):", u.rut ?? "");
+                            if (r === null) return;
+                            const res = await fetch(`/api/admin/users/${u.id}`, {
+                              method: "PATCH",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ rut: r.trim() || null }),
+                            });
+                            if (res.ok) load();
+                            else {
+                              const d = await res.json();
+                              alert(d.error || "Error");
+                            }
+                          }}
+                          className="ml-2 text-xs text-blue-600 hover:underline"
+                        >
+                          editar
+                        </button>
+                      </td>
                       <td className="py-2 px-2">
                         {u.isSocio ? (
                           <span className="text-xs text-emerald-600">Socio</span>
