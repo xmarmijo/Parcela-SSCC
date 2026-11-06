@@ -62,7 +62,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md border border-gray-100">
+    <div className="card w-full max-w-md">
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-900">
           Iniciar Sesión
@@ -88,7 +88,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="label"
           >
             Correo o RUT
           </label>
@@ -98,7 +98,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white"
+            className="input"
             placeholder="correo@ejemplo.cl o 12.345.678-9"
           />
           {errors.email && (
@@ -109,7 +109,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="label"
           >
             Contraseña
           </label>
@@ -120,7 +120,7 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
+              className="input pr-10"
               placeholder="••••••••"
             />
             <button
@@ -140,7 +140,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+          className="btn-primary w-full"
         >
           {loading ? "Iniciando sesión..." : "Ingresar"}
         </button>

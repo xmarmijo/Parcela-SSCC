@@ -120,7 +120,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="label"
             >
               Correo electrónico
             </label>
@@ -130,7 +130,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white"
+              className="input"
               placeholder="socio@ejemplo.cl"
             />
             {errors.email && (
@@ -141,7 +141,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="rut"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="label"
             >
               RUT
             </label>
@@ -151,7 +151,7 @@ export default function RegisterPage() {
               value={rut}
               onChange={(e) => setRut(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white"
+              className="input"
               placeholder="12.345.678-9"
             />
             {errors.rut && (
@@ -162,7 +162,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="label"
             >
               Contraseña
             </label>
@@ -173,7 +173,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
+                className="input pr-10"
                 placeholder="Mínimo 6 caracteres"
               />
               <button
@@ -193,7 +193,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="label"
             >
               Confirmar contraseña
             </label>
@@ -204,7 +204,7 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
+                className="input pr-10"
                 placeholder="Repite tu contraseña"
               />
               <button
@@ -226,7 +226,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            className="btn-primary w-full"
           >
             {loading ? "Creando cuenta..." : "Registrarme"}
           </button>
