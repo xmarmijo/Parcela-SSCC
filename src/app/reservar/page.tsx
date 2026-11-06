@@ -410,14 +410,14 @@ export default function ReservarPage() {
                   <div className="mt-3">
                     <label className="flex items-center gap-2 text-sm text-gray-700">
                       <input type="checkbox" checked={recurring} onChange={(e) => setRecurring(e.target.checked)} className="h-4 w-4 text-green-600 rounded border-gray-300" />
-                      Reserva recurrente (varias semanas, mismo d�a de la semana)
+                      Reserva recurrente (varias semanas, mismo día de la semana)
                     </label>
                     {recurring && (
                       <div className="mt-2 flex flex-wrap gap-3 text-sm">
                         <div>
-                          <label className="block text-xs text-gray-500 mb-1">D�a de la semana</label>
+                          <label className="block text-xs text-gray-500 mb-1">Día de la semana</label>
                           <select value={recurringDay} onChange={(e) => setRecurringDay(Number(e.target.value))} className="rounded border border-gray-300 px-2 py-1 bg-white text-gray-900">
-                            {["Domingo","Lunes","Martes","Mi�rcoles","Jueves","Viernes","S�bado"].map((d,i) => (<option key={i} value={i}>{d}</option>))}
+                            {["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"].map((d,i) => (<option key={i} value={i}>{d}</option>))}
                           </select>
                         </div>
                         <div>
