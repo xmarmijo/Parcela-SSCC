@@ -525,10 +525,6 @@ export type FamilyMemberUncheckedUpdateManyWithoutFamilyNestedInput = {
   deleteMany?: Prisma.FamilyMemberScalarWhereInput | Prisma.FamilyMemberScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type FamilyMemberCreateNestedOneWithoutFinesInput = {
   create?: Prisma.XOR<Prisma.FamilyMemberCreateWithoutFinesInput, Prisma.FamilyMemberUncheckedCreateWithoutFinesInput>
   connectOrCreate?: Prisma.FamilyMemberCreateOrConnectWithoutFinesInput

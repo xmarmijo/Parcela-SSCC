@@ -17,7 +17,7 @@ export async function GET() {
       return NextResponse.json({ error: "No autorizado" }, { status: 403 });
     }
     const users = await prisma.user.findMany({
-      select: { id: true, email: true, role: true, rut: true, createdAt: true },
+      select: { id: true, email: true, role: true, rut: true, isSocio: true, inscriptionPaid: true, createdAt: true },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(users);

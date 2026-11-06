@@ -88,7 +88,7 @@ export default function AdminDashboardPage() {
           <div className="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-4">Días más usados (este mes)</h2>
             <div className="space-y-2">
-              {(data.dayStats ?? []).map((d: any) => {
+              {[...(data.dayStats ?? [])].sort((a: any, b: any) => b.count - a.count).map((d: any) => {
                 const pct = Math.round((d.count / maxDay) * 100);
                 return (
                   <div key={d.day}>

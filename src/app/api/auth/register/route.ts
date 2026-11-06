@@ -55,6 +55,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // Determinar si es socio (RUT en núcleo importado/manual)
+    const matchingMember = await prisma.familyMember.findFirst({
+      where: {
+        OR: [{ email: normalizedEmail }, { rut: normalizedRut }],
+      },
+      include: { family: true },
+    });
+    const isSocio = !!matchingMember;
+
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
@@ -63,19 +72,13 @@ export async function POST(req: Request) {
         rut: normalizedRut,
         passwordHash,
         role: "SOCIO",
+        isSocio,
+        inscriptionPaid: isSocio, // socios no pagan inscripción
       },
     });
 
     // Vinculación automática por correo y luego por RUT
-    const matchingMember = await prisma.familyMember.findFirst({
-      where: {
-        userId: null,
-        OR: [{ email: normalizedEmail }, { rut: normalizedRut }],
-      },
-      include: { family: true },
-    });
-
-    if (matchingMember) {
+    if (matchingMember && !matchingMember.userId) {
       await prisma.familyMember.update({
         where: { id: matchingMember.id },
         data: { userId: user.id },

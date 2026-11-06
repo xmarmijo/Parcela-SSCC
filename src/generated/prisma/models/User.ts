@@ -30,6 +30,8 @@ export type UserMinAggregateOutputType = {
   rut: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  isSocio: boolean | null
+  inscriptionPaid: boolean | null
   createdAt: Date | null
 }
 
@@ -39,6 +41,8 @@ export type UserMaxAggregateOutputType = {
   rut: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  isSocio: boolean | null
+  inscriptionPaid: boolean | null
   createdAt: Date | null
 }
 
@@ -48,6 +52,8 @@ export type UserCountAggregateOutputType = {
   rut: number
   passwordHash: number
   role: number
+  isSocio: number
+  inscriptionPaid: number
   createdAt: number
   _all: number
 }
@@ -59,6 +65,8 @@ export type UserMinAggregateInputType = {
   rut?: true
   passwordHash?: true
   role?: true
+  isSocio?: true
+  inscriptionPaid?: true
   createdAt?: true
 }
 
@@ -68,6 +76,8 @@ export type UserMaxAggregateInputType = {
   rut?: true
   passwordHash?: true
   role?: true
+  isSocio?: true
+  inscriptionPaid?: true
   createdAt?: true
 }
 
@@ -77,6 +87,8 @@ export type UserCountAggregateInputType = {
   rut?: true
   passwordHash?: true
   role?: true
+  isSocio?: true
+  inscriptionPaid?: true
   createdAt?: true
   _all?: true
 }
@@ -159,6 +171,8 @@ export type UserGroupByOutputType = {
   rut: string | null
   passwordHash: string
   role: $Enums.Role
+  isSocio: boolean
+  inscriptionPaid: boolean
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -189,6 +203,8 @@ export type UserWhereInput = {
   rut?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isSocio?: Prisma.BoolFilter<"User"> | boolean
+  inscriptionPaid?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   ownedFamily?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   familyMember?: Prisma.FamilyMemberListRelationFilter
@@ -202,6 +218,8 @@ export type UserOrderByWithRelationInput = {
   rut?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
+  inscriptionPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ownedFamily?: Prisma.FamilyOrderByWithRelationInput
   familyMember?: Prisma.FamilyMemberOrderByRelationAggregateInput
@@ -218,6 +236,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  isSocio?: Prisma.BoolFilter<"User"> | boolean
+  inscriptionPaid?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   ownedFamily?: Prisma.XOR<Prisma.FamilyNullableScalarRelationFilter, Prisma.FamilyWhereInput> | null
   familyMember?: Prisma.FamilyMemberListRelationFilter
@@ -231,6 +251,8 @@ export type UserOrderByWithAggregationInput = {
   rut?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
+  inscriptionPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -246,6 +268,8 @@ export type UserScalarWhereWithAggregatesInput = {
   rut?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  isSocio?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  inscriptionPaid?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -255,6 +279,8 @@ export type UserCreateInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberCreateNestedManyWithoutUserInput
@@ -268,6 +294,8 @@ export type UserUncheckedCreateInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyUncheckedCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutUserInput
@@ -281,6 +309,8 @@ export type UserUpdateInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUpdateManyWithoutUserNestedInput
@@ -294,6 +324,8 @@ export type UserUncheckedUpdateInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUncheckedUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -307,6 +339,8 @@ export type UserCreateManyInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
 }
 
@@ -316,6 +350,8 @@ export type UserUpdateManyMutationInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -325,6 +361,8 @@ export type UserUncheckedUpdateManyInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -334,6 +372,8 @@ export type UserCountOrderByAggregateInput = {
   rut?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
+  inscriptionPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -343,6 +383,8 @@ export type UserMaxOrderByAggregateInput = {
   rut?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
+  inscriptionPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -352,6 +394,8 @@ export type UserMinOrderByAggregateInput = {
   rut?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  isSocio?: Prisma.SortOrder
+  inscriptionPaid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -375,6 +419,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -449,6 +497,8 @@ export type UserCreateWithoutOwnedFamilyInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   familyMember?: Prisma.FamilyMemberCreateNestedManyWithoutUserInput
   finesIssued?: Prisma.FineCreateNestedManyWithoutIssuedByInput
@@ -461,6 +511,8 @@ export type UserUncheckedCreateWithoutOwnedFamilyInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   familyMember?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutUserInput
   finesIssued?: Prisma.FineUncheckedCreateNestedManyWithoutIssuedByInput
@@ -489,6 +541,8 @@ export type UserUpdateWithoutOwnedFamilyInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyMember?: Prisma.FamilyMemberUpdateManyWithoutUserNestedInput
   finesIssued?: Prisma.FineUpdateManyWithoutIssuedByNestedInput
@@ -501,6 +555,8 @@ export type UserUncheckedUpdateWithoutOwnedFamilyInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   familyMember?: Prisma.FamilyMemberUncheckedUpdateManyWithoutUserNestedInput
   finesIssued?: Prisma.FineUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -513,6 +569,8 @@ export type UserCreateWithoutFamilyMemberInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyCreateNestedOneWithoutOwnerInput
   finesIssued?: Prisma.FineCreateNestedManyWithoutIssuedByInput
@@ -525,6 +583,8 @@ export type UserUncheckedCreateWithoutFamilyMemberInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyUncheckedCreateNestedOneWithoutOwnerInput
   finesIssued?: Prisma.FineUncheckedCreateNestedManyWithoutIssuedByInput
@@ -553,6 +613,8 @@ export type UserUpdateWithoutFamilyMemberInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUpdateOneWithoutOwnerNestedInput
   finesIssued?: Prisma.FineUpdateManyWithoutIssuedByNestedInput
@@ -565,6 +627,8 @@ export type UserUncheckedUpdateWithoutFamilyMemberInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUncheckedUpdateOneWithoutOwnerNestedInput
   finesIssued?: Prisma.FineUncheckedUpdateManyWithoutIssuedByNestedInput
@@ -577,6 +641,8 @@ export type UserCreateWithoutFinesIssuedInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberCreateNestedManyWithoutUserInput
@@ -589,6 +655,8 @@ export type UserUncheckedCreateWithoutFinesIssuedInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyUncheckedCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutUserInput
@@ -617,6 +685,8 @@ export type UserUpdateWithoutFinesIssuedInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUpdateManyWithoutUserNestedInput
@@ -629,6 +699,8 @@ export type UserUncheckedUpdateWithoutFinesIssuedInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUncheckedUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -641,6 +713,8 @@ export type UserCreateWithoutAuditLogsInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberCreateNestedManyWithoutUserInput
@@ -653,6 +727,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   rut?: string | null
   passwordHash: string
   role?: $Enums.Role
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: Date | string
   ownedFamily?: Prisma.FamilyUncheckedCreateNestedOneWithoutOwnerInput
   familyMember?: Prisma.FamilyMemberUncheckedCreateNestedManyWithoutUserInput
@@ -681,6 +757,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUpdateManyWithoutUserNestedInput
@@ -693,6 +771,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   rut?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isSocio?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  inscriptionPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedFamily?: Prisma.FamilyUncheckedUpdateOneWithoutOwnerNestedInput
   familyMember?: Prisma.FamilyMemberUncheckedUpdateManyWithoutUserNestedInput
@@ -754,6 +834,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   rut?: boolean
   passwordHash?: boolean
   role?: boolean
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: boolean
   ownedFamily?: boolean | Prisma.User$ownedFamilyArgs<ExtArgs>
   familyMember?: boolean | Prisma.User$familyMemberArgs<ExtArgs>
@@ -768,6 +850,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rut?: boolean
   passwordHash?: boolean
   role?: boolean
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -777,6 +861,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rut?: boolean
   passwordHash?: boolean
   role?: boolean
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -786,10 +872,12 @@ export type UserSelectScalar = {
   rut?: boolean
   passwordHash?: boolean
   role?: boolean
+  isSocio?: boolean
+  inscriptionPaid?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "rut" | "passwordHash" | "role" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "rut" | "passwordHash" | "role" | "isSocio" | "inscriptionPaid" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ownedFamily?: boolean | Prisma.User$ownedFamilyArgs<ExtArgs>
   familyMember?: boolean | Prisma.User$familyMemberArgs<ExtArgs>
@@ -814,6 +902,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     rut: string | null
     passwordHash: string
     role: $Enums.Role
+    isSocio: boolean
+    inscriptionPaid: boolean
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1247,6 +1337,8 @@ export interface UserFieldRefs {
   readonly rut: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly isSocio: Prisma.FieldRef<"User", 'Boolean'>
+  readonly inscriptionPaid: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     

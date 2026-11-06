@@ -40,12 +40,14 @@ enum PaymentStatus {
 // ─────────────────────────────────────────
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  rut          String?  @unique
-  passwordHash String
-  role         Role     @default(SOCIO)
-  createdAt    DateTime @default(now())
+  id              String   @id @default(cuid())
+  email           String   @unique
+  rut             String?  @unique
+  passwordHash    String
+  role            Role     @default(SOCIO)
+  isSocio         Boolean  @default(false)
+  inscriptionPaid Boolean  @default(false)
+  createdAt       DateTime @default(now())
 
   // Back-reference: the family this user owns (populated via Family.ownerId)
   ownedFamily  Family?  @relation("FamilyOwner")

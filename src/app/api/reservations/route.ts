@@ -184,6 +184,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // Bloquear si el usuario no es socio y no ha pagado inscripción
+    const currentUser = await prisma.user.findUnique({ where: { id: session.user.id } });
+    if (currentUser && !currentUser.isSocio && !currentUser.inscriptionPaid) {
+      return NextResponse.json(
+        { error: "Debes pagar la inscripción antes de reservar. Contacta a la administración." },
+        { status: 403 }
+      );
+    }
+
     // Check for existing active reservation for family+date (409)
     const existingReservation = await prisma.reservation.findFirst({
       where: {

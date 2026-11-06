@@ -14,6 +14,7 @@ describe("Reservations and AddOnSpace API endpoints", () => {
   beforeEach(() => {
     (prisma.blockedDate as any).findUnique = async () => null;
     (prisma.fine as any).count = async () => 0;
+    (prisma.user as any).findUnique = async () => ({ id: "user-socio", isSocio: true, inscriptionPaid: true });
   });
   beforeEach(() => {
     delete (globalThis as any).__mockSession;

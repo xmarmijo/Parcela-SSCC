@@ -7,6 +7,8 @@ import { z } from "zod";
 const schema = z.object({
   password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres").optional(),
   role: z.enum(["SOCIO", "ADMIN", "GUARDIA"]).optional(),
+  inscriptionPaid: z.boolean().optional(),
+  isSocio: z.boolean().optional(),
 });
 
 type RouteContext = { params: Promise<{ id: string }> | { id: string } };
@@ -28,6 +30,8 @@ export async function PATCH(req: Request, context: RouteContext) {
     if (parsed.data.password) {
       data.passwordHash = await bcrypt.hash(parsed.data.password, 10);
     }
+    if (parsed.data.inscriptionPaid !== undefined) data.inscriptionPaid = parsed.data.inscriptionPaid;
+    if (parsed.data.isSocio !== undefined) data.isSocio = parsed.data.isSocio;
     if (Object.keys(data).length === 0) {
       return NextResponse.json({ error: "Nada que actualizar" }, { status: 400 });
     }
