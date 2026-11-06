@@ -198,7 +198,7 @@ export default function FamiliaPage() {
           </div>
         ) : (
           <>
-            {fines.length > 0 && (
+            {fines.filter((f: any) => !f.paidAt).length > 0 && (
               <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-6 shadow-sm">
                 <h2 className="text-lg font-semibold text-red-800 mb-2">
                   Multas pendientes
@@ -242,9 +242,11 @@ export default function FamiliaPage() {
                     </li>
                   ))}
                 </ul>
-                {fines.filter((f: any) => !f.paidAt).length === 0 && (
-                  <p className="text-sm text-red-700">Todas las multas están pagadas.</p>
-                )}
+              </div>
+            )}
+            {fines.length > 0 && fines.filter((f: any) => !f.paidAt).length === 0 && (
+              <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-6 shadow-sm">
+                <p className="text-sm text-green-700 font-medium">✓ Todas las multas están pagadas.</p>
               </div>
             )}
 
