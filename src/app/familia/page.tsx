@@ -151,32 +151,32 @@ export default function FamiliaPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
 
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
           Mi Familia
         </h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-zinc-400">
+        <p className="mt-2 text-sm text-gray-600">
           Registra tu grupo familiar para poder reservar la parcela. Los
           integrantes del núcleo no pagan entrada; los invitados extra sí.
         </p>
 
         {error && (
-          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 p-3 text-sm text-red-700 dark:text-red-300">
+          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {loading ? (
-          <p className="mt-8 text-sm text-gray-500 dark:text-zinc-400">Cargando...</p>
+          <p className="mt-8 text-sm text-gray-500">Cargando...</p>
         ) : !family ? (
-          <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50">
+          <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900">
               Crear mi familia
             </h2>
-            <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
+            <p className="mt-1 text-sm text-gray-600">
               Usa el apellido familiar, por ejemplo: &quot;Familia Armijo&quot;.
             </p>
             <form onSubmit={handleCreate} className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -185,12 +185,12 @@ export default function FamiliaPage() {
                 value={familyName}
                 onChange={(e) => setFamilyName(e.target.value)}
                 placeholder="Nombre de la familia"
-                className="flex-1 rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-50 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <button
                 type="submit"
                 disabled={creating}
-                className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+                className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
               >
                 {creating ? "Creando..." : "Crear familia"}
               </button>
@@ -199,19 +199,19 @@ export default function FamiliaPage() {
         ) : (
           <>
             {fines.length > 0 && (
-              <div className="mt-6 rounded-xl border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-red-800 dark:text-red-300 mb-2">
+              <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-red-800 mb-2">
                   Multas pendientes
                 </h2>
-                <p className="text-sm text-red-700 dark:text-red-300 mb-3">
+                <p className="text-sm text-red-700 mb-3">
                   Tu familia tiene multas pendientes. Regularízalas con la administración antes de reservar.
                 </p>
-                <ul className="divide-y divide-red-100 dark:divide-red-900">
+                <ul className="divide-y divide-red-100">
                   {fines.filter((f: any) => !f.paidAt).map((f: any) => (
                     <li key={f.id} className="py-2 flex flex-wrap items-center justify-between gap-2 text-sm">
-                      <span className="text-red-800 dark:text-red-300">{f.reason}</span>
+                      <span className="text-red-800">{f.reason}</span>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-red-900 dark:text-red-200">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
+                        <span className="font-bold text-red-900">${Number(f.amount).toLocaleString("es-CL")} CLP</span>
                         <button
                           onClick={async () => {
                             let bankInfo = "la cuenta del club";
@@ -234,7 +234,7 @@ export default function FamiliaPage() {
                               `Para pagar la multa de $${Number(f.amount).toLocaleString("es-CL")} CLP, realiza una transferencia con los siguientes datos:\\n\\n${bankInfo}\\n\\nEnvía el comprobante a la administración. El admin marcará la multa como pagada.`
                             );
                           }}
-                          className="rounded bg-red-600 dark:bg-red-700 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 dark:hover:bg-red-600"
+                          className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700"
                         >
                           Pagar
                         </button>
@@ -243,42 +243,42 @@ export default function FamiliaPage() {
                   ))}
                 </ul>
                 {fines.filter((f: any) => !f.paidAt).length === 0 && (
-                  <p className="text-sm text-red-700 dark:text-red-300">Todas las multas están pagadas.</p>
+                  <p className="text-sm text-red-700">Todas las multas están pagadas.</p>
                 )}
               </div>
             )}
 
-            <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50">
+            <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900">
                 {family.name}
               </h2>
-              <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-gray-600">
                 Integrantes registrados: {family.members.length}
               </p>
 
               {family.members.length === 0 ? (
-                <p className="mt-4 text-sm text-gray-500 dark:text-zinc-400">
+                <p className="mt-4 text-sm text-gray-500">
                   Todavía no has agregado integrantes.
                 </p>
               ) : (
-                <ul className="mt-4 divide-y divide-gray-100 dark:divide-[#1d3b53]">
+                <ul className="mt-4 divide-y divide-gray-100">
                   {family.members.map((m) => (
                     <li
                       key={m.id}
                       className="flex flex-wrap items-center justify-between gap-2 py-3"
                     >
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-zinc-50">{m.fullName}</p>
-                        <p className="text-xs text-gray-500 dark:text-zinc-400">{m.relation}</p>
-                        {m.rut && <p className="text-xs text-gray-500 dark:text-zinc-400">RUT: {m.rut}</p>}
-                        {m.course && <p className="text-xs text-gray-500 dark:text-zinc-400">Curso: {m.course}</p>}
-                        {m.exAlumno && <p className="text-xs text-gray-500 dark:text-zinc-400">Exalumno</p>}
+                        <p className="font-medium text-gray-900">{m.fullName}</p>
+                        <p className="text-xs text-gray-500">{m.relation}</p>
+                        {m.rut && <p className="text-xs text-gray-500">RUT: {m.rut}</p>}
+                        {m.course && <p className="text-xs text-gray-500">Curso: {m.course}</p>}
+                        {m.exAlumno && <p className="text-xs text-gray-500">Exalumno</p>}
                         {(m.email || m.user?.email) && (
-                          <p className="text-xs text-emerald-700 dark:text-emerald-400">{m.email || m.user?.email}</p>
+                          <p className="text-xs text-emerald-700">{m.email || m.user?.email}</p>
                         )}
                       </div>
                       {m.user?.email && (
-                        <span className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-xs text-emerald-700 dark:text-emerald-400">
+                        <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-700">
                           {m.user.email}
                         </span>
                       )}
@@ -288,17 +288,17 @@ export default function FamiliaPage() {
               )}
             </div>
 
-            <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50">
+            <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900">
                 Agregar integrante
               </h2>
-              <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-gray-600">
                 Si le pones correo, esa persona podrá entrar con su propia cuenta
                 y reservar. Si no, queda solo como integrante del núcleo.
               </p>
 
               {memberMsg && (
-                <div className="mt-3 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950 p-3 text-sm text-green-700 dark:text-green-300">
+                <div className="mt-3 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
                   {memberMsg}
                 </div>
               )}
@@ -306,19 +306,19 @@ export default function FamiliaPage() {
               <form onSubmit={handleAddMember} className="mt-4 space-y-3">
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-300">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Nombre completo
                     </label>
                     <input
                       type="text"
                       value={memberName}
                       onChange={(e) => setMemberName(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="Ej: María Armijo"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-300">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       RUT (obligatorio)
                     </label>
                     <input
@@ -326,18 +326,18 @@ export default function FamiliaPage() {
                       value={memberRut}
                       onChange={(e) => setMemberRut(e.target.value)}
                       required
-                      className="w-full rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="Ej: 12.345.678-9"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-300">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Parentesco
                     </label>
                     <select
                       value={relation}
                       onChange={(e) => setRelation(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     >
                       <option value="titular">Titular</option>
                       <option value="cónyuge">Cónyuge</option>
@@ -346,46 +346,46 @@ export default function FamiliaPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-300">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Correo (opcional)
                     </label>
                     <input
                       type="email"
                       value={memberEmail}
                       onChange={(e) => setMemberEmail(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="correo@ejemplo.cl"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-300">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Contraseña (opcional)
                     </label>
                     <input
                       type="password"
                       value={memberPassword}
                       onChange={(e) => setMemberPassword(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-gray-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="Mínimo 6 caracteres"
                     />
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-zinc-400">
+                <p className="text-xs text-gray-500">
                   Si agregas correo y no defines contraseña, la clave inicial será{" "}
                   <span className="font-mono">Parcela2026!</span>
                 </p>
                 <button
                   type="submit"
                   disabled={adding}
-                  className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+                  className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
                 >
                   {adding ? "Agregando..." : "Agregar integrante"}
                 </button>
               </form>
             </div>
 
-            <div className="mt-6 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950 p-6">
-              <p className="text-sm text-emerald-800 dark:text-emerald-300">
+            <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-6">
+              <p className="text-sm text-emerald-800">
                 ¿Listo? Ya puedes{" "}
                 <a href="/reservar" className="font-semibold underline">
                   hacer una reserva

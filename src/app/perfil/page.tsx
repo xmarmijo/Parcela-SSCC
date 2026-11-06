@@ -57,32 +57,32 @@ export default function PerfilPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <AppNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">Mi perfil</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Mi perfil</h1>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-3">Datos de la cuenta</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Datos de la cuenta</h2>
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-zinc-400">Correo</span><span className="font-medium">{user?.email}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-zinc-400">RUT</span><span className="font-medium">{user?.rut ?? "-"}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500 dark:text-zinc-400">Rol</span><span className="font-medium">{user?.role}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500">Correo</span><span className="font-medium">{user?.email}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500">RUT</span><span className="font-medium">{user?.rut ?? "-"}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500">Rol</span><span className="font-medium">{user?.role}</span></div>
           </div>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-3">Cambiar contraseña</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Cambiar contraseña</h2>
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-50">Contraseña actual</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Contraseña actual</label>
               <div className="relative">
                 <input
                   type={showCurrent ? "text" : "password"}
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-zinc-800 dark:text-zinc-50 dark:border-zinc-800 pr-10"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
                 />
                 <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700">
                   {showCurrent ? "🙈" : "👁️"}
@@ -90,14 +90,14 @@ export default function PerfilPage() {
               </div>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-50">Nueva contraseña</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Nueva contraseña</label>
               <div className="relative">
                 <input
                   type={showNew ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-zinc-800 dark:text-zinc-50 dark:border-zinc-800 pr-10"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
                   placeholder="Mínimo 6 caracteres"
                 />
                 <button type="button" onClick={() => setShowNew(!showNew)} className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700">
@@ -106,23 +106,23 @@ export default function PerfilPage() {
               </div>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-zinc-50">Confirmar nueva contraseña</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Confirmar nueva contraseña</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white dark:bg-zinc-800 dark:text-zinc-50 dark:border-zinc-800"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white"
               />
             </div>
 
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800">
+              <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200">
                 {error}
               </div>
             )}
             {msg && (
-              <div className="p-3 rounded-lg bg-green-50 text-green-700 text-sm border border-green-200 dark:bg-green-950 dark:text-green-300 dark:border-green-800">
+              <div className="p-3 rounded-lg bg-green-50 text-green-700 text-sm border border-green-200">
                 {msg}
               </div>
             )}
@@ -130,7 +130,7 @@ export default function PerfilPage() {
             <button
               type="submit"
               disabled={saving}
-              className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
             >
               {saving ? "Guardando..." : "Cambiar contraseña"}
             </button>
@@ -138,7 +138,7 @@ export default function PerfilPage() {
         </div>
 
         <div className="mt-4">
-          <Link href="/mis-reservas" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">← Volver</Link>
+          <Link href="/mis-reservas" className="text-sm text-emerald-600 hover:underline">← Volver</Link>
         </div>
       </div>
     </div>

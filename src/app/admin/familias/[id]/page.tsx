@@ -37,16 +37,16 @@ export default function AdminFamiliaDetallePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <AppNav />
         <AdminNav />
-        <Link href="/admin/familias" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline">
+        <Link href="/admin/familias" className="text-sm text-emerald-600 hover:underline">
           ← Volver
         </Link>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">{family.name}</h1>
-        {family.code && <p className="text-sm text-gray-500 dark:text-zinc-400 font-mono">Código: {family.code}</p>}
-        <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-900">{family.name}</h1>
+        {family.code && <p className="text-sm text-gray-500 font-mono">Código: {family.code}</p>}
+        <p className="mt-1 text-sm text-gray-600">
           Titular: {family.owner?.email ?? "Sin registrar"} {family.owner?.rut ? `(${family.owner.rut})` : ""}
         </p>
         {family.owner && (
@@ -55,7 +55,7 @@ export default function AdminFamiliaDetallePage() {
             <select
               value={family.owner.role}
               onChange={(e) => handleRoleChange(e.target.value)}
-              className="rounded border border-gray-300 dark:border-zinc-800 px-2 py-1"
+              className="rounded border border-gray-300 px-2 py-1"
             >
               <option value="SOCIO">SOCIO</option>
               <option value="ADMIN">ADMIN</option>
@@ -63,24 +63,24 @@ export default function AdminFamiliaDetallePage() {
           </div>
         )}
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-3">Integrantes</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Integrantes</h2>
           <ul className="divide-y divide-gray-100">
             {family.members?.map((m: any) => (
               <li key={m.id} className="py-2 text-sm">
                 <span className="font-medium">{m.fullName}</span>
-                <span className="ml-2 text-gray-500 dark:text-zinc-400">
+                <span className="ml-2 text-gray-500">
                   {m.relation}
                   {m.rut ? ` · ${m.rut}` : ""}
                   {m.course ? ` · ${m.course}` : ""}
                   {m.exAlumno ? " · Exalumno" : ""}
                 </span>
                 {m.user?.email ? (
-                  <span className="ml-2 rounded-full bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 text-xs text-emerald-700">
+                  <span className="ml-2 rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">
                     {m.user.email}
                   </span>
                 ) : (
-                  <span className="ml-2 rounded-full bg-gray-100 dark:bg-zinc-800 px-2 py-0.5 text-xs text-gray-500 dark:text-zinc-400">
+                  <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
                     Sin cuenta de acceso
                   </span>
                 )}
@@ -89,11 +89,11 @@ export default function AdminFamiliaDetallePage() {
           </ul>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-3">Reservas</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Reservas</h2>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-500 dark:text-zinc-400 border-b">
+              <tr className="text-left text-gray-500 border-b">
                 <th className="py-2">Fecha</th>
                 <th className="py-2">Estado</th>
                 <th className="py-2">Total</th>
@@ -111,8 +111,8 @@ export default function AdminFamiliaDetallePage() {
           </table>
         </div>
 
-        <div className="mt-6 rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-3">Multas</h2>
+        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3">Multas</h2>
           <ul className="divide-y divide-gray-100">
             {family.fines?.map((f: any) => (
               <li key={f.id} className="py-2 text-sm flex justify-between">
@@ -120,7 +120,7 @@ export default function AdminFamiliaDetallePage() {
                 <span className="font-medium">${Number(f.amount).toLocaleString("es-CL")}</span>
               </li>
             ))}
-            {!family.fines?.length && <li className="text-sm text-gray-500 dark:text-zinc-400">Sin multas</li>}
+            {!family.fines?.length && <li className="text-sm text-gray-500">Sin multas</li>}
           </ul>
         </div>
       </div>

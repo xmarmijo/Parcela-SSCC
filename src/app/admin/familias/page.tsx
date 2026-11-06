@@ -26,31 +26,31 @@ export default function AdminFamiliasPage() {
   const totalPages = Math.max(1, Math.ceil((data?.total ?? 0) / (data?.pageSize ?? 20)));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">Familias</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Familias</h1>
 
         <div className="mt-4 flex gap-2">
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Buscar por nombre, RUT o correo"
-            className="flex-1 rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-sm"
+            className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
-          <button onClick={() => { setPage(1); load(1); }} className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600">
+          <button onClick={() => { setPage(1); load(1); }} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
             Buscar
           </button>
         </div>
 
         {loading ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-zinc-400">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500">Cargando...</p>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 dark:text-zinc-400 border-b bg-gray-50 dark:bg-zinc-900">
+                <tr className="text-left text-gray-500 border-b bg-gray-50">
                   <th className="px-4 py-2">Código</th>
                   <th className="px-4 py-2">Familia</th>
                   <th className="px-4 py-2">Titular</th>
@@ -61,15 +61,15 @@ export default function AdminFamiliasPage() {
               <tbody>
                 {data?.families?.map((f: any) => (
                   <tr key={f.id} className="border-b">
-                    <td className="px-4 py-2 font-mono text-xs text-gray-500 dark:text-zinc-400">{f.code ?? "-"}</td>
+                    <td className="px-4 py-2 font-mono text-xs text-gray-500">{f.code ?? "-"}</td>
                     <td className="px-4 py-2 font-medium">{f.name}</td>
                     <td className="px-4 py-2">
                       {f.owner?.email ?? "Sin titular registrado"}
-                      {f.owner?.rut ? <span className="ml-2 text-xs text-gray-500 dark:text-zinc-400">({f.owner.rut})</span> : null}
+                      {f.owner?.rut ? <span className="ml-2 text-xs text-gray-500">({f.owner.rut})</span> : null}
                     </td>
                     <td className="px-4 py-2">{f.members?.length ?? 0}</td>
                     <td className="px-4 py-2">
-                      <Link href={`/admin/familias/${f.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline">
+                      <Link href={`/admin/familias/${f.id}`} className="text-emerald-600 hover:underline">
                         Ver
                       </Link>
                     </td>
@@ -77,8 +77,8 @@ export default function AdminFamiliasPage() {
                 ))}
               </tbody>
             </table>
-            <p className="px-4 py-2 text-xs text-gray-500 dark:text-zinc-400">Total: {data?.total ?? 0}</p>
-            <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600 dark:text-zinc-400">
+            <p className="px-4 py-2 text-xs text-gray-500">Total: {data?.total ?? 0}</p>
+            <div className="px-4 py-2 flex items-center justify-between text-sm text-gray-600">
               <span>Página {data?.page ?? 1} de {totalPages}</span>
               <div className="flex gap-2">
                 <button disabled={page <= 1} onClick={() => { const p = page - 1; setPage(p); load(p); }} className="rounded border px-3 py-1 disabled:opacity-40">Anterior</button>

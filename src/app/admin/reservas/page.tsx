@@ -51,30 +51,30 @@ function AdminReservasInner() {
   const totalPages = Math.max(1, Math.ceil(data.total / data.pageSize));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">Reservas</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Reservas</h1>
 
         <div className="mt-4 flex flex-wrap gap-2">
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
           <input
             type="text"
             value={rut}
             onChange={(e) => setRut(e.target.value)}
             placeholder="Filtrar por RUT del titular"
-            className="rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
           >
             <option value="">Todos los estados</option>
             <option value="PENDIENTE_PAGO">Pendiente de pago</option>
@@ -85,33 +85,33 @@ function AdminReservasInner() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-lg border border-gray-300 dark:border-zinc-800 px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
           >
             <option value="desc">Más recientes primero</option>
             <option value="asc">Más antiguos primero</option>
           </select>
           <button
             onClick={() => { setPage(1); load(1); }}
-            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
+            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
           >
             Filtrar
           </button>
           <button
             onClick={() => { setDate(""); setRut(""); setStatus(""); setPage(1); load(1); }}
-            className="rounded-lg bg-gray-100 dark:bg-zinc-800 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-zinc-700"
+            className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
           >
             Limpiar
           </button>
         </div>
 
         {loading ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-zinc-400">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500">Cargando...</p>
         ) : (
           <>
-            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 dark:text-zinc-400 border-b bg-gray-50 dark:bg-zinc-900">
+                  <tr className="text-left text-gray-500 border-b bg-gray-50">
                     <th className="px-4 py-2">Familia</th>
                     <th className="px-4 py-2">Fecha</th>
                     <th className="px-4 py-2">Estado</th>
@@ -127,7 +127,7 @@ function AdminReservasInner() {
                       <td className="px-4 py-2">{r.status}</td>
                       <td className="px-4 py-2">${Number(r.totalAmount).toLocaleString("es-CL")}</td>
                       <td className="px-4 py-2 space-x-2">
-                        <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">
+                        <a href={`/reservas/${r.id}`} className="text-xs text-emerald-600 hover:underline">
                           Ver detalle
                         </a>
                         {r.status === "PENDIENTE_PAGO" && (
@@ -147,7 +147,7 @@ function AdminReservasInner() {
                                   alert(d.error || "Error");
                                 }
                               }}
-                              className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                              className="text-xs text-blue-600 hover:underline"
                             >
                               Confirmar transferencia
                             </button>
@@ -166,11 +166,11 @@ function AdminReservasInner() {
                                   alert(d.error || "Error");
                                 }
                               }}
-                              className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
+                              className="text-xs text-emerald-600 hover:underline"
                             >
                               Confirmar efectivo
                             </button>
-                            <button onClick={() => cancel(r.id)} className="text-xs text-red-600 dark:text-red-400 hover:underline">
+                            <button onClick={() => cancel(r.id)} className="text-xs text-red-600 hover:underline">
                               Cancelar
                             </button>
                           </>
@@ -181,7 +181,7 @@ function AdminReservasInner() {
                 </tbody>
               </table>
             </div>
-            <div className="mt-3 flex items-center justify-between text-sm text-gray-600 dark:text-zinc-400">
+            <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
               <span>Total: {data.total} · Página {data.page} de {totalPages}</span>
               <div className="flex gap-2">
                 <button

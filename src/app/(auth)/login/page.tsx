@@ -62,24 +62,24 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-xl shadow-md border border-gray-100 dark:border-zinc-800 dark:bg-zinc-900 dark:border-zinc-800">
+    <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md border border-gray-100">
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-bold text-gray-900">
           Iniciar Sesión
         </h1>
-        <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1 dark:text-zinc-400">
+        <p className="text-sm text-gray-500 mt-1">
           Accede al sistema de reservas de la Parcela SSCC
         </p>
       </div>
 
       {registered && (
-        <div className="mb-4 p-3 rounded-lg bg-green-50 text-green-700 text-sm border border-green-200 dark:bg-green-950 dark:text-green-300 dark:border-green-800">
+        <div className="mb-4 p-3 rounded-lg bg-green-50 text-green-700 text-sm border border-green-200">
           ¡Cuenta creada con éxito! Ahora puedes iniciar sesión.
         </div>
       )}
 
       {serverError && (
-        <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-950 text-red-700 text-sm border border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800">
+        <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200">
           {serverError}
         </div>
       )}
@@ -88,7 +88,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 dark:text-zinc-50 mb-1"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Correo o RUT
           </label>
@@ -98,7 +98,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-zinc-50 bg-white dark:bg-zinc-900 dark:bg-zinc-800 dark:text-zinc-50 dark:border-zinc-800"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white"
             placeholder="correo@ejemplo.cl o 12.345.678-9"
           />
           {errors.email && (
@@ -109,7 +109,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700 dark:text-zinc-50 mb-1"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Contraseña
           </label>
@@ -120,13 +120,13 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 dark:text-zinc-50 bg-white dark:bg-zinc-900 dark:bg-zinc-800 dark:text-zinc-50 dark:border-zinc-800 pr-10"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 bg-white pr-10"
               placeholder="••••••••"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:text-zinc-50"
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
               aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
               {showPassword ? "🙈" : "👁️"}
@@ -140,17 +140,17 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 px-4 bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+          className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
         >
           {loading ? "Iniciando sesión..." : "Ingresar"}
         </button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-600 dark:text-zinc-400">
+      <div className="mt-6 text-center text-sm text-gray-600">
         ¿No tienes una cuenta aún?{" "}
         <Link
           href="/register"
-          className="font-medium text-emerald-600 hover:text-emerald-500 hover:underline dark:text-emerald-400"
+          className="font-medium text-emerald-600 hover:text-emerald-500 hover:underline"
         >
           Regístrate aquí
         </Link>
@@ -161,8 +161,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-zinc-900">
-      <Suspense fallback={<div className="text-gray-600 dark:text-zinc-400">Cargando formulario...</div>}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+      <Suspense fallback={<div className="text-gray-600">Cargando formulario...</div>}>
         <LoginForm />
       </Suspense>
     </div>

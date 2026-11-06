@@ -255,15 +255,15 @@ export default function ReservarPage() {
   const poolUsersCount = extraGuests.filter((g) => g.usesPool).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <AppNav />
         {/* Header */}
         <div className="mb-8 text-center sm:text-left">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-zinc-50 tracking-tight">
+          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
             Reserva de Parcela SSCC
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-gray-600">
             Reserva por día completo para tu familia, agrega invitados adicionales o
             arrienda espacios exclusivos como quincho y salas.
           </p>
@@ -271,33 +271,33 @@ export default function ReservarPage() {
 
         {/* Success view */}
         {successReservation ? (
-          <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-md p-8 border border-green-200">
+          <div className="bg-white rounded-xl shadow-md p-8 border border-green-200">
             <div className="flex items-center space-x-3 text-green-700 mb-4">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
               <h2 className="text-2xl font-bold">¡Reserva creada con éxito!</h2>
             </div>
-            <p className="text-gray-700 dark:text-zinc-50 mb-4">
+            <p className="text-gray-700 mb-4">
               Tu reserva ha sido registrada en estado{" "}
               <span className="font-semibold text-amber-600">
                 {successReservation.status}
               </span>
               .
             </p>
-            <div className="bg-gray-50 dark:bg-zinc-900 rounded-lg p-4 mb-6 space-y-2 border text-sm">
+            <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-2 border text-sm">
               <p>
-                <span className="font-semibold text-gray-700 dark:text-zinc-50">ID Reserva:</span>{" "}
+                <span className="font-semibold text-gray-700">ID Reserva:</span>{" "}
                 {successReservation.id}
               </p>
               <p>
-                <span className="font-semibold text-gray-700 dark:text-zinc-50">Fecha:</span>{" "}
+                <span className="font-semibold text-gray-700">Fecha:</span>{" "}
                 {new Date(successReservation.date).toLocaleDateString("es-CL", {
                   timeZone: "UTC",
                 })}
               </p>
               <p>
-                <span className="font-semibold text-gray-700 dark:text-zinc-50">Total a pagar:</span>{" "}
+                <span className="font-semibold text-gray-700">Total a pagar:</span>{" "}
                 ${successReservation.totalAmount?.toLocaleString("es-CL")} CLP
               </p>
             </div>
@@ -309,7 +309,7 @@ export default function ReservarPage() {
                   setSelectedSpaces({});
                   setExtraGuests([]);
                 }}
-                className="w-full sm:w-auto px-6 py-2.5 bg-gray-200 dark:bg-zinc-700 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition"
+                className="w-full sm:w-auto px-6 py-2.5 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition"
               >
                 Hacer otra reserva
               </button>
@@ -325,7 +325,7 @@ export default function ReservarPage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Error banner */}
             {errorMessage && (
-              <div className="bg-red-50 dark:bg-red-950 border-l-4 border-red-500 p-4 rounded-md">
+              <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -343,23 +343,23 @@ export default function ReservarPage() {
               {/* Left Column: Form Controls */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Núcleo familiar */}
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-800">
-                  <h2 className="text-base font-semibold text-gray-900 dark:text-zinc-50 mb-2">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <h2 className="text-base font-semibold text-gray-900 mb-2">
                     Tu núcleo familiar
                   </h2>
-                  <p className="text-xs text-gray-500 dark:text-zinc-400 mb-3">
+                  <p className="text-xs text-gray-500 mb-3">
                     Los integrantes de tu núcleo no pagan entrada. Para agregar o
                     editar integrantes ve a{" "}
-                    <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
+                    <a href="/familia" className="font-medium text-emerald-600 underline">
                       Mi familia
                     </a>
                     .
                   </p>
 
                   {loadingFamily ? (
-                    <p className="text-sm text-gray-500 dark:text-zinc-400">Cargando...</p>
+                    <p className="text-sm text-gray-500">Cargando...</p>
                   ) : !family ? (
-                    <p className="rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-950 p-3 text-sm text-amber-800">
+                    <p className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
                       Aún no has creado tu familia.{" "}
                       <a href="/familia" className="font-semibold underline">
                         Créala aquí
@@ -367,9 +367,9 @@ export default function ReservarPage() {
                       para poder reservar.
                     </p>
                   ) : family.members.length === 0 ? (
-                    <p className="text-sm text-gray-600 dark:text-zinc-400">
+                    <p className="text-sm text-gray-600">
                       La familia &quot;{family.name}&quot; aún no tiene integrantes.{" "}
-                      <a href="/familia" className="font-medium text-emerald-600 dark:text-emerald-400 underline">
+                      <a href="/familia" className="font-medium text-emerald-600 underline">
                         Agrégalos aquí
                       </a>
                       .
@@ -379,10 +379,10 @@ export default function ReservarPage() {
                       {family.members.map((m) => (
                         <li
                           key={m.id}
-                          className="rounded-full bg-emerald-50 dark:bg-emerald-950 px-3 py-1 text-sm text-emerald-800"
+                          className="rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-800"
                         >
                           {m.fullName}{" "}
-                          <span className="text-emerald-600 dark:text-emerald-400">· {m.relation}</span>
+                          <span className="text-emerald-600">· {m.relation}</span>
                         </li>
                       ))}
                     </ul>
@@ -390,11 +390,11 @@ export default function ReservarPage() {
                 </div>
 
                 {/* 1. Date Picker */}
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-800">
-                  <label htmlFor="reservation-date" className="block text-base font-semibold text-gray-900 dark:text-zinc-50 mb-2">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <label htmlFor="reservation-date" className="block text-base font-semibold text-gray-900 mb-2">
                     1. Fecha de Visita
                   </label>
-                  <p className="text-xs text-gray-500 dark:text-zinc-400 mb-3">
+                  <p className="text-xs text-gray-500 mb-3">
                     El acceso es por el día completo. Múltiples familias pueden asistir el mismo día.
                   </p>
                   <input
@@ -404,25 +404,25 @@ export default function ReservarPage() {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
-                    className="w-full sm:w-72 px-4 py-2.5 border border-gray-300 dark:border-zinc-800 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 dark:text-zinc-50"
+                    className="w-full sm:w-72 px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
                   />
                 </div>
                   <div className="mt-3">
-                    <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-zinc-50">
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
                       <input type="checkbox" checked={recurring} onChange={(e) => setRecurring(e.target.checked)} className="h-4 w-4 text-green-600 rounded border-gray-300" />
                       Reserva recurrente (varias semanas, mismo d�a de la semana)
                     </label>
                     {recurring && (
                       <div className="mt-2 flex flex-wrap gap-3 text-sm">
                         <div>
-                          <label className="block text-xs text-gray-500 dark:text-zinc-400 mb-1">D�a de la semana</label>
-                          <select value={recurringDay} onChange={(e) => setRecurringDay(Number(e.target.value))} className="rounded border border-gray-300 dark:border-zinc-800 px-2 py-1 bg-white dark:bg-zinc-800 text-gray-900 dark:text-zinc-50">
+                          <label className="block text-xs text-gray-500 mb-1">D�a de la semana</label>
+                          <select value={recurringDay} onChange={(e) => setRecurringDay(Number(e.target.value))} className="rounded border border-gray-300 px-2 py-1 bg-white text-gray-900">
                             {["Domingo","Lunes","Martes","Mi�rcoles","Jueves","Viernes","S�bado"].map((d,i) => (<option key={i} value={i}>{d}</option>))}
                           </select>
                         </div>
                         <div>
-                          <label className="block text-xs text-gray-500 dark:text-zinc-400 mb-1">Semanas</label>
-                          <select value={recurringWeeks} onChange={(e) => setRecurringWeeks(Number(e.target.value))} className="rounded border border-gray-300 dark:border-zinc-800 px-2 py-1 bg-white dark:bg-zinc-800 text-gray-900 dark:text-zinc-50">
+                          <label className="block text-xs text-gray-500 mb-1">Semanas</label>
+                          <select value={recurringWeeks} onChange={(e) => setRecurringWeeks(Number(e.target.value))} className="rounded border border-gray-300 px-2 py-1 bg-white text-gray-900">
                             {[2,3,4,6,8].map((w) => (<option key={w} value={w}>{w}</option>))}
                           </select>
                         </div>
@@ -431,18 +431,18 @@ export default function ReservarPage() {
                   </div>
 
                 {/* 2. Rentable Spaces */}
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-800">
-                  <h2 className="text-base font-semibold text-gray-900 dark:text-zinc-50 mb-2">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <h2 className="text-base font-semibold text-gray-900 mb-2">
                     2. Espacios Arrendables Opcionales
                   </h2>
-                  <p className="text-xs text-gray-500 dark:text-zinc-400 mb-4">
+                  <p className="text-xs text-gray-500 mb-4">
                     Selecciona si deseas reservar de forma exclusiva alguno de los espacios.
                   </p>
 
                   {loadingSpaces ? (
-                    <div className="text-sm text-gray-500 dark:text-zinc-400 py-3">Cargando espacios...</div>
+                    <div className="text-sm text-gray-500 py-3">Cargando espacios...</div>
                   ) : spaces.length === 0 ? (
-                    <div className="text-sm text-gray-500 dark:text-zinc-400 py-3">No hay espacios disponibles.</div>
+                    <div className="text-sm text-gray-500 py-3">No hay espacios disponibles.</div>
                   ) : (
                     <div className="space-y-3">
                       {spaces.map((space) => {
@@ -453,7 +453,7 @@ export default function ReservarPage() {
                             className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer transition ${
                               isChecked
                                 ? "border-green-600 bg-green-50/50 ring-1 ring-green-600"
-                                : "border-gray-200 dark:border-zinc-800 hover:border-gray-300 dark:border-zinc-800 bg-white dark:bg-zinc-900"
+                                : "border-gray-200 hover:border-gray-300 bg-white"
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -461,25 +461,25 @@ export default function ReservarPage() {
                                 type="checkbox"
                                 checked={isChecked}
                                 onChange={() => handleToggleSpace(space.id)}
-                                className="h-5 w-5 text-green-600 rounded border-gray-300 dark:border-zinc-800 focus:ring-green-500"
+                                className="h-5 w-5 text-green-600 rounded border-gray-300 focus:ring-green-500"
                               />
                               <div>
-                                <span className="text-sm font-semibold text-gray-900 dark:text-zinc-50 capitalize">
+                                <span className="text-sm font-semibold text-gray-900 capitalize">
                                   {space.name.replace("_", " ")}
                                 </span>
                                 {space.capacityGuests && (
-                                  <span className="block text-xs text-gray-500 dark:text-zinc-400">
+                                  <span className="block text-xs text-gray-500">
                                     Capacidad: hasta {space.capacityGuests} invitados
                                   </span>
                                 )}
                                  {space.dailyLimit != null && (
-                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600 dark:text-red-400" : "text-emerald-600 dark:text-emerald-400"}`}>
+                                   <span className={`block text-xs ${space.availableToday === 0 || space.familyAlreadyBooked ? "text-red-600" : "text-emerald-600"}`}>
                                      {space.familyAlreadyBooked ? "Ya reservaste uno hoy" : `Disponibles: ${space.availableToday} de ${space.dailyLimit}`}
                                    </span>
                                  )}
                               </div>
                             </div>
-                            <span className="text-sm font-bold text-gray-900 dark:text-zinc-50">
+                            <span className="text-sm font-bold text-gray-900">
                               ${space.pricePerUnit.toLocaleString("es-CL")} CLP
                             </span>
                           </label>
@@ -490,43 +490,43 @@ export default function ReservarPage() {
                 </div>
 
                 {/* 3. Extra Guests */}
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-800">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                   <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-zinc-50">
+                    <h2 className="text-base font-semibold text-gray-900">
                       3. Invitados Extra (Fuera del Núcleo)
                     </h2>
-                    <span className="text-xs bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-zinc-50 px-2.5 py-1 rounded-full">
+                    <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full">
                       ${DEFAULT_PRICING.EXTRA_PERSON_PRICE.toLocaleString("es-CL")} c/u
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-zinc-400 mb-4">
+                  <p className="text-xs text-gray-500 mb-4">
                     Tu núcleo familiar no paga costo de entrada. Los invitados adicionales tienen un costo
                     por persona (+${DEFAULT_PRICING.POOL_PRICE.toLocaleString("es-CL")} si usan la piscina).
                   </p>
 
                   {/* Add guest input */}
-                  <div className="bg-gray-50 dark:bg-zinc-900 p-3.5 rounded-lg border border-gray-200 dark:border-zinc-800 mb-4">
+                  <div className="bg-gray-50 p-3.5 rounded-lg border border-gray-200 mb-4">
                     <div className="flex flex-col sm:flex-row gap-3">
                       <input
                         type="text"
                         placeholder="Nombre completo del invitado"
                         value={newGuestName}
                         onChange={(e) => setNewGuestName(e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-zinc-800 rounded-md text-sm text-gray-900 dark:text-zinc-50 focus:ring-green-500 focus:border-green-500"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 focus:ring-green-500 focus:border-green-500"
                       />
                       <input
                         type="text"
                         placeholder="RUT (opcional)"
                         value={newGuestRut}
                         onChange={(e) => setNewGuestRut(e.target.value)}
-                        className="sm:w-40 px-3 py-2 border border-gray-300 dark:border-zinc-800 rounded-md text-sm text-gray-900 dark:text-zinc-50 focus:ring-green-500 focus:border-green-500"
+                        className="sm:w-40 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 focus:ring-green-500 focus:border-green-500"
                       />
-                      <label className="flex items-center space-x-2 text-sm text-gray-700 dark:text-zinc-50 select-none py-1">
+                      <label className="flex items-center space-x-2 text-sm text-gray-700 select-none py-1">
                         <input
                           type="checkbox"
                           checked={newGuestPool}
                           onChange={(e) => setNewGuestPool(e.target.checked)}
-                          className="h-4 w-4 text-green-600 rounded border-gray-300 dark:border-zinc-800 focus:ring-green-500"
+                          className="h-4 w-4 text-green-600 rounded border-gray-300 focus:ring-green-500"
                         />
                         <span>Usa piscina</span>
                       </label>
@@ -534,7 +534,7 @@ export default function ReservarPage() {
                         type="button"
                         onClick={handleAddGuest}
                         disabled={!newGuestName.trim()}
-                        className="px-4 py-2 bg-emerald-600 dark:bg-emerald-700 text-white rounded-md text-sm font-medium hover:bg-emerald-700 dark:hover:bg-emerald-600 transition disabled:opacity-40 dark:bg-emerald-600 dark:bg-emerald-700 dark:hover:bg-emerald-700 dark:hover:bg-emerald-600"
+                        className="px-4 py-2 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700 transition disabled:opacity-40"
                       >
                         Agregar
                       </button>
@@ -558,7 +558,7 @@ export default function ReservarPage() {
                               {guest.fullName}
                             </span>
                             {guest.usesPool && (
-                              <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 px-2 py-0.5 rounded-full font-medium">
+                              <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">
                                 Piscina
                               </span>
                             )}
@@ -567,14 +567,14 @@ export default function ReservarPage() {
                             <button
                               type="button"
                               onClick={() => handleToggleGuestPool(guest.id)}
-                              className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                              className="text-xs text-blue-600 hover:underline"
                             >
                               {guest.usesPool ? "Quitar piscina" : "+ Piscina"}
                             </button>
                             <button
                               type="button"
                               onClick={() => handleRemoveGuest(guest.id)}
-                              className="text-xs text-red-600 dark:text-red-400 hover:text-red-800"
+                              className="text-xs text-red-600 hover:text-red-800"
                             >
                               Eliminar
                             </button>
@@ -588,41 +588,41 @@ export default function ReservarPage() {
 
               {/* Right Column: Pricing Summary */}
               <div className="lg:col-span-1">
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-800 sticky top-6">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-zinc-50 pb-4 border-b border-gray-100 dark:border-zinc-800">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 sticky top-6">
+                  <h3 className="text-lg font-bold text-gray-900 pb-4 border-b border-gray-100">
                     Resumen de Reserva
                   </h3>
 
-                  <div className="py-4 space-y-3 text-sm border-b border-gray-100 dark:border-zinc-800">
-                    <div className="flex justify-between text-gray-600 dark:text-zinc-400">
+                  <div className="py-4 space-y-3 text-sm border-b border-gray-100">
+                    <div className="flex justify-between text-gray-600">
                       <span>Núcleo Familiar Base</span>
-                      <span className="font-medium text-gray-900 dark:text-zinc-50">$0 CLP</span>
+                      <span className="font-medium text-gray-900">$0 CLP</span>
                     </div>
 
-                    <div className="flex justify-between text-gray-600 dark:text-zinc-400">
+                    <div className="flex justify-between text-gray-600">
                       <span>
                         Invitados Extra ({extraGuests.length})
                       </span>
-                      <span className="font-medium text-gray-900 dark:text-zinc-50">
+                      <span className="font-medium text-gray-900">
                         ${(extraGuests.length * DEFAULT_PRICING.EXTRA_PERSON_PRICE).toLocaleString("es-CL")} CLP
                       </span>
                     </div>
 
                     {poolUsersCount > 0 && (
-                      <div className="flex justify-between text-gray-600 dark:text-zinc-400">
+                      <div className="flex justify-between text-gray-600">
                         <span>
                           Piscina Invitados ({poolUsersCount})
                         </span>
-                        <span className="font-medium text-gray-900 dark:text-zinc-50">
+                        <span className="font-medium text-gray-900">
                           ${(poolUsersCount * DEFAULT_PRICING.POOL_PRICE).toLocaleString("es-CL")} CLP
                         </span>
                       </div>
                     )}
 
                     {addOnsPayload.map((addon) => (
-                      <div key={addon.addOnSpaceId} className="flex justify-between text-gray-600 dark:text-zinc-400">
+                      <div key={addon.addOnSpaceId} className="flex justify-between text-gray-600">
                         <span className="capitalize">{addon.name?.replace("_", " ")}</span>
-                        <span className="font-medium text-gray-900 dark:text-zinc-50">
+                        <span className="font-medium text-gray-900">
                           ${addon.pricePerUnit.toLocaleString("es-CL")} CLP
                         </span>
                       </div>
@@ -630,7 +630,7 @@ export default function ReservarPage() {
                   </div>
 
                   <div className="pt-4 pb-6 flex justify-between items-baseline">
-                    <span className="text-base font-bold text-gray-900 dark:text-zinc-50">Total a Pagar</span>
+                    <span className="text-base font-bold text-gray-900">Total a Pagar</span>
                     <span className="text-2xl font-extrabold text-green-700">
                       ${totalAmount.toLocaleString("es-CL")} CLP
                     </span>

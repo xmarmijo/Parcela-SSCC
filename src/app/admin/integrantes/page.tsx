@@ -18,24 +18,24 @@ export default function AdminIntegrantesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <AppNav />
         <AdminNav />
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-zinc-50">Integrantes sin cuenta de acceso</h1>
-        <p className="mt-2 text-sm text-gray-600 dark:text-zinc-400">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Integrantes sin cuenta de acceso</h1>
+        <p className="mt-2 text-sm text-gray-600">
           Integrantes del núcleo que aún no tienen correo/contraseña para entrar al sistema.
         </p>
 
         {loading ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-zinc-400">Cargando...</p>
+          <p className="mt-6 text-sm text-gray-500">Cargando...</p>
         ) : members.length === 0 ? (
-          <p className="mt-6 text-sm text-gray-500 dark:text-zinc-400">Todos los integrantes tienen cuenta de acceso.</p>
+          <p className="mt-6 text-sm text-gray-500">Todos los integrantes tienen cuenta de acceso.</p>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 dark:text-zinc-400 border-b bg-gray-50 dark:bg-zinc-900">
+                <tr className="text-left text-gray-500 border-b bg-gray-50">
                   <th className="px-4 py-2">Integrante</th>
                   <th className="px-4 py-2">Parentesco</th>
                   <th className="px-4 py-2">RUT</th>
@@ -53,7 +53,7 @@ export default function AdminIntegrantesPage() {
                     <td className="px-4 py-2">{m.family?.name}</td>
                     <td className="px-4 py-2">{m.family?.owner?.email ?? "Sin titular"}</td>
                     <td className="px-4 py-2">
-                      <Link href={`/admin/familias/${m.family?.id}`} className="text-emerald-600 dark:text-emerald-400 hover:underline text-xs">
+                      <Link href={`/admin/familias/${m.family?.id}`} className="text-emerald-600 hover:underline text-xs">
                         Ir a la familia
                       </Link>
                     </td>
@@ -61,7 +61,7 @@ export default function AdminIntegrantesPage() {
                 ))}
               </tbody>
             </table>
-            <p className="px-4 py-2 text-xs text-gray-500 dark:text-zinc-400">Total: {members.length}</p>
+            <p className="px-4 py-2 text-xs text-gray-500">Total: {members.length}</p>
           </div>
         )}
       </div>

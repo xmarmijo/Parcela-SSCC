@@ -187,7 +187,7 @@ export default function AdminConfiguracionPage() {
           <button
             type="submit"
             disabled={saving}
-            className="rounded-lg bg-emerald-600 dark:bg-emerald-700 px-6 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-50"
+            className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
           >
             {saving ? "Guardando..." : "Guardar configuración"}
           </button>
